@@ -23,7 +23,7 @@ export function Navbar() {
           <img
             src={theme === "dark" ? logoDark.url : logoLight.url}
             alt="Company logo"
-            className="h-7 w-auto sm:h-8"
+            className="h-9 w-auto sm:h-10"
           />
         </a>
 
