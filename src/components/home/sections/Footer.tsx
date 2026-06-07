@@ -59,7 +59,7 @@ export function Footer() {
         </div>
       </div>
       <div className="mx-auto mt-12 flex max-w-6xl flex-col items-start justify-between gap-3 border-t border-foreground/10 px-4 pt-6 text-xs text-foreground/50 sm:flex-row sm:items-center sm:px-6">
-        <span>© {new Date().getFullYear()} teo Studio. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} Studio. All rights reserved.</span>
         <span>Made with care.</span>
       </div>
     </footer>
