@@ -158,6 +158,10 @@ export function Hero() {
           className="pointer-events-none absolute inset-0 z-20 overflow-hidden will-change-transform"
           aria-hidden
         >
+          {/* Soft cloud gradient layer behind mountains */}
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-white/95 via-white/70 to-transparent dark:from-white/30 dark:via-white/10 dark:to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[radial-gradient(ellipse_at_30%_100%,rgba(255,255,255,0.9),transparent_60%),radial-gradient(ellipse_at_75%_100%,rgba(255,255,255,0.85),transparent_55%)] blur-xl" />
+
           <motion.img
             src={mountainLeft.url}
             alt=""
