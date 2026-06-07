@@ -58,7 +58,7 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-3 z-50 px-3 sm:px-4">
-      <nav className="relative mx-auto flex max-w-3xl items-center justify-between gap-2 overflow-visible rounded-full border border-white/30 bg-white/15 px-2 py-1.5 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18),inset_0_1px_0_0_rgba(255,255,255,0.45),inset_0_-1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)]">
+      <nav className="relative mx-auto flex max-w-5xl items-center justify-between gap-2 overflow-visible rounded-full border border-white/30 bg-white/15 px-3 py-2 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18),inset_0_1px_0_0_rgba(255,255,255,0.45),inset_0_-1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)]">
         {/* Sheen overlay (non-blocking) */}
         <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-white/25 via-transparent to-white/5 dark:from-white/10 dark:to-white/[0.02]" />
 
