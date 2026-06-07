@@ -151,6 +151,28 @@ export function Hero() {
             </div>
           </motion.div>
         </div>
+
+        {/* Door-opening mountain reveal — sits on top, slides apart on scroll */}
+        <motion.div
+          style={{ opacity: mountainOpacity }}
+          className="pointer-events-none absolute inset-0 z-20 overflow-hidden will-change-transform"
+          aria-hidden
+        >
+          <motion.img
+            src={mountainLeft.url}
+            alt=""
+            style={{ x: mountainLeftX, scale: mountainScale }}
+            className="absolute left-0 top-0 h-full w-1/2 origin-left object-cover object-right will-change-transform"
+            draggable={false}
+          />
+          <motion.img
+            src={mountainRight.url}
+            alt=""
+            style={{ x: mountainRightX, scale: mountainScale }}
+            className="absolute right-0 top-0 h-full w-1/2 origin-right object-cover object-left will-change-transform"
+            draggable={false}
+          />
+        </motion.div>
       </div>
 
       <motion.div style={{ y: landscapeY }} className="pointer-events-none absolute inset-0 -z-10 will-change-transform">
