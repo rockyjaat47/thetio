@@ -1,18 +1,17 @@
 import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
-import { Logo } from "@/components/Logo";
 
 const before = [
-  "Marketing, product and dev all live in different silos",
-  "Decisions based on gut feeling, not data",
-  "Slow shipping cycles — months to launch anything",
-  "Manual ops eating into your team's focus",
+  "Working with 5+ vendors who never talk to each other",
+  "Slow websites that don't generate leads",
+  "Manual follow-ups eating your team's day",
+  "Marketing spend with no measurable ROI",
 ];
 const after = [
-  "One studio, one roadmap, one accountable team",
-  "Dashboards that surface what actually matters",
-  "Production in weeks, not quarters",
-  "AI agents that automate the busywork",
+  "One agency owning your entire digital growth",
+  "Premium websites engineered for conversions",
+  "AI automations that respond 24/7",
+  "Campaigns measured against real revenue",
 ];
 
 export function Problem() {
@@ -26,27 +25,27 @@ export function Problem() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center text-3xl font-semibold tracking-tight sm:text-5xl"
         >
-          Smarter decisions start with a clearer build.
+          Why businesses choose TEO Marketing
         </motion.h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-foreground/65">
-          Most teams juggle five vendors and ten dashboards. We collapse the stack into
-          one outcome-driven studio.
+          Stop stitching together freelancers and tools. Get one accountable agency
+          that builds, brands and grows your business end-to-end.
         </p>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
-          <Card title="Before" tone="danger" items={before} />
-          <Card title="After" tone="success" items={after} />
+          <Card title="Without TEO" tone="danger" items={before} />
+          <Card title="With TEO" tone="success" items={after} />
         </div>
 
         <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
           {[
-            { v: "+212%", l: "Avg. revenue lift" },
-            { v: "3.4x", l: "Faster shipping" },
-            { v: "68%", l: "Less manual ops" },
-            { v: "21d", l: "Average launch" },
+            { v: "200+", l: "Projects delivered" },
+            { v: "150+", l: "Businesses served" },
+            { v: "4.9★", l: "Client satisfaction" },
+            { v: "24/7", l: "Support availability" },
           ].map((s) => (
             <div key={s.l} className="rounded-2xl border border-foreground/10 bg-card p-5 text-center">
-              <div className="text-3xl font-semibold tracking-tight">{s.v}</div>
+              <div className="text-3xl font-semibold tracking-tight text-amber-600 dark:text-amber-400">{s.v}</div>
               <div className="mt-1 text-xs text-foreground/60">{s.l}</div>
             </div>
           ))}
@@ -79,7 +78,6 @@ function Card({
       <div className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${color}`}>
         <Icon className="h-3.5 w-3.5" />
         <span>{title}</span>
-        <Logo className="ml-1 h-4 w-auto" alt="Studio logo" />
       </div>
       <ul className="mt-5 space-y-3">
         {items.map((t) => (

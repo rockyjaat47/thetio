@@ -4,17 +4,17 @@ const steps = [
   {
     n: "01",
     t: "Discover",
-    d: "We map your goals, audience and stack in a focused kickoff sprint.",
+    d: "Free consultation call to understand your business, goals and target audience.",
   },
   {
     n: "02",
     t: "Design & Build",
-    d: "Our pod ships in weekly increments — designs, prototypes, production code.",
+    d: "Our team designs, develops and reviews with you in fast weekly sprints.",
   },
   {
     n: "03",
     t: "Launch & Grow",
-    d: "Go-live, performance marketing, AI automations and ongoing optimisation.",
+    d: "Go-live, performance marketing, automation and ongoing optimisation.",
   },
 ];
 
@@ -23,14 +23,15 @@ export function HowItWorks() {
     <section className="bg-card py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex rounded-full bg-foreground/5 px-3 py-1 text-xs font-medium text-foreground/70">
-            How it works
+          <span className="inline-flex rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-600 dark:text-amber-400">
+            How we work
           </span>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
-            Launch in weeks, not quarters
+            From idea to launch in weeks
           </h2>
           <p className="mt-4 text-foreground/65">
-            A simple three-step engagement, designed to remove friction and ship outcomes.
+            A simple, transparent process designed to remove friction and deliver
+            measurable business outcomes.
           </p>
         </div>
 
@@ -44,7 +45,7 @@ export function HowItWorks() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="relative overflow-hidden rounded-3xl border border-foreground/10 bg-background p-8"
             >
-              <div className="text-6xl font-semibold text-foreground/10">{s.n}</div>
+              <div className="text-6xl font-semibold text-amber-500/20">{s.n}</div>
               <h3 className="mt-4 text-xl font-semibold">{s.t}</h3>
               <p className="mt-2 text-sm text-foreground/65">{s.d}</p>
             </motion.div>
@@ -53,15 +54,15 @@ export function HowItWorks() {
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           <div className="rounded-3xl border border-foreground/10 bg-background p-8">
-            <div className="text-4xl font-semibold">100%</div>
+            <div className="text-4xl font-semibold text-amber-600 dark:text-amber-400">100%</div>
             <p className="mt-1 text-sm text-foreground/65">
-              Fixed-scope, fixed-timeline engagements — no surprises.
+              Transparent pricing, fixed timelines — no surprises, ever.
             </p>
           </div>
           <div className="rounded-3xl border border-foreground/10 bg-background p-8">
-            <div className="text-4xl font-semibold">2 days</div>
+            <div className="text-4xl font-semibold text-amber-600 dark:text-amber-400">24 hrs</div>
             <p className="mt-1 text-sm text-foreground/65">
-              From intro call to first proposal, on average.
+              From inquiry to first response — guaranteed.
             </p>
           </div>
         </div>

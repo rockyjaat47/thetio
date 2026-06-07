@@ -5,12 +5,14 @@ import { Home } from "@/components/home/Home";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "teo — Digital studio for ambitious brands" },
+      { title: "TEO Marketing — Build. Brand. Grow." },
       {
         name: "description",
         content:
-          "We design, build and scale digital products — web, SaaS, CRM, AI automation and growth marketing, in one studio.",
+          "TEO Marketing is your digital growth agency — websites, SaaS, CRM, AI automation and performance marketing under one roof.",
       },
+      { property: "og:title", content: "TEO Marketing — Build. Brand. Grow." },
+      { property: "og:description", content: "Helping businesses scale through websites, automation, marketing and digital solutions." },
     ],
   }),
   component: Index,
