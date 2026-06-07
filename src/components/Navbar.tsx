@@ -129,16 +129,18 @@ export function Navbar() {
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
 
-          <Link
-            to="/contact"
+          <a
+            href="https://wa.me/6261302023"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group hidden items-center gap-2 rounded-full bg-foreground py-1.5 pl-4 pr-1.5 text-sm font-medium text-background transition-transform hover:scale-[1.02] sm:inline-flex"
           >
-            <span className="hidden lg:inline">Try it free</span>
-            <span className="lg:hidden">Start</span>
+            <span className="hidden lg:inline">Connect</span>
+            <span className="lg:hidden">Connect</span>
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-background text-foreground">
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
             </span>
-          </Link>
+          </a>
 
           <button
             onClick={() => setOpen((o) => !o)}
@@ -203,14 +205,16 @@ export function Navbar() {
               </li>
             ))}
             <li className="mt-2 sm:hidden">
-              <Link
-                to="/contact"
+              <a
+                href="https://wa.me/6261302023"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 py-2 text-sm font-medium text-background"
               >
-                Try it free
+                Connect
                 <ArrowRight className="h-4 w-4" />
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
