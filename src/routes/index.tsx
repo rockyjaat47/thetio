@@ -1,11 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
+import { Home } from "@/components/home/Home";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "+co" },
-      { name: "description", content: "Welcome to +co" },
+      { title: "+co — Digital studio for ambitious brands" },
+      {
+        name: "description",
+        content:
+          "We design, build and scale digital products — web, SaaS, CRM, AI automation and growth marketing, in one studio.",
+      },
     ],
   }),
   component: Index,
@@ -13,9 +18,9 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-[#b8c8e0] dark:bg-background">
+    <div className="min-h-screen bg-[#b8c8e0] text-foreground dark:bg-background">
       <Navbar />
-      <main className="pt-32" />
+      <Home />
     </div>
   );
 }
