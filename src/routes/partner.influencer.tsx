@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 
 export const Route = createFileRoute("/partner/influencer")({
-  head: () => ({ meta: [{ title: "Partner as Influencer — +co" }] }),
+  head: () => ({ meta: [{ title: "Partner as Influencer — teo" }] }),
   component: () => (
     <PageLayout
       title="Partner as Influencer"

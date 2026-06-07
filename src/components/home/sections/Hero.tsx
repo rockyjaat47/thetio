@@ -170,7 +170,7 @@ function DashboardMock() {
       </div>
       <div className="grid grid-cols-12 gap-4 p-4 text-left sm:p-6">
         <aside className="col-span-12 rounded-2xl bg-foreground p-4 text-background sm:col-span-3">
-          <div className="text-sm font-semibold">+co Studio</div>
+          <div className="text-sm font-semibold">teo Studio</div>
           <ul className="mt-4 space-y-1.5 text-xs text-background/70">
             {["Overview", "Projects", "Pipeline", "Insights", "Automations", "Team"].map(
               (t, i) => (

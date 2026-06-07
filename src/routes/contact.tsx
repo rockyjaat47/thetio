@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({ meta: [{ title: "Contact us — +co" }, { name: "description", content: "Get in touch with +co." }] }),
+  head: () => ({ meta: [{ title: "Contact us — teo" }, { name: "description", content: "Get in touch with teo." }] }),
   component: () => (
     <PageLayout title="Contact us" subtitle="Tell us about your project — we'll reply within 24 hours.">
       <form className="grid gap-4 sm:max-w-lg">

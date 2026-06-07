@@ -33,8 +33,8 @@ export function Problem() {
         </p>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
-          <Card title="Before +co" tone="danger" items={before} />
-          <Card title="After +co" tone="success" items={after} />
+          <Card title="Before teo" tone="danger" items={before} />
+          <Card title="After teo" tone="success" items={after} />
         </div>
 
         <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">

@@ -5,7 +5,7 @@ import { Home } from "@/components/home/Home";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "+co — Digital studio for ambitious brands" },
+      { title: "teo — Digital studio for ambitious brands" },
       {
         name: "description",
         content:
