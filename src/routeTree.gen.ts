@@ -9,38 +9,207 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServicesWebDevelopmentRouteImport } from './routes/services.web-development'
+import { Route as ServicesSaasRouteImport } from './routes/services.saas'
+import { Route as ServicesDigitalMarketingRouteImport } from './routes/services.digital-marketing'
+import { Route as ServicesCrmRouteImport } from './routes/services.crm'
+import { Route as ServicesAiAutomationRouteImport } from './routes/services.ai-automation'
+import { Route as PartnerInfluencerRouteImport } from './routes/partner.influencer'
+import { Route as PartnerCareerRouteImport } from './routes/partner.career'
+import { Route as PartnerAgencyRouteImport } from './routes/partner.agency'
 
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesWebDevelopmentRoute = ServicesWebDevelopmentRouteImport.update({
+  id: '/services/web-development',
+  path: '/services/web-development',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesSaasRoute = ServicesSaasRouteImport.update({
+  id: '/services/saas',
+  path: '/services/saas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesDigitalMarketingRoute =
+  ServicesDigitalMarketingRouteImport.update({
+    id: '/services/digital-marketing',
+    path: '/services/digital-marketing',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicesCrmRoute = ServicesCrmRouteImport.update({
+  id: '/services/crm',
+  path: '/services/crm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesAiAutomationRoute = ServicesAiAutomationRouteImport.update({
+  id: '/services/ai-automation',
+  path: '/services/ai-automation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerInfluencerRoute = PartnerInfluencerRouteImport.update({
+  id: '/partner/influencer',
+  path: '/partner/influencer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerCareerRoute = PartnerCareerRouteImport.update({
+  id: '/partner/career',
+  path: '/partner/career',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerAgencyRoute = PartnerAgencyRouteImport.update({
+  id: '/partner/agency',
+  path: '/partner/agency',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/portfolio': typeof PortfolioRoute
+  '/partner/agency': typeof PartnerAgencyRoute
+  '/partner/career': typeof PartnerCareerRoute
+  '/partner/influencer': typeof PartnerInfluencerRoute
+  '/services/ai-automation': typeof ServicesAiAutomationRoute
+  '/services/crm': typeof ServicesCrmRoute
+  '/services/digital-marketing': typeof ServicesDigitalMarketingRoute
+  '/services/saas': typeof ServicesSaasRoute
+  '/services/web-development': typeof ServicesWebDevelopmentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/portfolio': typeof PortfolioRoute
+  '/partner/agency': typeof PartnerAgencyRoute
+  '/partner/career': typeof PartnerCareerRoute
+  '/partner/influencer': typeof PartnerInfluencerRoute
+  '/services/ai-automation': typeof ServicesAiAutomationRoute
+  '/services/crm': typeof ServicesCrmRoute
+  '/services/digital-marketing': typeof ServicesDigitalMarketingRoute
+  '/services/saas': typeof ServicesSaasRoute
+  '/services/web-development': typeof ServicesWebDevelopmentRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/portfolio': typeof PortfolioRoute
+  '/partner/agency': typeof PartnerAgencyRoute
+  '/partner/career': typeof PartnerCareerRoute
+  '/partner/influencer': typeof PartnerInfluencerRoute
+  '/services/ai-automation': typeof ServicesAiAutomationRoute
+  '/services/crm': typeof ServicesCrmRoute
+  '/services/digital-marketing': typeof ServicesDigitalMarketingRoute
+  '/services/saas': typeof ServicesSaasRoute
+  '/services/web-development': typeof ServicesWebDevelopmentRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/portfolio'
+    | '/partner/agency'
+    | '/partner/career'
+    | '/partner/influencer'
+    | '/services/ai-automation'
+    | '/services/crm'
+    | '/services/digital-marketing'
+    | '/services/saas'
+    | '/services/web-development'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/portfolio'
+    | '/partner/agency'
+    | '/partner/career'
+    | '/partner/influencer'
+    | '/services/ai-automation'
+    | '/services/crm'
+    | '/services/digital-marketing'
+    | '/services/saas'
+    | '/services/web-development'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/portfolio'
+    | '/partner/agency'
+    | '/partner/career'
+    | '/partner/influencer'
+    | '/services/ai-automation'
+    | '/services/crm'
+    | '/services/digital-marketing'
+    | '/services/saas'
+    | '/services/web-development'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  PortfolioRoute: typeof PortfolioRoute
+  PartnerAgencyRoute: typeof PartnerAgencyRoute
+  PartnerCareerRoute: typeof PartnerCareerRoute
+  PartnerInfluencerRoute: typeof PartnerInfluencerRoute
+  ServicesAiAutomationRoute: typeof ServicesAiAutomationRoute
+  ServicesCrmRoute: typeof ServicesCrmRoute
+  ServicesDigitalMarketingRoute: typeof ServicesDigitalMarketingRoute
+  ServicesSaasRoute: typeof ServicesSaasRoute
+  ServicesWebDevelopmentRoute: typeof ServicesWebDevelopmentRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +217,78 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/web-development': {
+      id: '/services/web-development'
+      path: '/services/web-development'
+      fullPath: '/services/web-development'
+      preLoaderRoute: typeof ServicesWebDevelopmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/saas': {
+      id: '/services/saas'
+      path: '/services/saas'
+      fullPath: '/services/saas'
+      preLoaderRoute: typeof ServicesSaasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/digital-marketing': {
+      id: '/services/digital-marketing'
+      path: '/services/digital-marketing'
+      fullPath: '/services/digital-marketing'
+      preLoaderRoute: typeof ServicesDigitalMarketingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/crm': {
+      id: '/services/crm'
+      path: '/services/crm'
+      fullPath: '/services/crm'
+      preLoaderRoute: typeof ServicesCrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/ai-automation': {
+      id: '/services/ai-automation'
+      path: '/services/ai-automation'
+      fullPath: '/services/ai-automation'
+      preLoaderRoute: typeof ServicesAiAutomationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner/influencer': {
+      id: '/partner/influencer'
+      path: '/partner/influencer'
+      fullPath: '/partner/influencer'
+      preLoaderRoute: typeof PartnerInfluencerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner/career': {
+      id: '/partner/career'
+      path: '/partner/career'
+      fullPath: '/partner/career'
+      preLoaderRoute: typeof PartnerCareerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner/agency': {
+      id: '/partner/agency'
+      path: '/partner/agency'
+      fullPath: '/partner/agency'
+      preLoaderRoute: typeof PartnerAgencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  PortfolioRoute: PortfolioRoute,
+  PartnerAgencyRoute: PartnerAgencyRoute,
+  PartnerCareerRoute: PartnerCareerRoute,
+  PartnerInfluencerRoute: PartnerInfluencerRoute,
+  ServicesAiAutomationRoute: ServicesAiAutomationRoute,
+  ServicesCrmRoute: ServicesCrmRoute,
+  ServicesDigitalMarketingRoute: ServicesDigitalMarketingRoute,
+  ServicesSaasRoute: ServicesSaasRoute,
+  ServicesWebDevelopmentRoute: ServicesWebDevelopmentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
