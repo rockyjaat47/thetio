@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 
 export const Route = createFileRoute("/portfolio")({
-  head: () => ({ meta: [{ title: "Portfolio — +co" }, { name: "description", content: "Selected work by +co." }] }),
+  head: () => ({ meta: [{ title: "Portfolio — teo" }, { name: "description", content: "Selected work by teo." }] }),
   component: () => (
     <PageLayout title="Portfolio" subtitle="A selection of recent work across web, SaaS and AI.">
       <div className="grid gap-4 sm:grid-cols-2">

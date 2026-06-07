@@ -34,7 +34,7 @@ export function Footer() {
     <footer className="border-t border-foreground/10 bg-card py-16">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.2fr_2fr]">
         <div>
-          <div className="text-2xl font-semibold tracking-tight">+co</div>
+          <div className="text-2xl font-semibold tracking-tight">teo</div>
           <p className="mt-3 max-w-sm text-sm text-foreground/60">
             A full-stack digital studio building products, platforms and growth engines
             for ambitious teams.
@@ -58,7 +58,7 @@ export function Footer() {
         </div>
       </div>
       <div className="mx-auto mt-12 flex max-w-6xl flex-col items-start justify-between gap-3 border-t border-foreground/10 px-4 pt-6 text-xs text-foreground/50 sm:flex-row sm:items-center sm:px-6">
-        <span>© {new Date().getFullYear()} +co Studio. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} teo Studio. All rights reserved.</span>
         <span>Made with care.</span>
       </div>
     </footer>

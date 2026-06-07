@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 
 export const Route = createFileRoute("/services/ai-automation")({
-  head: () => ({ meta: [{ title: "AI Agent & Automation — +co" }] }),
+  head: () => ({ meta: [{ title: "AI Agent & Automation — teo" }] }),
   component: () => (
     <PageLayout
       title="AI Agent & Automation"

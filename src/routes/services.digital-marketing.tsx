@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 
 export const Route = createFileRoute("/services/digital-marketing")({
-  head: () => ({ meta: [{ title: "Digital Marketing — +co" }] }),
+  head: () => ({ meta: [{ title: "Digital Marketing — teo" }] }),
   component: () => (
     <PageLayout
       title="Digital Marketing"

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 
 export const Route = createFileRoute("/services/saas")({
-  head: () => ({ meta: [{ title: "SaaS — +co" }] }),
+  head: () => ({ meta: [{ title: "SaaS — teo" }] }),
   component: () => (
     <PageLayout
       title="SaaS"

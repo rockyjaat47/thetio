@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/PageLayout";
 
 export const Route = createFileRoute("/services/web-development")({
-  head: () => ({ meta: [{ title: "Web Development — +co" }] }),
+  head: () => ({ meta: [{ title: "Web Development — teo" }] }),
   component: () => (
     <PageLayout
       title="Web Development"
