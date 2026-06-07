@@ -77,7 +77,9 @@ function Card({
       className="rounded-3xl border border-foreground/10 bg-card p-8 shadow-sm"
     >
       <div className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${color}`}>
-        <Icon className="h-3.5 w-3.5" /> {title}
+        <Icon className="h-3.5 w-3.5" />
+        <span>{title}</span>
+        <Logo className="ml-1 h-4 w-auto" alt="Studio logo" />
       </div>
       <ul className="mt-5 space-y-3">
         {items.map((t) => (
