@@ -9,6 +9,7 @@ import {
 import { ArrowRight, ShieldCheck, Sparkles, Star } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { CatMascot } from "./CatMascot";
+import { Landscape } from "./Landscape";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
