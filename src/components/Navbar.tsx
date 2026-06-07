@@ -16,14 +16,14 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-4 z-50 px-4">
-      <nav className="relative mx-auto flex max-w-6xl items-center justify-between overflow-hidden rounded-full border border-white/30 bg-white/15 px-3 py-2 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18),inset_0_1px_0_0_rgba(255,255,255,0.45),inset_0_-1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)] sm:px-4 before:pointer-events-none before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-b before:from-white/25 before:via-transparent before:to-white/5 before:content-[''] dark:before:from-white/10 dark:before:to-white/[0.02]">
+    <header className="fixed inset-x-0 top-3 z-50 px-4">
+      <nav className="relative mx-auto flex max-w-2xl items-center justify-between overflow-hidden rounded-full border border-white/30 bg-white/15 px-2 py-1.5 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18),inset_0_1px_0_0_rgba(255,255,255,0.45),inset_0_-1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)] before:pointer-events-none before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-b before:from-white/25 before:via-transparent before:to-white/5 before:content-[''] dark:before:from-white/10 dark:before:to-white/[0.02]">
         {/* Logo */}
-        <a href="/" className="flex shrink-0 items-center pl-2">
+        <a href="/" className="flex shrink-0 items-center pl-1.5">
           <img
             src={theme === "dark" ? logoDark.url : logoLight.url}
             alt="Company logo"
-            className="h-9 w-auto sm:h-10"
+            className="h-7 w-auto sm:h-8"
           />
         </a>
 
