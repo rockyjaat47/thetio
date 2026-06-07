@@ -58,7 +58,7 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-3 z-50 px-3 sm:px-4">
-      <nav className="relative mx-auto flex max-w-3xl items-center justify-between gap-2 overflow-visible rounded-full border border-white/30 bg-white/15 px-2 py-1.5 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18),inset_0_1px_0_0_rgba(255,255,255,0.45),inset_0_-1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)]">
+      <nav className="relative mx-auto flex max-w-5xl items-center justify-between gap-2 overflow-visible rounded-full border border-white/30 bg-white/15 px-3 py-2 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18),inset_0_1px_0_0_rgba(255,255,255,0.45),inset_0_-1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)]">
         {/* Sheen overlay (non-blocking) */}
         <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-white/25 via-transparent to-white/5 dark:from-white/10 dark:to-white/[0.02]" />
 
@@ -71,36 +71,31 @@ export function Navbar() {
           />
         </Link>
 
-        {/* Desktop icon links */}
-        <ul className="relative hidden items-center gap-1 md:flex">
+        {/* Desktop nav links */}
+        <ul className="relative hidden items-center gap-0.5 md:flex">
           {navItems.map((item) => (
             <li key={item.label} className="group relative">
               {item.to ? (
                 <Link
                   to={item.to}
-                  aria-label={item.label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
                 >
                   <item.icon className="h-4 w-4" />
+                  <span>{item.label}</span>
                 </Link>
               ) : (
                 <button
                   type="button"
-                  aria-label={item.label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
                 >
                   <item.icon className="h-4 w-4" />
+                  <span>{item.label}</span>
                 </button>
               )}
 
-              {/* Tooltip */}
-              <span className="pointer-events-none absolute left-1/2 top-full z-20 mt-2 -translate-x-1/2 whitespace-nowrap rounded-full bg-foreground px-2.5 py-1 text-xs font-medium text-background opacity-0 shadow-md transition-opacity group-hover:opacity-100">
-                {item.label}
-              </span>
-
               {/* Dropdown */}
               {item.children && (
-                <div className="invisible absolute left-1/2 top-full z-10 mt-8 w-56 -translate-x-1/2 rounded-2xl border border-border bg-popover p-2 opacity-0 shadow-xl transition-all group-hover:visible group-hover:opacity-100">
+                <div className="invisible absolute left-1/2 top-full z-10 mt-2 w-56 -translate-x-1/2 rounded-2xl border border-border bg-popover p-2 opacity-0 shadow-xl transition-all group-hover:visible group-hover:opacity-100">
                   <ul className="flex flex-col">
                     {item.children.map((c) => (
                       <li key={c.to}>
