@@ -33,8 +33,8 @@ export function Hero() {
   const landscapeY = useTransform(smooth, [0, 1], [0, 140]);
 
   // Door-opening mountain reveal
-  const mountainLeftX = useTransform(smooth, [0, 0.55], ["0%", "-95%"]);
-  const mountainRightX = useTransform(smooth, [0, 0.55], ["0%", "95%"]);
+  const mountainLeftX = useTransform(smooth, [0, 0.55], ["18%", "-95%"]);
+  const mountainRightX = useTransform(smooth, [0, 0.55], ["-18%", "95%"]);
   const mountainScale = useTransform(smooth, [0, 0.55], [1.15, 1.35]);
   const mountainOpacity = useTransform(smooth, [0.5, 0.7], [1, 0]);
 
