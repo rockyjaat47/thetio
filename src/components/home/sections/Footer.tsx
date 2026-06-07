@@ -35,7 +35,7 @@ export function Footer() {
     <footer className="border-t border-foreground/10 bg-card py-16">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.2fr_2fr]">
         <div>
-          <div className="text-2xl font-semibold tracking-tight">teo</div>
+          <Logo className="h-8 w-auto" alt="Studio logo" />
           <p className="mt-3 max-w-sm text-sm text-foreground/60">
             A full-stack digital studio building products, platforms and growth engines
             for ambitious teams.
