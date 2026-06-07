@@ -30,9 +30,7 @@ export function Hero() {
 
   // Parallax layers
   const cloudsY = useTransform(smooth, [0, 1], [0, -120]);
-  const hillsBackY = useTransform(smooth, [0, 1], [0, 80]);
-  const hillsFrontY = useTransform(smooth, [0, 1], [0, 160]);
-  const flowersY = useTransform(smooth, [0, 1], [0, 220]);
+  const landscapeY = useTransform(smooth, [0, 1], [0, 140]);
 
   // Cat tug → popup elastic reaction
   const tugCtrl = useAnimationControls();
