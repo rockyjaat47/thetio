@@ -9,6 +9,7 @@ import {
 import { ArrowRight, ShieldCheck, Sparkles, Star } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { CatMascot } from "./CatMascot";
+import { Landscape } from "./Landscape";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -29,9 +30,7 @@ export function Hero() {
 
   // Parallax layers
   const cloudsY = useTransform(smooth, [0, 1], [0, -120]);
-  const hillsBackY = useTransform(smooth, [0, 1], [0, 80]);
-  const hillsFrontY = useTransform(smooth, [0, 1], [0, 160]);
-  const flowersY = useTransform(smooth, [0, 1], [0, 220]);
+  const landscapeY = useTransform(smooth, [0, 1], [0, 140]);
 
   // Cat tug → popup elastic reaction
   const tugCtrl = useAnimationControls();
@@ -156,75 +155,14 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Parallax grass hills - back (fuller landscape) */}
-      <motion.svg
-        style={{ y: hillsBackY }}
-        viewBox="0 0 1440 320"
-        className="absolute inset-x-0 bottom-48 -z-10 h-64 w-full will-change-transform sm:bottom-64 sm:h-80 md:h-96"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <linearGradient id="hb" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#9ec97a" />
-            <stop offset="100%" stopColor="#3f7a3a" />
-          </linearGradient>
-        </defs>
-        <path d="M0,200 C220,100 380,260 620,180 C880,90 1080,260 1440,150 L1440,320 L0,320 Z" fill="url(#hb)" />
-      </motion.svg>
-
-      {/* Parallax grass hills - front */}
-      <motion.svg
-        style={{ y: hillsFrontY }}
-        viewBox="0 0 1440 320"
-        className="absolute inset-x-0 bottom-16 -z-10 h-72 w-full will-change-transform sm:bottom-24 sm:h-96 md:h-[28rem]"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <linearGradient id="hf" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#b6d684" />
-            <stop offset="100%" stopColor="#5a9a4a" />
-          </linearGradient>
-        </defs>
-        <path d="M0,240 C260,170 460,300 760,220 C1020,160 1220,290 1440,220 L1440,320 L0,320 Z" fill="url(#hf)" />
-      </motion.svg>
-
-      {/* Flower field (closest, full visible band) */}
-      <motion.div
-        style={{ y: flowersY }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-56 will-change-transform sm:h-64 md:h-72"
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#4a8a3f] via-[#6aa55a]/80 to-transparent" />
-        <div className="relative h-full w-full">
-          {Array.from({ length: 80 }).map((_, i) => (
-            <Flower key={i} i={i} />
-          ))}
-        </div>
+      {/* Premium layered landscape (hills + grass + pond + butterfly) */}
+      <motion.div style={{ y: landscapeY }} className="pointer-events-none absolute inset-0 -z-10 will-change-transform">
+        <Landscape />
       </motion.div>
     </section>
   );
 }
 
-function Flower({ i }: { i: number }) {
-  const left = (i * 137.5) % 100;
-  const bottom = (i * 53) % 90;
-  const palette = ["#f9c1d1", "#fff2a8", "#c4a8ff", "#ffd4a8", "#ffffff"];
-  const color = palette[i % palette.length];
-  const size = 6 + (i % 3) * 2;
-  return (
-    <span
-      aria-hidden
-      className="absolute rounded-full shadow-sm"
-      style={{
-        left: `${left}%`,
-        bottom: `${bottom}%`,
-        width: size,
-        height: size,
-        background: color,
-        opacity: 0.9,
-      }}
-    />
-  );
-}
 
 function Cloud({ className = "", delay = 0 }: { className?: string; delay?: number }) {
   return (

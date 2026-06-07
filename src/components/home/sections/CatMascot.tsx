@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useAnimationControls } from "framer-motion";
+import { motion, useAnimationControls, useMotionValue } from "framer-motion";
 
 type Props = {
   className?: string;
@@ -7,18 +7,24 @@ type Props = {
 };
 
 /**
- * Premium SVG Persian cat mascot.
- * - Continuous idle micro-animations (tail, ears, blink, look around).
- * - Periodically reaches up and tugs the popup (calls onTug with intensity 0..1).
- * - Click/tap plays a synthesized "meow" + grooming sequence (lick paw, clean face, stretch).
+ * Semi-realistic white Persian cat mascot (pure SVG, no external assets).
+ * Layered fur gradients, detailed eyes with reflections, soft drop shadow.
+ *
+ * Behavior loop (autonomous):
+ *  - Blinks, twitches ears, sways tail, looks around toward cursor.
+ *  - Periodically reaches up and tugs the popup (calls onTug with intensity 0..1).
+ *  - Occasionally stretches / lies down / grooms paws on its own.
+ *  - Click: synthesized meow + one random reaction animation, debounced.
  */
 export function CatMascot({ className = "", onTug }: Props) {
   const [blink, setBlink] = useState(false);
-  const [grooming, setGrooming] = useState(false);
-  const [lookDir, setLookDir] = useState<-1 | 0 | 1>(0);
+  const [busy, setBusy] = useState(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
 
-  // Reusable animation controls
+  // Pupil tracking (cursor)
+  const pupilX = useMotionValue(0);
+  const pupilY = useMotionValue(0);
+
   const tailCtrl = useAnimationControls();
   const earLCtrl = useAnimationControls();
   const earRCtrl = useAnimationControls();
@@ -28,277 +34,350 @@ export function CatMascot({ className = "", onTug }: Props) {
   const headCtrl = useAnimationControls();
   const tongueCtrl = useAnimationControls();
 
+  // Cursor tracking — pupils drift toward mouse
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onMove = (e: MouseEvent) => {
+      const dx = e.clientX / window.innerWidth - 0.5;
+      const dy = e.clientY / window.innerHeight - 0.5;
+      pupilX.set(Math.max(-2.2, Math.min(2.2, dx * 4)));
+      pupilY.set(Math.max(-1.4, Math.min(1.4, dy * 3)));
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [pupilX, pupilY]);
+
   // Blink loop
   useEffect(() => {
     let alive = true;
-    const loop = async () => {
+    (async () => {
       while (alive) {
         await new Promise((r) => setTimeout(r, 2500 + Math.random() * 2500));
         if (!alive) return;
         setBlink(true);
-        await new Promise((r) => setTimeout(r, 120));
+        await new Promise((r) => setTimeout(r, 110));
         setBlink(false);
+        // Occasional double blink
+        if (Math.random() < 0.3) {
+          await new Promise((r) => setTimeout(r, 140));
+          setBlink(true);
+          await new Promise((r) => setTimeout(r, 110));
+          setBlink(false);
+        }
       }
-    };
-    loop();
+    })();
     return () => {
       alive = false;
     };
   }, []);
 
-  // Look around loop
-  useEffect(() => {
-    let alive = true;
-    const loop = async () => {
-      while (alive) {
-        await new Promise((r) => setTimeout(r, 3500 + Math.random() * 2500));
-        if (!alive) return;
-        const dirs: Array<-1 | 0 | 1> = [-1, 0, 1, 0];
-        setLookDir(dirs[Math.floor(Math.random() * dirs.length)]);
-      }
-    };
-    loop();
-    return () => {
-      alive = false;
-    };
-  }, []);
-
-  // Idle continuous: tail sway + ear twitch
+  // Continuous idle: tail sway + ear twitches
   useEffect(() => {
     tailCtrl.start({
-      rotate: [0, 18, -8, 14, 0],
-      transition: { duration: 3.6, repeat: Infinity, ease: "easeInOut" },
+      rotate: [0, 16, -6, 12, 0],
+      transition: { duration: 3.8, repeat: Infinity, ease: "easeInOut" },
     });
-    const earLoop = async () => {
-      while (true) {
-        await new Promise((r) => setTimeout(r, 1800 + Math.random() * 2000));
-        await earLCtrl.start({ rotate: [-2, 0], transition: { duration: 0.25 } });
-        await new Promise((r) => setTimeout(r, 600));
-        await earRCtrl.start({ rotate: [2, 0], transition: { duration: 0.22 } });
-      }
-    };
-    earLoop();
-  }, [tailCtrl, earLCtrl, earRCtrl]);
-
-  // Periodic popup tug
-  useEffect(() => {
     let alive = true;
-    const tugLoop = async () => {
+    (async () => {
       while (alive) {
-        await new Promise((r) => setTimeout(r, 6500 + Math.random() * 4000));
-        if (!alive || grooming) continue;
-        // Raise paws
-        await Promise.all([
-          pawLCtrl.start({ y: -22, rotate: -14, transition: { duration: 0.55, ease: "easeOut" } }),
-          pawRCtrl.start({ y: -18, rotate: 10, transition: { duration: 0.55, ease: "easeOut" } }),
-        ]);
-        // Tug down with slight body lean
-        onTug?.(1);
-        await bodyCtrl.start({ y: 3, transition: { duration: 0.35, ease: "easeOut" } });
-        await new Promise((r) => setTimeout(r, 350));
-        onTug?.(0);
-        // Release
-        await Promise.all([
-          pawLCtrl.start({ y: 0, rotate: 0, transition: { duration: 0.5, ease: "easeInOut" } }),
-          pawRCtrl.start({ y: 0, rotate: 0, transition: { duration: 0.5, ease: "easeInOut" } }),
-          bodyCtrl.start({ y: 0, transition: { duration: 0.5, ease: "easeInOut" } }),
-        ]);
+        await new Promise((r) => setTimeout(r, 1800 + Math.random() * 2200));
+        if (!alive) return;
+        await earLCtrl.start({ rotate: [-3, 0], transition: { duration: 0.25 } });
+        await new Promise((r) => setTimeout(r, 500));
+        await earRCtrl.start({ rotate: [3, 0], transition: { duration: 0.22 } });
       }
-    };
-    tugLoop();
+    })();
     return () => {
       alive = false;
     };
-  }, [pawLCtrl, pawRCtrl, bodyCtrl, onTug, grooming]);
+  }, [tailCtrl, earLCtrl, earRCtrl]);
+
+  // Tug popup loop + spontaneous behaviors
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      while (alive) {
+        await new Promise((r) => setTimeout(r, 5500 + Math.random() * 4500));
+        if (!alive || busy) continue;
+
+        const roll = Math.random();
+        if (roll < 0.55) {
+          // Reach up + tug the popup
+          setBusy(true);
+          await Promise.all([
+            pawLCtrl.start({ y: -26, rotate: -16, transition: { duration: 0.55, ease: "easeOut" } }),
+            pawRCtrl.start({ y: -22, rotate: 12, transition: { duration: 0.55, ease: "easeOut" } }),
+            bodyCtrl.start({ y: -6, transition: { duration: 0.55 } }),
+          ]);
+          onTug?.(1);
+          await bodyCtrl.start({ y: 2, transition: { duration: 0.35, ease: "easeOut" } });
+          await new Promise((r) => setTimeout(r, 320));
+          onTug?.(0);
+          await Promise.all([
+            pawLCtrl.start({ y: 0, rotate: 0, transition: { duration: 0.5, ease: "easeInOut" } }),
+            pawRCtrl.start({ y: 0, rotate: 0, transition: { duration: 0.5, ease: "easeInOut" } }),
+            bodyCtrl.start({ y: 0, transition: { duration: 0.5, ease: "easeInOut" } }),
+          ]);
+          setBusy(false);
+        } else if (roll < 0.8) {
+          // Stretch
+          setBusy(true);
+          await bodyCtrl.start({ scaleX: 1.08, scaleY: 0.94, transition: { duration: 0.4 } });
+          await bodyCtrl.start({ scaleX: 1, scaleY: 1, transition: { duration: 0.4 } });
+          setBusy(false);
+        } else {
+          // Head tilt — watching something
+          setBusy(true);
+          await headCtrl.start({ rotate: -8, transition: { duration: 0.4 } });
+          await new Promise((r) => setTimeout(r, 700));
+          await headCtrl.start({ rotate: 0, transition: { duration: 0.4 } });
+          setBusy(false);
+        }
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [pawLCtrl, pawRCtrl, bodyCtrl, headCtrl, onTug, busy]);
 
   const playMeow = useCallback(() => {
     try {
-      const AC = window.AudioContext || (window as any).webkitAudioContext;
+      const AC = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (!AC) return;
       const ctx = audioCtxRef.current || new AC();
       audioCtxRef.current = ctx;
       if (ctx.state === "suspended") ctx.resume();
       const now = ctx.currentTime;
       const osc = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
       const gain = ctx.createGain();
       const filter = ctx.createBiquadFilter();
       filter.type = "bandpass";
-      filter.frequency.value = 900;
-      filter.Q.value = 4;
+      filter.frequency.value = 950;
+      filter.Q.value = 5;
       osc.type = "sawtooth";
-      // Pitch contour: meee -> ow
-      osc.frequency.setValueAtTime(620, now);
+      osc2.type = "triangle";
+      osc.frequency.setValueAtTime(580, now);
       osc.frequency.exponentialRampToValueAtTime(880, now + 0.18);
-      osc.frequency.exponentialRampToValueAtTime(440, now + 0.55);
+      osc.frequency.exponentialRampToValueAtTime(420, now + 0.6);
+      osc2.frequency.setValueAtTime(290, now);
+      osc2.frequency.exponentialRampToValueAtTime(440, now + 0.2);
+      osc2.frequency.exponentialRampToValueAtTime(210, now + 0.6);
       gain.gain.setValueAtTime(0.0001, now);
       gain.gain.exponentialRampToValueAtTime(0.22, now + 0.05);
       gain.gain.exponentialRampToValueAtTime(0.18, now + 0.35);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.75);
       osc.connect(filter);
+      osc2.connect(filter);
       filter.connect(gain);
       gain.connect(ctx.destination);
       osc.start(now);
-      osc.stop(now + 0.75);
+      osc2.start(now);
+      osc.stop(now + 0.8);
+      osc2.stop(now + 0.8);
     } catch {
-      /* ignore audio errors */
+      /* ignore */
     }
   }, []);
 
   const handleClick = useCallback(async () => {
-    if (grooming) return;
-    setGrooming(true);
+    if (busy) return;
+    setBusy(true);
     playMeow();
     try {
-      // Stretch
-      await bodyCtrl.start({
-        scaleX: 1.05,
-        scaleY: 0.95,
-        transition: { duration: 0.3, ease: "easeOut" },
-      });
-      await bodyCtrl.start({
-        scaleX: 1,
-        scaleY: 1,
-        transition: { duration: 0.35, ease: "easeInOut" },
-      });
-      // Lick paw: raise right paw + head tilt + tongue
-      await Promise.all([
-        pawRCtrl.start({ x: -10, y: -28, rotate: -25, transition: { duration: 0.45 } }),
-        headCtrl.start({ rotate: -10, x: -4, transition: { duration: 0.45 } }),
-      ]);
-      for (let i = 0; i < 3; i++) {
-        await tongueCtrl.start({ scaleY: 1, opacity: 1, transition: { duration: 0.12 } });
-        await tongueCtrl.start({ scaleY: 0, opacity: 0, transition: { duration: 0.18 } });
-      }
-      // Clean face: paw sweeps over face
-      await pawRCtrl.start({ y: -34, x: -2, rotate: -8, transition: { duration: 0.3 } });
-      await pawRCtrl.start({ y: -30, x: -16, rotate: -30, transition: { duration: 0.35 } });
-      await pawRCtrl.start({ y: -30, x: 0, rotate: -10, transition: { duration: 0.35 } });
-      // Return to idle
-      await Promise.all([
-        pawRCtrl.start({ x: 0, y: 0, rotate: 0, transition: { duration: 0.4 } }),
-        headCtrl.start({ rotate: 0, x: 0, transition: { duration: 0.4 } }),
-      ]);
-    } finally {
-      setGrooming(false);
-    }
-  }, [grooming, pawRCtrl, headCtrl, tongueCtrl, bodyCtrl, playMeow]);
+      const reactions = ["groom", "roll", "look", "stretch", "wag"] as const;
+      const pick = reactions[Math.floor(Math.random() * reactions.length)];
 
-  const pupilX = lookDir * 1.6;
+      if (pick === "stretch") {
+        await bodyCtrl.start({ scaleX: 1.1, scaleY: 0.92, transition: { duration: 0.35 } });
+        await bodyCtrl.start({ scaleX: 1, scaleY: 1, transition: { duration: 0.4 } });
+      } else if (pick === "look") {
+        await headCtrl.start({ rotate: -12, transition: { duration: 0.35 } });
+        await new Promise((r) => setTimeout(r, 600));
+        await headCtrl.start({ rotate: 0, transition: { duration: 0.35 } });
+      } else if (pick === "wag") {
+        await tailCtrl.start({
+          rotate: [0, 30, -20, 30, -20, 0],
+          transition: { duration: 1.4, ease: "easeInOut" },
+        });
+      } else if (pick === "roll") {
+        await bodyCtrl.start({ rotate: -10, y: 4, transition: { duration: 0.4 } });
+        await bodyCtrl.start({ rotate: 8, transition: { duration: 0.4 } });
+        await bodyCtrl.start({ rotate: 0, y: 0, transition: { duration: 0.4 } });
+      } else {
+        // groom: lick paw + clean face
+        await Promise.all([
+          pawRCtrl.start({ x: -10, y: -30, rotate: -25, transition: { duration: 0.45 } }),
+          headCtrl.start({ rotate: -10, x: -4, transition: { duration: 0.45 } }),
+        ]);
+        for (let i = 0; i < 3; i++) {
+          await tongueCtrl.start({ scaleY: 1, opacity: 1, transition: { duration: 0.12 } });
+          await tongueCtrl.start({ scaleY: 0, opacity: 0, transition: { duration: 0.18 } });
+        }
+        await pawRCtrl.start({ y: -36, x: -2, rotate: -8, transition: { duration: 0.3 } });
+        await pawRCtrl.start({ y: -32, x: -16, rotate: -30, transition: { duration: 0.35 } });
+        await Promise.all([
+          pawRCtrl.start({ x: 0, y: 0, rotate: 0, transition: { duration: 0.4 } }),
+          headCtrl.start({ rotate: 0, x: 0, transition: { duration: 0.4 } }),
+        ]);
+      }
+    } finally {
+      setBusy(false);
+    }
+  }, [busy, pawRCtrl, headCtrl, tongueCtrl, bodyCtrl, tailCtrl, playMeow]);
 
   return (
     <motion.button
       type="button"
-      aria-label="Pet the cat"
+      aria-label="Pet the Persian cat"
       onClick={handleClick}
       className={`group select-none ${className}`}
-      whileHover={{ scale: 1.03 }}
+      whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
     >
       <motion.svg
-        viewBox="0 0 200 220"
-        className="h-40 w-40 drop-shadow-[0_18px_24px_rgba(0,0,0,0.18)] sm:h-48 sm:w-48"
+        viewBox="0 0 220 240"
+        className="h-44 w-44 drop-shadow-[0_22px_28px_rgba(0,0,0,0.28)] sm:h-56 sm:w-56"
         animate={bodyCtrl}
         style={{ originX: 0.5, originY: 1 }}
       >
         <defs>
-          <radialGradient id="catFur" cx="50%" cy="40%" r="65%">
+          {/* Multi-stop fur for soft volume */}
+          <radialGradient id="furBody" cx="50%" cy="35%" r="75%">
             <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="70%" stopColor="#f4f1ec" />
-            <stop offset="100%" stopColor="#d9d4cc" />
+            <stop offset="55%" stopColor="#f4f0e8" />
+            <stop offset="85%" stopColor="#dad3c5" />
+            <stop offset="100%" stopColor="#a89e8a" />
           </radialGradient>
-          <radialGradient id="catEye" cx="50%" cy="50%" r="55%">
-            <stop offset="0%" stopColor="#7ec8ff" />
-            <stop offset="60%" stopColor="#2f8be0" />
-            <stop offset="100%" stopColor="#0e4d8c" />
+          <radialGradient id="furHead" cx="50%" cy="40%" r="65%">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="60%" stopColor="#f6f2ea" />
+            <stop offset="100%" stopColor="#c8c0ad" />
           </radialGradient>
+          <radialGradient id="eyeIris" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stopColor="#b6e3ff" />
+            <stop offset="45%" stopColor="#4ea3e0" />
+            <stop offset="85%" stopColor="#1e5a92" />
+            <stop offset="100%" stopColor="#0a2b4a" />
+          </radialGradient>
+          <radialGradient id="nosePink" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stopColor="#ffc4bf" />
+            <stop offset="100%" stopColor="#b96e6a" />
+          </radialGradient>
+          <linearGradient id="contactShadow" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#000" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#000" stopOpacity="0" />
+          </linearGradient>
+          <filter id="softBlur"><feGaussianBlur stdDeviation="1.4" /></filter>
         </defs>
 
+        {/* Contact shadow under cat */}
+        <ellipse cx="110" cy="222" rx="68" ry="8" fill="url(#contactShadow)" />
+
         {/* Tail */}
-        <motion.g animate={tailCtrl} style={{ originX: 0.35, originY: 0.9 }}>
+        <motion.g animate={tailCtrl} style={{ originX: 0.32, originY: 0.92 }}>
           <path
-            d="M60 195 C 30 180, 18 150, 30 120 C 40 95, 60 92, 64 110 C 58 130, 50 150, 70 175 Z"
-            fill="url(#catFur)"
-            stroke="#cfc8bd"
-            strokeWidth="1.2"
+            d="M62 200 C 28 188, 16 152, 30 118 C 42 88, 66 86, 70 110 C 62 132, 52 156, 74 182 Z"
+            fill="url(#furBody)"
+            stroke="#b8ad97"
+            strokeOpacity="0.5"
+            strokeWidth="1"
           />
+          {/* Fur tufts */}
+          <path d="M30 118 q -6 -4 -8 -10 M36 108 q -8 -2 -10 -8 M44 100 q -6 -3 -8 -9" stroke="#ffffff" strokeWidth="1" fill="none" opacity="0.8" />
         </motion.g>
 
         {/* Body */}
-        <ellipse cx="100" cy="170" rx="55" ry="38" fill="url(#catFur)" stroke="#cfc8bd" strokeWidth="1.2" />
+        <g>
+          <ellipse cx="112" cy="178" rx="62" ry="42" fill="url(#furBody)" />
+          {/* Fluffy chest */}
+          <ellipse cx="112" cy="158" rx="34" ry="22" fill="#ffffff" opacity="0.85" filter="url(#softBlur)" />
+          {/* Soft side shading */}
+          <ellipse cx="150" cy="190" rx="28" ry="22" fill="#000" opacity="0.06" filter="url(#softBlur)" />
+        </g>
 
-        {/* Back legs/feet */}
-        <ellipse cx="72" cy="200" rx="14" ry="9" fill="url(#catFur)" stroke="#cfc8bd" strokeWidth="1" />
-        <ellipse cx="128" cy="200" rx="14" ry="9" fill="url(#catFur)" stroke="#cfc8bd" strokeWidth="1" />
+        {/* Back feet */}
+        <ellipse cx="78" cy="210" rx="15" ry="9" fill="url(#furBody)" />
+        <ellipse cx="146" cy="210" rx="15" ry="9" fill="url(#furBody)" />
 
         {/* Front paws (animated) */}
         <motion.g animate={pawLCtrl} style={{ originX: 0.5, originY: 1 }}>
-          <ellipse cx="84" cy="198" rx="11" ry="8" fill="url(#catFur)" stroke="#cfc8bd" strokeWidth="1" />
-          <circle cx="80" cy="196" r="1.4" fill="#e8b5b0" />
-          <circle cx="84" cy="198" r="1.4" fill="#e8b5b0" />
-          <circle cx="88" cy="196" r="1.4" fill="#e8b5b0" />
+          <ellipse cx="92" cy="208" rx="12" ry="9" fill="url(#furBody)" />
+          <circle cx="87" cy="206" r="1.5" fill="#e8b5b0" />
+          <circle cx="92" cy="208" r="1.5" fill="#e8b5b0" />
+          <circle cx="97" cy="206" r="1.5" fill="#e8b5b0" />
         </motion.g>
         <motion.g animate={pawRCtrl} style={{ originX: 0.5, originY: 1 }}>
-          <ellipse cx="116" cy="198" rx="11" ry="8" fill="url(#catFur)" stroke="#cfc8bd" strokeWidth="1" />
-          <circle cx="112" cy="196" r="1.4" fill="#e8b5b0" />
-          <circle cx="116" cy="198" r="1.4" fill="#e8b5b0" />
-          <circle cx="120" cy="196" r="1.4" fill="#e8b5b0" />
+          <ellipse cx="128" cy="208" rx="12" ry="9" fill="url(#furBody)" />
+          <circle cx="123" cy="206" r="1.5" fill="#e8b5b0" />
+          <circle cx="128" cy="208" r="1.5" fill="#e8b5b0" />
+          <circle cx="133" cy="206" r="1.5" fill="#e8b5b0" />
         </motion.g>
 
-        {/* Head */}
-        <motion.g animate={headCtrl} style={{ originX: 0.5, originY: 0.7 }}>
+        {/* Head group */}
+        <motion.g animate={headCtrl} style={{ originX: 0.5, originY: 0.72 }}>
           {/* Ears */}
-          <motion.path
-            d="M62 108 L70 78 L88 100 Z"
-            fill="url(#catFur)"
-            stroke="#cfc8bd"
-            strokeWidth="1.2"
-            animate={earLCtrl}
-            style={{ originX: 0.7, originY: 1 }}
-          />
-          <path d="M70 100 L75 86 L84 98 Z" fill="#f7c8c6" opacity="0.8" />
-          <motion.path
-            d="M138 108 L130 78 L112 100 Z"
-            fill="url(#catFur)"
-            stroke="#cfc8bd"
-            strokeWidth="1.2"
-            animate={earRCtrl}
-            style={{ originX: 0.3, originY: 1 }}
-          />
-          <path d="M130 100 L125 86 L116 98 Z" fill="#f7c8c6" opacity="0.8" />
+          <motion.g animate={earLCtrl} style={{ originX: "70px", originY: "100px" }}>
+            <path d="M64 112 L72 76 L92 102 Z" fill="url(#furHead)" stroke="#bcb29b" strokeOpacity="0.5" strokeWidth="0.8" />
+            <path d="M74 102 L78 84 L88 100 Z" fill="#f4b5b1" opacity="0.85" />
+            {/* Ear fluff */}
+            <path d="M72 76 q -3 6 -1 12 M68 86 q -3 4 -1 10" stroke="#fff" strokeWidth="0.8" fill="none" opacity="0.9" />
+          </motion.g>
+          <motion.g animate={earRCtrl} style={{ originX: "150px", originY: "100px" }}>
+            <path d="M156 112 L148 76 L128 102 Z" fill="url(#furHead)" stroke="#bcb29b" strokeOpacity="0.5" strokeWidth="0.8" />
+            <path d="M146 102 L142 84 L132 100 Z" fill="#f4b5b1" opacity="0.85" />
+            <path d="M148 76 q 3 6 1 12 M152 86 q 3 4 1 10" stroke="#fff" strokeWidth="0.8" fill="none" opacity="0.9" />
+          </motion.g>
 
-          {/* Face */}
-          <ellipse cx="100" cy="120" rx="44" ry="40" fill="url(#catFur)" stroke="#cfc8bd" strokeWidth="1.2" />
+          {/* Face (fluffy round Persian) */}
+          <ellipse cx="110" cy="124" rx="50" ry="44" fill="url(#furHead)" />
+          {/* Cheek fluff */}
+          <ellipse cx="72" cy="142" rx="14" ry="10" fill="#ffffff" opacity="0.85" filter="url(#softBlur)" />
+          <ellipse cx="148" cy="142" rx="14" ry="10" fill="#ffffff" opacity="0.85" filter="url(#softBlur)" />
+          {/* Forehead mark (subtle) */}
+          <ellipse cx="110" cy="100" rx="14" ry="6" fill="#fff" opacity="0.7" filter="url(#softBlur)" />
 
-          {/* Cheeks fluff */}
-          <ellipse cx="68" cy="135" rx="10" ry="8" fill="#ffffff" opacity="0.7" />
-          <ellipse cx="132" cy="135" rx="10" ry="8" fill="#ffffff" opacity="0.7" />
-
-          {/* Eyes */}
+          {/* Eyes — large round Persian-style */}
           <g>
-            <ellipse cx="85" cy="118" rx="8" ry={blink ? 0.6 : 9} fill="url(#catEye)" />
-            <ellipse cx="115" cy="118" rx="8" ry={blink ? 0.6 : 9} fill="url(#catEye)" />
+            {/* Eye whites */}
+            <ellipse cx="92" cy="124" rx="10" ry={blink ? 0.6 : 10.5} fill="#fff" />
+            <ellipse cx="128" cy="124" rx="10" ry={blink ? 0.6 : 10.5} fill="#fff" />
+            {/* Iris */}
             {!blink && (
               <>
-                <ellipse cx={85 + pupilX} cy="119" rx="1.6" ry="6.5" fill="#0a1530" />
-                <ellipse cx={115 + pupilX} cy="119" rx="1.6" ry="6.5" fill="#0a1530" />
-                <circle cx={83 + pupilX} cy="115" r="1.6" fill="#ffffff" />
-                <circle cx={113 + pupilX} cy="115" r="1.6" fill="#ffffff" />
+                <motion.g style={{ x: pupilX, y: pupilY }}>
+                  <circle cx="92" cy="124" r="9" fill="url(#eyeIris)" />
+                  <circle cx="128" cy="124" r="9" fill="url(#eyeIris)" />
+                  {/* Slit pupils */}
+                  <ellipse cx="92" cy="125" rx="1.6" ry="7" fill="#0a1530" />
+                  <ellipse cx="128" cy="125" rx="1.6" ry="7" fill="#0a1530" />
+                  {/* Catchlights */}
+                  <circle cx="89" cy="120" r="2" fill="#ffffff" />
+                  <circle cx="125" cy="120" r="2" fill="#ffffff" />
+                  <circle cx="94" cy="127" r="0.9" fill="#ffffff" opacity="0.7" />
+                  <circle cx="130" cy="127" r="0.9" fill="#ffffff" opacity="0.7" />
+                </motion.g>
               </>
             )}
+            {/* Eye rim shadow */}
+            <ellipse cx="92" cy="124" rx="10" ry="10.5" fill="none" stroke="#000" strokeOpacity="0.12" strokeWidth="0.8" />
+            <ellipse cx="128" cy="124" rx="10" ry="10.5" fill="none" stroke="#000" strokeOpacity="0.12" strokeWidth="0.8" />
           </g>
 
+          {/* Flat Persian nose bridge shadow */}
+          <ellipse cx="110" cy="136" rx="9" ry="5" fill="#000" opacity="0.05" />
           {/* Nose */}
-          <path d="M97 132 L103 132 L100 136 Z" fill="#e8a4a0" stroke="#b87b78" strokeWidth="0.5" />
+          <path d="M105 140 L115 140 L110 146 Z" fill="url(#nosePink)" stroke="#9a5552" strokeWidth="0.6" />
           {/* Mouth */}
-          <path d="M100 136 Q95 142 92 140" fill="none" stroke="#7a6a60" strokeWidth="1.1" strokeLinecap="round" />
-          <path d="M100 136 Q105 142 108 140" fill="none" stroke="#7a6a60" strokeWidth="1.1" strokeLinecap="round" />
+          <path d="M110 146 Q103 152 99 149" fill="none" stroke="#6e5f55" strokeWidth="1.2" strokeLinecap="round" />
+          <path d="M110 146 Q117 152 121 149" fill="none" stroke="#6e5f55" strokeWidth="1.2" strokeLinecap="round" />
 
-          {/* Tongue (for grooming) */}
+          {/* Tongue */}
           <motion.ellipse
-            cx="100"
-            cy="143"
-            rx="2.4"
-            ry="3"
+            cx="110"
+            cy="152"
+            rx="2.6"
+            ry="3.2"
             fill="#ff8aa3"
             animate={tongueCtrl}
             initial={{ scaleY: 0, opacity: 0 }}
@@ -306,11 +385,13 @@ export function CatMascot({ className = "", onTug }: Props) {
           />
 
           {/* Whiskers */}
-          <g stroke="#b8aea2" strokeWidth="0.7" strokeLinecap="round">
-            <line x1="70" y1="134" x2="50" y2="130" />
-            <line x1="70" y1="138" x2="50" y2="140" />
-            <line x1="130" y1="134" x2="150" y2="130" />
-            <line x1="130" y1="138" x2="150" y2="140" />
+          <g stroke="#b8aea2" strokeWidth="0.7" strokeLinecap="round" opacity="0.9">
+            <line x1="78" y1="142" x2="52" y2="138" />
+            <line x1="78" y1="146" x2="52" y2="148" />
+            <line x1="78" y1="150" x2="52" y2="156" />
+            <line x1="142" y1="142" x2="168" y2="138" />
+            <line x1="142" y1="146" x2="168" y2="148" />
+            <line x1="142" y1="150" x2="168" y2="156" />
           </g>
         </motion.g>
       </motion.svg>
