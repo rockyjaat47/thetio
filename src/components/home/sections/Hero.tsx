@@ -1,6 +1,14 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useCallback, useRef } from "react";
+import {
+  motion,
+  useAnimationControls,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { ArrowRight, ShieldCheck, Sparkles, Star } from "lucide-react";
+import { Logo } from "@/components/Logo";
+import { CatMascot } from "./CatMascot";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -10,7 +18,7 @@ export function Hero() {
   });
   const smooth = useSpring(scrollYProgress, { damping: 30, stiffness: 120, mass: 0.6 });
 
-  // Dashboard zoom: 0.6 -> 1.15
+  // Dashboard zoom: same easing & values as before — animation timing preserved
   const dashScale = useTransform(smooth, [0, 0.55, 1], [0.62, 1, 1.15]);
   const dashY = useTransform(smooth, [0, 1], [40, -60]);
   const dashRotate = useTransform(smooth, [0, 0.55], [6, 0]);
@@ -24,6 +32,27 @@ export function Hero() {
   const hillsBackY = useTransform(smooth, [0, 1], [0, 80]);
   const hillsFrontY = useTransform(smooth, [0, 1], [0, 160]);
   const flowersY = useTransform(smooth, [0, 1], [0, 220]);
+
+  // Cat tug → popup elastic reaction
+  const tugCtrl = useAnimationControls();
+  const handleTug = useCallback(
+    (intensity: number) => {
+      if (intensity > 0) {
+        tugCtrl.start({
+          y: 14,
+          rotate: -0.6,
+          transition: { type: "spring", stiffness: 220, damping: 14 },
+        });
+      } else {
+        tugCtrl.start({
+          y: 0,
+          rotate: 0,
+          transition: { type: "spring", stiffness: 180, damping: 10 },
+        });
+      }
+    },
+    [tugCtrl],
+  );
 
   return (
     <section
@@ -44,7 +73,7 @@ export function Hero() {
 
       {/* Sticky stage */}
       <div className="sticky top-0 flex h-screen items-center justify-center">
-        <div className="mx-auto w-full max-w-6xl px-4 text-center sm:px-6">
+        <div className="mx-auto w-full max-w-7xl px-4 text-center sm:px-6">
           <motion.div style={{ opacity: textOpacity, y: textY }} className="will-change-transform">
             <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-3 py-1 text-xs font-medium text-foreground/80 backdrop-blur-md dark:border-white/10 dark:bg-white/5">
               <Sparkles className="h-3.5 w-3.5" /> A full-stack digital studio
@@ -103,7 +132,7 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Dashboard mock - scroll-linked zoom */}
+          {/* Dashboard + Cat stage — ~25% larger popup, cat tucked beside it */}
           <motion.div
             style={{
               scale: dashScale,
@@ -111,18 +140,27 @@ export function Hero() {
               rotateX: dashRotate,
               transformPerspective: 1200,
             }}
-            className="relative mx-auto mt-10 max-w-5xl will-change-transform"
+            className="relative mx-auto mt-10 w-full max-w-[1400px] will-change-transform"
           >
-            <DashboardMock />
+            <motion.div animate={tugCtrl} className="will-change-transform">
+              <DashboardMock />
+            </motion.div>
+
+            {/* Cat mascot — bottom-right, peeking into the popup */}
+            <div className="pointer-events-none absolute -bottom-10 right-2 sm:-bottom-14 sm:right-6 md:-bottom-16 md:right-10">
+              <div className="pointer-events-auto">
+                <CatMascot onTug={handleTug} />
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Parallax grass hills - back */}
+      {/* Parallax grass hills - back (fuller landscape) */}
       <motion.svg
         style={{ y: hillsBackY }}
-        viewBox="0 0 1440 220"
-        className="absolute inset-x-0 bottom-32 -z-10 h-40 w-full will-change-transform sm:h-56"
+        viewBox="0 0 1440 320"
+        className="absolute inset-x-0 bottom-48 -z-10 h-64 w-full will-change-transform sm:bottom-64 sm:h-80 md:h-96"
         preserveAspectRatio="none"
       >
         <defs>
@@ -131,14 +169,14 @@ export function Hero() {
             <stop offset="100%" stopColor="#3f7a3a" />
           </linearGradient>
         </defs>
-        <path d="M0,160 C220,80 380,200 620,140 C880,70 1080,200 1440,120 L1440,220 L0,220 Z" fill="url(#hb)" />
+        <path d="M0,200 C220,100 380,260 620,180 C880,90 1080,260 1440,150 L1440,320 L0,320 Z" fill="url(#hb)" />
       </motion.svg>
 
       {/* Parallax grass hills - front */}
       <motion.svg
         style={{ y: hillsFrontY }}
-        viewBox="0 0 1440 220"
-        className="absolute inset-x-0 bottom-12 -z-10 h-40 w-full will-change-transform sm:h-56"
+        viewBox="0 0 1440 320"
+        className="absolute inset-x-0 bottom-16 -z-10 h-72 w-full will-change-transform sm:bottom-24 sm:h-96 md:h-[28rem]"
         preserveAspectRatio="none"
       >
         <defs>
@@ -147,16 +185,17 @@ export function Hero() {
             <stop offset="100%" stopColor="#5a9a4a" />
           </linearGradient>
         </defs>
-        <path d="M0,190 C260,140 460,220 760,170 C1020,130 1220,210 1440,170 L1440,220 L0,220 Z" fill="url(#hf)" />
+        <path d="M0,240 C260,170 460,300 760,220 C1020,160 1220,290 1440,220 L1440,320 L0,320 Z" fill="url(#hf)" />
       </motion.svg>
 
-      {/* Flower field (closest) */}
+      {/* Flower field (closest, full visible band) */}
       <motion.div
         style={{ y: flowersY }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-24 will-change-transform"
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-56 will-change-transform sm:h-64 md:h-72"
       >
+        <div className="absolute inset-0 bg-gradient-to-t from-[#4a8a3f] via-[#6aa55a]/80 to-transparent" />
         <div className="relative h-full w-full">
-          {Array.from({ length: 36 }).map((_, i) => (
+          {Array.from({ length: 80 }).map((_, i) => (
             <Flower key={i} i={i} />
           ))}
         </div>
@@ -167,7 +206,7 @@ export function Hero() {
 
 function Flower({ i }: { i: number }) {
   const left = (i * 137.5) % 100;
-  const bottom = (i * 53) % 60;
+  const bottom = (i * 53) % 90;
   const palette = ["#f9c1d1", "#fff2a8", "#c4a8ff", "#ffd4a8", "#ffffff"];
   const color = palette[i % palette.length];
   const size = 6 + (i % 3) * 2;
@@ -181,7 +220,7 @@ function Flower({ i }: { i: number }) {
         width: size,
         height: size,
         background: color,
-        opacity: 0.85,
+        opacity: 0.9,
       }}
     />
   );
@@ -212,11 +251,13 @@ function DashboardMock() {
         <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
-        <span className="ml-3 text-xs text-foreground/50">app.teo.studio/dashboard</span>
+        <span className="ml-3 text-xs text-foreground/50">app.studio/dashboard</span>
       </div>
       <div className="grid grid-cols-12 gap-4 p-4 text-left sm:p-6">
         <aside className="col-span-12 rounded-2xl bg-foreground p-4 text-background sm:col-span-3">
-          <div className="text-sm font-semibold">teo Studio</div>
+          <div className="flex items-center gap-2">
+            <Logo variant="dark" className="h-6 w-auto" alt="Studio logo" />
+          </div>
           <ul className="mt-4 space-y-1.5 text-xs text-background/70">
             {["Overview", "Projects", "Pipeline", "Insights", "Automations", "Team"].map(
               (t, i) => (
@@ -284,4 +325,3 @@ function DashboardMock() {
     </div>
   );
 }
-
