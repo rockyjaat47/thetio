@@ -285,5 +285,3 @@ function DashboardMock() {
   );
 }
 
-// Silence unused import linter — MotionValue used implicitly via useTransform return types
-export type _Unused = MotionValue<number>;
