@@ -11,6 +11,8 @@ import { Link } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import { CatMascot } from "./CatMascot";
 import { Landscape } from "./Landscape";
+import mountainLeft from "@/assets/mountain-left.png.asset.json";
+import mountainRight from "@/assets/mountain-right.png.asset.json";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
