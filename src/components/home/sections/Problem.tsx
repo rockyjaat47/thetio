@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 const before = [
   "Marketing, product and dev all live in different silos",
