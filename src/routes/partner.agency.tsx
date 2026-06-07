@@ -9,8 +9,8 @@ export const Route = createFileRoute("/partner/agency")({
       subtitle="White-label our engineering and design team to expand what your agency can deliver."
     >
       <p className="text-foreground/80">
-        Bring teo in as your silent build partner. We work behind the scenes so your clients see
-        only your brand — and you ship faster, with more capacity.
+        Bring our team in as your silent build partner. We work behind the scenes so your
+        clients see only your brand — and you ship faster, with more capacity.
       </p>
     </PageLayout>
   ),

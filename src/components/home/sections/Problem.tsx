@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 const before = [
   "Marketing, product and dev all live in different silos",
@@ -33,8 +34,8 @@ export function Problem() {
         </p>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
-          <Card title="Before teo" tone="danger" items={before} />
-          <Card title="After teo" tone="success" items={after} />
+          <Card title="Before" tone="danger" items={before} />
+          <Card title="After" tone="success" items={after} />
         </div>
 
         <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
@@ -76,7 +77,9 @@ function Card({
       className="rounded-3xl border border-foreground/10 bg-card p-8 shadow-sm"
     >
       <div className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${color}`}>
-        <Icon className="h-3.5 w-3.5" /> {title}
+        <Icon className="h-3.5 w-3.5" />
+        <span>{title}</span>
+        <Logo className="ml-1 h-4 w-auto" alt="Studio logo" />
       </div>
       <ul className="mt-5 space-y-3">
         {items.map((t) => (
