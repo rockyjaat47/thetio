@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { ThemeTransition } from "./ThemeTransition";
+import { ThemeTransition } from "./ThemeTransition.tsx";
 
 type Theme = "light" | "dark";
 
