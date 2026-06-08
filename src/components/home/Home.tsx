@@ -2,6 +2,7 @@ import { Hero } from "./sections/Hero";
 import { LogoMarquee } from "./sections/LogoMarquee";
 import { Problem } from "./sections/Problem";
 import { Features } from "./sections/Features";
+import { Plans } from "./sections/Plans";
 import { Platform } from "./sections/Platform";
 import { HowItWorks } from "./sections/HowItWorks";
 import { UseCases } from "./sections/UseCases";
@@ -16,6 +17,7 @@ export function Home() {
       <LogoMarquee />
       <Problem />
       <Features />
+      <Plans />
       <Platform />
       <HowItWorks />
       <UseCases />
