@@ -200,7 +200,7 @@ export function Hero() {
             src={mountainLeft.url}
             alt=""
             style={{ x: mLeftX, scale: mScale }}
-            className="absolute left-0 top-0 h-full w-1/2 origin-bottom-left object-cover object-right drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
+            className="absolute left-0 top-0 h-full w-[60%] origin-bottom-left object-cover object-right drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
             draggable={false}
           />
           <motion.img
