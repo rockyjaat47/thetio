@@ -62,7 +62,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
             parts: [
               {
                 type: "text",
-                text: "Hi! 🐾 I'm Mochi. *purr* — what can I help with?",
+                text: "Hi! 🤖 I'm Teo — your friendly AI sidekick. What can I help with?",
               },
             ],
           },
@@ -111,7 +111,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
           transition={{ type: "spring", stiffness: 280, damping: 28 }}
           className="pointer-events-auto fixed bottom-24 right-4 z-[60] flex h-[min(420px,calc(100vh-10rem))] w-[min(340px,calc(100vw-2rem))] flex-col overflow-hidden rounded-[28px] border border-white/40 bg-white/20 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.35),inset_0_1px_0_0_rgba(255,255,255,0.6)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/15 dark:bg-white/[0.06] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.12)]"
           role="dialog"
-          aria-label="Chat with Mochi"
+          aria-label="Chat with Teo"
           style={{
             backgroundImage:
               "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.25) 100%)",
@@ -121,12 +121,12 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
           <div className="relative flex items-center justify-between gap-2 border-b border-white/30 px-3.5 py-2.5 dark:border-white/10">
             <div className="flex items-center gap-2">
               <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-white/60 text-sm shadow-inner backdrop-blur dark:bg-white/15">
-                🐱
+                🤖
                 <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-white/80 dark:ring-black/50" />
               </span>
               <div className="leading-tight">
-                <p className="text-[13px] font-semibold text-foreground">Mochi</p>
-                <p className="text-[10px] text-foreground/60">always purring</p>
+                <p className="text-[13px] font-semibold text-foreground">Teo</p>
+                <p className="text-[10px] text-foreground/60">online & ready to help</p>
               </div>
             </div>
             <button
@@ -159,7 +159,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
               })}
               {status === "submitted" && (
                 <div className="px-1.5 py-0.5 text-xs">
-                  <Shimmer>Mochi is thinking…</Shimmer>
+                  <Shimmer>Teo is thinking…</Shimmer>
                 </div>
               )}
             </ConversationContent>
@@ -174,7 +174,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
             >
               <PromptInputTextarea
                 ref={inputRef}
-                placeholder="Ask Mochi…"
+                placeholder="Ask Teo anything…"
                 disabled={!visitorId}
                 className="bg-transparent text-sm"
               />
