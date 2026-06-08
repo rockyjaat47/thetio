@@ -18,19 +18,19 @@ export function TeoCanvas({ pose = "idle", facing = 1, lookTarget, size = 140 }:
         camera={{ position: [0, 0.3, 3.2], fov: 30 }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={0.85} />
-        <directionalLight position={[3, 4, 5]} intensity={1.1} color="#fff5e6" castShadow />
-        <directionalLight position={[-3, 2, -2]} intensity={0.5} color="#a8c8ff" />
+        <ambientLight intensity={1.05} />
+        <directionalLight position={[3, 4, 5]} intensity={1.2} color="#fff5e6" />
+        <directionalLight position={[-3, 2, -2]} intensity={0.55} color="#a8c8ff" />
+        <pointLight position={[0, 1.5, 2]} intensity={0.4} color="#ffffff" />
         <TeoModel pose={pose} facing={facing} lookTarget={lookTarget} />
         <ContactShadows
           position={[0, -0.85, 0]}
-          opacity={0.35}
+          opacity={0.3}
           scale={3}
           blur={2.4}
           far={2}
           color="#1e3a8a"
         />
-        <Environment preset="city" />
       </Canvas>
     </div>
   );
