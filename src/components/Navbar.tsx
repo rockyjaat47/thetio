@@ -116,13 +116,8 @@ export function Navbar() {
 
         {/* Right side */}
         <div className="relative flex items-center gap-1">
-          <button
-            onClick={toggle}
-            aria-label="Toggle dark mode"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-accent"
-          >
-            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </button>
+          <ThemeToggle theme={theme} toggle={toggle} />
+
 
           <a
             href="https://wa.me/6261302023"
