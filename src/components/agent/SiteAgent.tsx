@@ -107,8 +107,8 @@ export function SiteAgent() {
         className="pointer-events-none fixed z-50 hidden sm:block"
         initial={false}
         animate={{
-          right: anchor.x as number | string,
-          bottom: anchor.y as number | string,
+          right: anchor.x,
+          bottom: anchor.y,
           scaleX: anchor.flip ? -1 : 1,
         }}
         transition={{
@@ -116,7 +116,6 @@ export function SiteAgent() {
           bottom: { type: "spring", stiffness: 35, damping: 14, mass: 1.2 },
           scaleX: { duration: 0.4 },
         }}
-        style={{ right: anchor.x, bottom: anchor.y }}
       >
         <div className="pointer-events-auto relative">
           {/* Contextual tip bubble */}
