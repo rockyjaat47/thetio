@@ -16,6 +16,8 @@ import {
 import logoLight from "@/assets/logo-light.png.asset.json";
 import logoDark from "@/assets/logo-dark.png.asset.json";
 import { useTheme } from "./ThemeProvider";
+import { ThemeToggle } from "./ThemeToggle";
+
 
 type SubItem = { label: string; to: string };
 type NavItem = {
