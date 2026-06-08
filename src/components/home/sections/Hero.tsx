@@ -70,11 +70,6 @@ export function Hero() {
       className="relative isolate min-h-[220vh] overflow-hidden"
       aria-label="Hero"
     >
-      {/* Sky gradient backdrop */}
-      <motion.div
-        style={{ opacity: skyOpacity }}
-        className="absolute inset-0 -z-20 bg-[linear-gradient(180deg,#f5d9b8_0%,#f1b894_20%,#e89a8a_42%,#c98aa3_62%,#8d8fc4_82%,#5a6ea8_100%)] dark:bg-[linear-gradient(180deg,#0a0f1f_0%,#1a1530_40%,#2a1a3a_70%,#0a0a18_100%)]"
-      />
 
       {/* Sun / glow disc */}
       <motion.div
