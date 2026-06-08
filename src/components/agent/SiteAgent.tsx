@@ -27,6 +27,7 @@ export function SiteAgent() {
   const [tip, setTip] = useState<string | null>("Hi, I'm Teo ✨");
   const [pose, setPose] = useState<TeoPose>("idle");
   const [look, setLook] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
   const lastScrollY = useRef(0);
   const tipTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const moveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
