@@ -143,10 +143,10 @@ export function Hero() {
               <span className="whitespace-nowrap">Want Great Tech, Welcome to</span>
             </div>
             <h1 className="mt-5 text-balance text-5xl font-semibold leading-[0.95] tracking-tight text-foreground drop-shadow-[0_2px_18px_rgba(255,255,255,0.35)] sm:mt-6 sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7.5rem]">
-              Build. Brand.
+              The Evolution
               <br />
               <span className="bg-gradient-to-br from-amber-500 via-amber-400 to-amber-600 bg-clip-text text-transparent">
-                Grow.
+                Orbit.
               </span>
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-sm text-foreground/80 sm:mt-6 sm:text-base lg:text-lg">
