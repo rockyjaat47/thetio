@@ -147,3 +147,23 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+@keyframes planeFly {
+  0%   { transform: translate(0, 0) rotate(-3deg); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translate(135vw, -8vh) rotate(-3deg); opacity: 0; }
+}
+
+@keyframes cloudDrift {
+  0%   { transform: translateX(0); opacity: 0; }
+  20%  { opacity: 0.95; }
+  80%  { opacity: 0.95; }
+  100% { transform: translateX(140vw); opacity: 0; }
+}
+
+@keyframes themeWash {
+  0%   { opacity: 0; }
+  30%  { opacity: 1; }
+  100% { opacity: 0; }
+}
