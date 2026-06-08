@@ -25,10 +25,10 @@ export function Hero() {
     mass: 0.55,
   });
 
-  // Mountains: door-open + drift out
-  const mLeftX = useTransform(smooth, [0, 0.6], ["22%", "-110%"]);
-  const mRightX = useTransform(smooth, [0, 0.6], ["-22%", "110%"]);
-  const mScale = useTransform(smooth, [0, 0.6], [1.2, 1.45]);
+  // Mountains: door-open + drift out (start flush to edges, overlap in center)
+  const mLeftX = useTransform(smooth, [0, 0.6], ["0%", "-110%"]);
+  const mRightX = useTransform(smooth, [0, 0.6], ["0%", "110%"]);
+  const mScale = useTransform(smooth, [0, 0.6], [1.05, 1.3]);
   const mOpacity = useTransform(smooth, [0.55, 0.78], [1, 0]);
 
   // Sky / sun
@@ -200,14 +200,14 @@ export function Hero() {
             src={mountainLeft.url}
             alt=""
             style={{ x: mLeftX, scale: mScale }}
-            className="absolute left-0 top-0 h-full w-1/2 origin-bottom-left object-cover object-right drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
+            className="absolute left-0 top-0 h-full w-[60%] origin-bottom-left object-cover object-right drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
             draggable={false}
           />
           <motion.img
             src={mountainRight.url}
             alt=""
             style={{ x: mRightX, scale: mScale }}
-            className="absolute right-0 top-0 h-full w-1/2 origin-bottom-right object-cover object-left drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
+            className="absolute right-0 top-0 h-full w-[60%] origin-bottom-right object-cover object-left drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
             draggable={false}
           />
         </motion.div>
