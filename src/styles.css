@@ -149,21 +149,31 @@
 }
 
 @keyframes planeFly {
-  0%   { transform: translate(0, 0) rotate(-3deg); opacity: 0; }
-  15%  { opacity: 1; }
-  85%  { opacity: 1; }
-  100% { transform: translate(135vw, -8vh) rotate(-3deg); opacity: 0; }
+  0%   { transform: translate(0, 0) rotate(-4deg); opacity: 0; }
+  12%  { opacity: 1; }
+  40%  { transform: translate(45vw, -3vh) rotate(-2deg); }
+  70%  { transform: translate(85vw, -1vh) rotate(-1deg); }
+  88%  { opacity: 1; }
+  100% { transform: translate(140vw, 2vh) rotate(0deg); opacity: 0; }
 }
 
 @keyframes cloudDrift {
-  0%   { transform: translateX(0); opacity: 0; }
-  20%  { opacity: 0.95; }
-  80%  { opacity: 0.95; }
-  100% { transform: translateX(140vw); opacity: 0; }
+  0%   { transform: translateX(0) translateY(0); opacity: 0; }
+  18%  { opacity: var(--cloud-opacity, 0.9); }
+  82%  { opacity: var(--cloud-opacity, 0.9); }
+  100% { transform: translateX(160vw) translateY(-1vh); opacity: 0; }
 }
 
 @keyframes themeWash {
   0%   { opacity: 0; }
-  30%  { opacity: 1; }
+  25%  { opacity: 1; }
+  75%  { opacity: 1; }
   100% { opacity: 0; }
 }
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  30%      { opacity: 1; transform: scale(1); }
+  70%      { opacity: 0.7; transform: scale(0.9); }
+}
+
