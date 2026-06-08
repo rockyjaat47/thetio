@@ -50,7 +50,11 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
 
   const initialMessages: UIMessage[] =
     history && history.length > 0
-      ? history
+      ? (history.map((h) => ({
+          id: h.id,
+          role: h.role,
+          parts: [{ type: "text", text: h.content }],
+        })) as UIMessage[])
       : ([
           {
             id: "greeting",

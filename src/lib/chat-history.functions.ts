@@ -1,14 +1,19 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import type { UIMessage } from "ai";
 
 const Schema = z.object({
   visitorId: z.string().min(1).max(128),
 });
 
+export type ChatHistoryRow = {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+};
+
 export const loadChatHistory = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => Schema.parse(input))
-  .handler(async ({ data }): Promise<UIMessage[]> => {
+  .handler(async ({ data }): Promise<ChatHistoryRow[]> => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: rows, error } = await supabaseAdmin
       .from("chat_messages")
@@ -25,8 +30,8 @@ export const loadChatHistory = createServerFn({ method: "POST" })
     return (rows ?? [])
       .filter((r) => r.role === "user" || r.role === "assistant")
       .map((r) => ({
-        id: r.id,
+        id: r.id as string,
         role: r.role as "user" | "assistant",
-        parts: [{ type: "text", text: r.content }],
-      })) as UIMessage[];
+        content: r.content as string,
+      }));
   });
