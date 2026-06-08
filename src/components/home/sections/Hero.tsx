@@ -12,6 +12,7 @@ import { Logo } from "@/components/Logo";
 import { CatMascot } from "./CatMascot";
 import mountainLeft from "@/assets/mountain-left.png.asset.json";
 import mountainRight from "@/assets/mountain-right.png.asset.json";
+import { FloatingShowcase } from "./FloatingShowcase";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -184,6 +185,11 @@ export function Hero() {
               </div>
             </div>
           </motion.div>
+        </div>
+
+        {/* Floating demo websites & SaaS cards (behind mountains, in front of sky) */}
+        <div className="absolute inset-0 z-[5]">
+          <FloatingShowcase />
         </div>
 
         {/* Mountains: door-opening reveal */}
