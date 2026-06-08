@@ -71,8 +71,8 @@ function playWhoosh(to: Theme) {
     const comp = ctx.createDynamicsCompressor();
     comp.threshold.value = -18;
     comp.knee.value = 24;
-    comp.ratio.value: any;
     (comp.ratio as any).value = 4;
+
     comp.attack.value = 0.005;
     comp.release.value = 0.2;
     master.connect(comp).connect(ctx.destination);
