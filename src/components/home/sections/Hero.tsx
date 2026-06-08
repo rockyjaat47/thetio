@@ -1,11 +1,5 @@
 import { useCallback, useRef } from "react";
-import {
-  motion,
-  useAnimationControls,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { motion, useAnimationControls, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowRight, ShieldCheck, Sparkles, Star } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
@@ -65,12 +59,7 @@ export function Hero() {
   );
 
   return (
-    <section
-      ref={ref}
-      className="relative isolate h-screen overflow-hidden"
-      aria-label="Hero"
-    >
-
+    <section ref={ref} className="relative isolate h-screen overflow-hidden" aria-label="Hero">
       {/* Sun / glow disc */}
       <motion.div
         style={{ y: sunY, scale: sunScale }}
@@ -87,7 +76,10 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[55vh] bg-gradient-to-t from-white/80 via-white/30 to-transparent dark:from-black/60 dark:via-black/20" />
 
       {/* Drifting clouds */}
-      <motion.div style={{ x: cloudsX }} className="pointer-events-none absolute inset-x-0 top-[14vh] -z-10 h-[40vh] will-change-transform">
+      <motion.div
+        style={{ x: cloudsX }}
+        className="pointer-events-none absolute inset-x-0 top-[14vh] -z-10 h-[40vh] will-change-transform"
+      >
         <Cloud className="left-[6%] top-[8%] h-14 w-44" delay={0} />
         <Cloud className="right-[10%] top-[18%] h-12 w-40" delay={1.4} />
         <Cloud className="left-[34%] top-[44%] h-10 w-32" delay={2.6} />
@@ -95,7 +87,11 @@ export function Hero() {
       </motion.div>
 
       {/* Birds silhouettes */}
-      <motion.div style={{ x: birdsX }} className="pointer-events-none absolute left-[20%] top-[22vh] -z-10 will-change-transform" aria-hidden>
+      <motion.div
+        style={{ x: birdsX }}
+        className="pointer-events-none absolute left-[20%] top-[22vh] -z-10 will-change-transform"
+        aria-hidden
+      >
         <svg width="160" height="40" viewBox="0 0 160 40" className="opacity-60">
           <g fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-foreground/70">
             <path d="M5 18 q6 -8 12 0 q6 -8 12 0" />
@@ -136,7 +132,6 @@ export function Hero() {
           <FloatingShowcase />
         </div>
 
-
         {/* Centered headline */}
         <div className="relative z-20 mx-auto w-full max-w-6xl px-4 sm:px-6">
           <motion.div
@@ -145,7 +140,7 @@ export function Hero() {
           >
             <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-3 py-1 text-xs font-medium text-foreground/85 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
               <Sparkles className="h-3.5 w-3.5 text-amber-500" />
-              <span className="whitespace-nowrap">TEO Marketing — Digital Growth Agency</span>
+              <span className="whitespace-nowrap">Want Great Tech, Welcome to</span>
             </div>
             <h1 className="mt-5 text-balance text-5xl font-semibold leading-[0.95] tracking-tight text-foreground drop-shadow-[0_2px_18px_rgba(255,255,255,0.35)] sm:mt-6 sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7.5rem]">
               Build. Brand.
@@ -155,8 +150,7 @@ export function Hero() {
               </span>
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-sm text-foreground/80 sm:mt-6 sm:text-base lg:text-lg">
-              Beyond the horizon — websites, software, automation and marketing,
-              engineered to move businesses forward.
+              Beyond the horizon — websites, software, automation and marketing, engineered to move businesses forward.
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
               <Link
@@ -202,7 +196,6 @@ export function Hero() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-background" />
       </div>
     </section>
-
   );
 }
 
@@ -239,16 +232,11 @@ function DashboardMock() {
             <Logo variant="dark" className="h-6 w-auto" alt="TEO Marketing" />
           </div>
           <ul className="mt-4 space-y-1.5 text-xs text-background/70">
-            {["Overview", "Clients", "Campaigns", "Leads", "Automations", "Team"].map(
-              (t, i) => (
-                <li
-                  key={t}
-                  className={`rounded-lg px-2.5 py-1.5 ${i === 0 ? "bg-amber-500/20 text-background" : ""}`}
-                >
-                  {t}
-                </li>
-              ),
-            )}
+            {["Overview", "Clients", "Campaigns", "Leads", "Automations", "Team"].map((t, i) => (
+              <li key={t} className={`rounded-lg px-2.5 py-1.5 ${i === 0 ? "bg-amber-500/20 text-background" : ""}`}>
+                {t}
+              </li>
+            ))}
           </ul>
         </aside>
         <div className="col-span-12 sm:col-span-9">
@@ -259,10 +247,11 @@ function DashboardMock() {
               { l: "Avg. delivery", v: "14d", t: "-22%", c: "bg-blue-100 text-blue-700" },
               { l: "Client rating", v: "4.9", t: "★", c: "bg-orange-100 text-orange-700" },
             ].map((k) => (
-              <div key={k.l} className="rounded-xl border border-black/5 bg-white p-3 dark:border-white/10 dark:bg-white/5">
-                <div className={`mb-2 inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-medium ${k.c}`}>
-                  {k.t}
-                </div>
+              <div
+                key={k.l}
+                className="rounded-xl border border-black/5 bg-white p-3 dark:border-white/10 dark:bg-white/5"
+              >
+                <div className={`mb-2 inline-flex rounded-md px-1.5 py-0.5 text-[10px] font-medium ${k.c}`}>{k.t}</div>
                 <div className="text-[11px] text-foreground/50">{k.l}</div>
                 <div className="text-lg font-semibold text-foreground">{k.v}</div>
               </div>
@@ -281,8 +270,16 @@ function DashboardMock() {
                     <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
                   </linearGradient>
                 </defs>
-                <path d="M0,80 C40,60 60,70 90,50 C120,30 150,55 180,35 C210,20 240,40 300,15 L300,100 L0,100 Z" fill="url(#ar)" />
-                <path d="M0,80 C40,60 60,70 90,50 C120,30 150,55 180,35 C210,20 240,40 300,15" fill="none" stroke="#f59e0b" strokeWidth="2" />
+                <path
+                  d="M0,80 C40,60 60,70 90,50 C120,30 150,55 180,35 C210,20 240,40 300,15 L300,100 L0,100 Z"
+                  fill="url(#ar)"
+                />
+                <path
+                  d="M0,80 C40,60 60,70 90,50 C120,30 150,55 180,35 C210,20 240,40 300,15"
+                  fill="none"
+                  stroke="#f59e0b"
+                  strokeWidth="2"
+                />
               </svg>
             </div>
             <div className="rounded-xl border border-black/5 bg-white p-3 dark:border-white/10 dark:bg-white/5">
