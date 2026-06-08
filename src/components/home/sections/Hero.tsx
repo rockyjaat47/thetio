@@ -191,12 +191,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Cat mascot — desktop only, anchored bottom right so it never overlaps text */}
-        <div className="pointer-events-none absolute bottom-4 right-4 z-30 hidden lg:block">
-          <div className="pointer-events-auto">
-            <CatMascot onTug={handleTug} />
-          </div>
-        </div>
+        {/* Cat mascot is rendered globally by SiteAgent in __root.tsx */}
 
         {/* Bottom valley fade into next section */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-background" />

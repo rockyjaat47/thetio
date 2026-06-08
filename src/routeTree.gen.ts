@@ -21,6 +21,7 @@ import { Route as ServicesAiAutomationRouteImport } from './routes/services.ai-a
 import { Route as PartnerInfluencerRouteImport } from './routes/partner.influencer'
 import { Route as PartnerCareerRouteImport } from './routes/partner.career'
 import { Route as PartnerAgencyRouteImport } from './routes/partner.agency'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
@@ -83,12 +84,18 @@ const PartnerAgencyRoute = PartnerAgencyRouteImport.update({
   path: '/partner/agency',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
+  '/api/chat': typeof ApiChatRoute
   '/partner/agency': typeof PartnerAgencyRoute
   '/partner/career': typeof PartnerCareerRoute
   '/partner/influencer': typeof PartnerInfluencerRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
+  '/api/chat': typeof ApiChatRoute
   '/partner/agency': typeof PartnerAgencyRoute
   '/partner/career': typeof PartnerCareerRoute
   '/partner/influencer': typeof PartnerInfluencerRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
+  '/api/chat': typeof ApiChatRoute
   '/partner/agency': typeof PartnerAgencyRoute
   '/partner/career': typeof PartnerCareerRoute
   '/partner/influencer': typeof PartnerInfluencerRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/portfolio'
+    | '/api/chat'
     | '/partner/agency'
     | '/partner/career'
     | '/partner/influencer'
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/portfolio'
+    | '/api/chat'
     | '/partner/agency'
     | '/partner/career'
     | '/partner/influencer'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/portfolio'
+    | '/api/chat'
     | '/partner/agency'
     | '/partner/career'
     | '/partner/influencer'
@@ -177,6 +189,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   PortfolioRoute: typeof PortfolioRoute
+  ApiChatRoute: typeof ApiChatRoute
   PartnerAgencyRoute: typeof PartnerAgencyRoute
   PartnerCareerRoute: typeof PartnerCareerRoute
   PartnerInfluencerRoute: typeof PartnerInfluencerRoute
@@ -273,6 +286,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PartnerAgencyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -281,6 +301,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   PortfolioRoute: PortfolioRoute,
+  ApiChatRoute: ApiChatRoute,
   PartnerAgencyRoute: PartnerAgencyRoute,
   PartnerCareerRoute: PartnerCareerRoute,
   PartnerInfluencerRoute: PartnerInfluencerRoute,
