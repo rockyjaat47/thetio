@@ -108,27 +108,56 @@ export function Hero() {
 
       {/* Sticky stage */}
       <div className="sticky top-0 flex h-screen items-center justify-center">
-        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6">
-          {/* Headline floats between the mountains */}
+        {/* Mountains: behind everything */}
+        <motion.div
+          style={{ opacity: mOpacity }}
+          className="pointer-events-none absolute inset-0 z-0 overflow-hidden will-change-transform"
+          aria-hidden
+        >
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-white/95 via-white/55 to-transparent dark:from-white/20 dark:via-white/5 dark:to-transparent" />
+          <motion.img
+            src={mountainLeft.url}
+            alt=""
+            style={{ x: mLeftX, scale: mScale }}
+            className="absolute left-0 bottom-0 h-[55%] w-[55%] origin-bottom-left object-cover object-right opacity-90 will-change-transform sm:h-[65%] sm:w-[60%]"
+            draggable={false}
+          />
+          <motion.img
+            src={mountainRight.url}
+            alt=""
+            style={{ x: mRightX, scale: mScale }}
+            className="absolute right-0 bottom-0 h-[55%] w-[55%] origin-bottom-right object-cover object-left opacity-90 will-change-transform sm:h-[65%] sm:w-[60%]"
+            draggable={false}
+          />
+        </motion.div>
+
+        {/* Decorative floating cards — desktop only, low opacity so they don't fight the text */}
+        <div className="pointer-events-none absolute inset-0 z-[1] hidden opacity-50 lg:block">
+          <FloatingShowcase />
+        </div>
+
+        {/* Centered headline */}
+        <div className="relative z-20 mx-auto w-full max-w-6xl px-4 sm:px-6">
           <motion.div
             style={{ scale: titleScale, y: titleY, opacity: titleOpacity }}
-            className="relative z-30 mx-auto max-w-4xl text-center will-change-transform"
+            className="mx-auto max-w-4xl text-center will-change-transform"
           >
             <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-3 py-1 text-xs font-medium text-foreground/85 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
-              <Sparkles className="h-3.5 w-3.5 text-amber-500" /> TEO Marketing — Digital Growth Agency
+              <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+              <span className="whitespace-nowrap">TEO Marketing — Digital Growth Agency</span>
             </div>
-            <h1 className="mt-6 text-balance text-6xl font-semibold leading-[0.95] tracking-tight text-foreground drop-shadow-[0_2px_18px_rgba(255,255,255,0.35)] sm:text-7xl md:text-[8.5rem]">
+            <h1 className="mt-5 text-balance text-5xl font-semibold leading-[0.95] tracking-tight text-foreground drop-shadow-[0_2px_18px_rgba(255,255,255,0.35)] sm:mt-6 sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7.5rem]">
               Build. Brand.
               <br />
               <span className="bg-gradient-to-br from-amber-500 via-amber-400 to-amber-600 bg-clip-text text-transparent">
                 Grow.
               </span>
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-base text-foreground/80 sm:text-lg">
+            <p className="mx-auto mt-5 max-w-xl text-sm text-foreground/80 sm:mt-6 sm:text-base lg:text-lg">
               Beyond the horizon — websites, software, automation and marketing,
               engineered to move businesses forward.
             </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
               <Link
                 to="/contact"
                 className="group inline-flex items-center gap-2 rounded-full bg-foreground py-2 pl-5 pr-2 text-sm font-medium text-background shadow-[0_10px_30px_-10px_rgba(0,0,0,0.55)] transition-transform hover:scale-[1.02]"
@@ -140,12 +169,12 @@ export function Hero() {
               </Link>
               <Link
                 to="/portfolio"
-                className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-6 py-3 text-sm font-medium text-foreground backdrop-blur-md transition-transform hover:scale-[1.02] dark:border-white/15 dark:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-6 py-2.5 text-sm font-medium text-foreground backdrop-blur-md transition-transform hover:scale-[1.02] dark:border-white/15 dark:bg-white/10"
               >
                 View Portfolio
               </Link>
             </div>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-foreground/80">
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-foreground/80 sm:mt-6 sm:text-sm">
               <span className="inline-flex items-center gap-2">
                 <Star className="h-4 w-4 fill-amber-400 text-amber-400" /> Premium agency delivery
               </span>
@@ -159,63 +188,17 @@ export function Hero() {
               </span>
             </div>
           </motion.div>
-
-          {/* Dashboard reveal — emerges as the doors open */}
-          <motion.div
-            style={{
-              scale: dashScale,
-              y: dashY,
-              opacity: dashOpacity,
-              rotateX: dashRotate,
-              transformPerspective: 1400,
-            }}
-            className="pointer-events-none absolute inset-x-0 top-1/2 z-10 mx-auto w-full max-w-[1200px] -translate-y-1/2 px-4 will-change-transform sm:px-6"
-          >
-            <motion.div animate={tugCtrl} className="pointer-events-auto will-change-transform">
-              <DashboardMock />
-            </motion.div>
-            <div className="pointer-events-none absolute -bottom-12 right-4 sm:-bottom-14 sm:right-8">
-              <div className="pointer-events-auto">
-                <CatMascot onTug={handleTug} />
-              </div>
-            </div>
-          </motion.div>
         </div>
 
-        {/* Floating demo websites & SaaS cards (behind mountains, in front of sky) */}
-        <div className="absolute inset-0 z-[5]">
-          <FloatingShowcase />
+        {/* Cat mascot — desktop only, anchored bottom right so it never overlaps text */}
+        <div className="pointer-events-none absolute bottom-4 right-4 z-30 hidden lg:block">
+          <div className="pointer-events-auto">
+            <CatMascot onTug={handleTug} />
+          </div>
         </div>
-
-        {/* Mountains: door-opening reveal */}
-        <motion.div
-          style={{ opacity: mOpacity }}
-          className="pointer-events-none absolute inset-0 z-20 overflow-hidden will-change-transform"
-          aria-hidden
-        >
-          {/* Soft cloud bloom at the base */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-white/95 via-white/55 to-transparent dark:from-white/20 dark:via-white/5 dark:to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-2/5 bg-[radial-gradient(ellipse_at_25%_100%,rgba(255,255,255,0.95),transparent_60%),radial-gradient(ellipse_at_78%_100%,rgba(255,255,255,0.9),transparent_55%)] blur-2xl" />
-
-          <motion.img
-            src={mountainLeft.url}
-            alt=""
-            style={{ x: mLeftX, scale: mScale }}
-            className="absolute left-0 top-0 h-full w-[60%] origin-bottom-left object-cover object-right drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
-            draggable={false}
-          />
-          <motion.img
-            src={mountainRight.url}
-            alt=""
-            style={{ x: mRightX, scale: mScale }}
-            className="absolute right-0 top-0 h-full w-[60%] origin-bottom-right object-cover object-left drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
-            draggable={false}
-          />
-        </motion.div>
 
         {/* Bottom valley fade into next section */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-32 bg-gradient-to-b from-transparent to-background" />
-
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-background" />
       </div>
     </section>
 
