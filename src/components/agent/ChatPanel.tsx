@@ -68,10 +68,13 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
           },
         ] as UIMessage[]);
 
+  const visitorIdRef = useRef<string | null>(null);
+  visitorIdRef.current = visitorId;
+
   const transport = useRef(
     new DefaultChatTransport({
       api: "/api/chat",
-      body: () => ({ visitorId }),
+      body: () => ({ visitorId: visitorIdRef.current }),
     }),
   );
 
