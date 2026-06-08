@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ThemeProvider } from "../components/ThemeProvider";
 import { SmoothScroll } from "../components/SmoothScroll";
+import { SiteAgent } from "../components/agent/SiteAgent";
 
 function NotFoundComponent() {
   return (
@@ -128,6 +129,7 @@ function RootComponent() {
         <SmoothScroll />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
+        <SiteAgent />
       </ThemeProvider>
     </QueryClientProvider>
   );
