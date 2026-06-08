@@ -50,7 +50,7 @@ export function SiteAgent() {
 
   // Wander loop
   useEffect(() => {
-    if (open) return;
+    if (open || hovered) return;
     let cancelled = false;
 
     const step = () => {
