@@ -67,7 +67,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative isolate min-h-[160vh] overflow-hidden"
+      className="relative isolate h-screen overflow-hidden"
       aria-label="Hero"
     >
 
