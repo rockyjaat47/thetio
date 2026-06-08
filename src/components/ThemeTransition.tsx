@@ -14,28 +14,11 @@ export function ThemeTransition({
 
   const isDark = to === "dark";
 
-  // Generate parallax cloud layers
-  const clouds = useMemo(
-    () => [
-      // back layer (small, slow, soft)
-      { top: "8%",  size: 90,  delay: 0.0,  blur: 2,   opacity: 0.55, dur: 1.7 },
-      { top: "22%", size: 130, delay: 0.15, blur: 1.5, opacity: 0.65, dur: 1.7 },
-      { top: "62%", size: 110, delay: 0.05, blur: 2,   opacity: 0.5,  dur: 1.7 },
-      // mid layer
-      { top: "34%", size: 180, delay: 0.0,  blur: 0.6, opacity: 0.85, dur: 1.5 },
-      { top: "70%", size: 200, delay: 0.2,  blur: 0.4, opacity: 0.9,  dur: 1.5 },
-      // front layer (large, fast, crisp)
-      { top: "48%", size: 260, delay: 0.1,  blur: 0,   opacity: 1,    dur: 1.3 },
-      { top: "84%", size: 230, delay: 0.25, blur: 0,   opacity: 0.95, dur: 1.3 },
-    ],
-    []
-  );
-
-  // Stars (only when going to dark)
+  // Stars only when going to dark
   const stars = useMemo(
     () =>
-      Array.from({ length: 28 }, () => ({
-        top: Math.random() * 80 + 5,
+      Array.from({ length: 36 }, () => ({
+        top: Math.random() * 70 + 4,
         left: Math.random() * 100,
         size: Math.random() * 2 + 1,
         delay: Math.random() * 0.6,
@@ -43,19 +26,23 @@ export function ThemeTransition({
     []
   );
 
+  // Outgoing body = current theme (opposite of `to`)
+  const outgoingIsSun = isDark; // going to dark, sun is leaving
+  const incomingIsSun = !isDark; // going to light, sun is arriving
+
   return (
     <div className="pointer-events-none fixed inset-0 z-[100] overflow-hidden" aria-hidden>
-      {/* Sky color wash */}
+      {/* Sky wash */}
       <div
         className="absolute inset-0 animate-[themeWash_1.7s_ease-out_forwards]"
         style={{
           background: isDark
-            ? "linear-gradient(180deg, oklch(0.18 0.05 265) 0%, oklch(0.13 0.04 265) 60%, transparent 100%)"
-            : "linear-gradient(180deg, oklch(0.92 0.06 230) 0%, oklch(0.96 0.03 230) 55%, transparent 100%)",
+            ? "radial-gradient(120% 80% at 50% 0%, oklch(0.22 0.07 270) 0%, oklch(0.13 0.05 265) 55%, transparent 100%)"
+            : "radial-gradient(120% 80% at 50% 0%, oklch(0.95 0.08 80) 0%, oklch(0.93 0.05 230) 55%, transparent 100%)",
         }}
       />
 
-      {/* Stars on dark */}
+      {/* Stars when going to dark */}
       {isDark &&
         stars.map((s, i) => (
           <span
@@ -66,169 +53,127 @@ export function ThemeTransition({
               left: `${s.left}%`,
               width: s.size,
               height: s.size,
-              animationDelay: `${s.delay}s`,
+              animationDelay: `${0.4 + s.delay}s`,
               boxShadow: "0 0 6px rgba(255,255,255,0.9)",
             }}
           />
         ))}
 
-      {/* Cloud layers with parallax */}
-      {clouds.map((c, i) => (
-        <Cloud
-          key={i}
-          top={c.top}
-          size={c.size}
-          delay={c.delay}
-          blur={c.blur}
-          opacity={c.opacity}
-          duration={c.dur}
-          isDark={isDark}
-        />
-      ))}
-
-      {/* Airplane */}
+      {/* Outgoing celestial body — swipes out to the right */}
       <div
-        className="absolute left-[-20%] top-[40%] will-change-transform"
+        className="absolute left-1/2 top-[18%] will-change-transform"
         style={{
-          animation: "planeFly 1.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards",
+          animation: "celestialSwipeOut 0.75s cubic-bezier(0.55, 0.05, 0.7, 0.2) forwards",
         }}
       >
-        <div className="relative">
-          {/* Long, soft contrail */}
-          <span
-            className="absolute right-full top-1/2 h-[6px] w-[280px] -translate-y-1/2 rounded-full"
-            style={{
-              background: isDark
-                ? "linear-gradient(to left, rgba(226,232,240,0.85), rgba(226,232,240,0))"
-                : "linear-gradient(to left, rgba(255,255,255,0.95), rgba(255,255,255,0))",
-              filter: "blur(3px)",
-              opacity: 0.9,
-            }}
-          />
-          <span
-            className="absolute right-full top-1/2 h-[2px] w-[140px] -translate-y-1/2 rounded-full"
-            style={{
-              background: isDark
-                ? "linear-gradient(to left, rgba(255,255,255,0.9), rgba(255,255,255,0))"
-                : "linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0))",
-            }}
-          />
-          <Plane isDark={isDark} />
-        </div>
+        {outgoingIsSun ? <Sun /> : <Moon />}
+      </div>
+
+      {/* Incoming celestial body — rises in from the left */}
+      <div
+        className="absolute left-1/2 top-[18%] will-change-transform"
+        style={{
+          animation: "celestialRiseIn 0.95s cubic-bezier(0.18, 0.7, 0.25, 1) 0.55s forwards",
+          opacity: 0,
+        }}
+      >
+        {incomingIsSun ? <Sun /> : <Moon />}
       </div>
     </div>
   );
 }
 
-function Cloud({
-  top,
-  size,
-  delay,
-  blur,
-  opacity,
-  duration,
-  isDark,
-}: {
-  top: string;
-  size: number;
-  delay: number;
-  blur: number;
-  opacity: number;
-  duration: number;
-  isDark: boolean;
-}) {
+function Sun() {
   return (
     <div
-      className="absolute left-[-30%] will-change-transform"
+      className="-translate-x-1/2"
       style={{
-        top,
-        width: size,
-        height: size * 0.5,
-        opacity: 0,
-        filter: `blur(${blur}px)`,
-        animation: `cloudDrift ${duration}s cubic-bezier(0.22,0.61,0.36,1) ${delay}s forwards`,
-        ["--cloud-opacity" as any]: opacity,
+        width: 180,
+        height: 180,
       }}
     >
-      <svg viewBox="0 0 200 100" className="h-full w-full">
-        <defs>
-          <radialGradient id={`cg-${size}-${delay}`} cx="50%" cy="40%" r="60%">
-            <stop
-              offset="0%"
-              stopColor={isDark ? "#cbd5e1" : "#ffffff"}
-              stopOpacity="1"
-            />
-            <stop
-              offset="100%"
-              stopColor={isDark ? "#64748b" : "#e0e7ef"}
-              stopOpacity="0.85"
-            />
-          </radialGradient>
-        </defs>
-        <path
-          fill={`url(#cg-${size}-${delay})`}
-          d="M30 75 Q10 75 12 55 Q14 38 34 40 Q40 18 64 22 Q80 6 102 18 Q124 4 142 22 Q166 18 174 42 Q194 44 192 62 Q190 78 168 78 Z"
-          style={{
-            filter: isDark
-              ? "drop-shadow(0 6px 14px rgba(0,0,0,0.35))"
-              : "drop-shadow(0 8px 18px rgba(15,23,42,0.18))",
-          }}
-        />
-      </svg>
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 50%, #fff8e0 0%, #ffd47a 38%, #f59e0b 62%, rgba(245,158,11,0) 78%)",
+          boxShadow:
+            "0 0 60px 10px rgba(255, 200, 120, 0.55), 0 0 140px 40px rgba(255, 170, 80, 0.35)",
+        }}
+      />
+      <div
+        className="absolute inset-[-30%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255,220,150,0.35), transparent 65%)",
+          filter: "blur(8px)",
+        }}
+      />
     </div>
   );
 }
 
-function Plane({ isDark }: { isDark: boolean }) {
+function Moon() {
   return (
-    <svg width="96" height="60" viewBox="0 0 160 90" style={{ filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.25))" }}>
-      <defs>
-        <linearGradient id="fuselage" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor={isDark ? "#f1f5f9" : "#ffffff"} />
-          <stop offset="55%" stopColor={isDark ? "#cbd5e1" : "#e2e8f0"} />
-          <stop offset="100%" stopColor={isDark ? "#64748b" : "#94a3b8"} />
-        </linearGradient>
-        <linearGradient id="wing" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor={isDark ? "#94a3b8" : "#cbd5e1"} />
-          <stop offset="100%" stopColor={isDark ? "#475569" : "#64748b"} />
-        </linearGradient>
-        <linearGradient id="stripe" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#3b82f6" />
-          <stop offset="100%" stopColor="#06b6d4" />
-        </linearGradient>
-      </defs>
-
-      {/* Tail fin */}
-      <path d="M18 45 L4 22 L18 28 L34 45 Z" fill="url(#wing)" />
-      {/* Lower wing (back) */}
-      <path d="M58 52 L40 78 L62 70 L86 54 Z" fill="url(#wing)" opacity="0.9" />
-      {/* Upper wing (back) */}
-      <path d="M58 38 L40 12 L62 20 L86 36 Z" fill="url(#wing)" opacity="0.95" />
-      {/* Fuselage */}
-      <path
-        d="M10 45 Q14 36 30 34 L120 32 Q146 32 154 45 Q146 58 120 58 L30 56 Q14 54 10 45 Z"
-        fill="url(#fuselage)"
+    <div
+      className="-translate-x-1/2"
+      style={{
+        width: 170,
+        height: 170,
+      }}
+    >
+      <div
+        className="absolute inset-0 rounded-full overflow-hidden"
+        style={{
+          background:
+            "radial-gradient(circle at 38% 38%, #fafbff 0%, #dbe1ef 42%, #94a3b8 70%, #475569 100%)",
+          boxShadow:
+            "0 0 50px 6px rgba(200, 215, 240, 0.45), 0 0 120px 30px rgba(120, 140, 180, 0.25), inset -12px -10px 30px rgba(15,23,42,0.35)",
+        }}
+      >
+        {/* craters */}
+        <span
+          className="absolute rounded-full"
+          style={{
+            top: "28%",
+            left: "55%",
+            width: 22,
+            height: 22,
+            background:
+              "radial-gradient(circle at 35% 35%, rgba(100,116,139,0.55), rgba(71,85,105,0.15) 70%, transparent)",
+          }}
+        />
+        <span
+          className="absolute rounded-full"
+          style={{
+            top: "58%",
+            left: "30%",
+            width: 16,
+            height: 16,
+            background:
+              "radial-gradient(circle at 35% 35%, rgba(100,116,139,0.5), rgba(71,85,105,0.1) 70%, transparent)",
+          }}
+        />
+        <span
+          className="absolute rounded-full"
+          style={{
+            top: "68%",
+            left: "62%",
+            width: 12,
+            height: 12,
+            background:
+              "radial-gradient(circle at 35% 35%, rgba(100,116,139,0.45), transparent 70%)",
+          }}
+        />
+      </div>
+      <div
+        className="absolute inset-[-30%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(186,200,224,0.32), transparent 65%)",
+          filter: "blur(10px)",
+        }}
       />
-      {/* Accent stripe */}
-      <path
-        d="M30 46 L150 46 Q150 49 148 49 L30 49 Z"
-        fill="url(#stripe)"
-        opacity="0.9"
-      />
-      {/* Windows */}
-      <g fill={isDark ? "#0f172a" : "#1e293b"} opacity="0.85">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <circle key={i} cx={42 + i * 11} cy={42} r="2" />
-        ))}
-      </g>
-      {/* Cockpit */}
-      <path
-        d="M138 40 Q150 41 152 45 Q150 49 138 50 Z"
-        fill={isDark ? "#1e3a8a" : "#3b82f6"}
-        opacity="0.85"
-      />
-      {/* Nose highlight */}
-      <path d="M150 44 Q154 45 150 46 Z" fill="#ffffff" opacity="0.6" />
-    </svg>
+    </div>
   );
 }

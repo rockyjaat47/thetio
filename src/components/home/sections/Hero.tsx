@@ -64,6 +64,7 @@ export function Hero() {
       <motion.div
         style={{ y: sunY, scale: sunScale }}
         className="pointer-events-none absolute left-1/2 top-[28vh] -z-10 -translate-x-1/2 will-change-transform"
+        data-celestial-hero
         aria-hidden
       >
         <div className="relative h-[36vmin] w-[36vmin]">
