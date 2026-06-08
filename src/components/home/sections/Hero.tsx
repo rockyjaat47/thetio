@@ -150,7 +150,7 @@ export function Hero() {
               </span>
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-sm text-foreground/80 sm:mt-6 sm:text-base lg:text-lg">
-              Beyond the horizon — websites, software, automation and marketing, engineered to move businesses forward.
+              We build technology solutions that increase sales, boost productivity, and accelerate business growth.
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
               <Link
