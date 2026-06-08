@@ -132,82 +132,68 @@ export function SiteAgent() {
 
       {/* Walking robot pinned to the bottom of the viewport */}
       <motion.div
-        className="pointer-events-none fixed bottom-4 z-50 hidden sm:block"
-        style={{ left: 0 }}
+        className="pointer-events-none fixed bottom-4 left-0 z-50 hidden sm:block"
         animate={{ x }}
-        transition={{ type: "tween", ease: "linear", duration: 0 }}
+        transition={{ type: "tween", ease: "easeInOut", duration: 0 }}
+        style={{
+          transition: "transform 3s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
       >
-        {/*
-          Inner wrapper handles smooth easing of the x change.
-          We use a key-less spring on translate via CSS transition fallback.
-        */}
         <motion.div
-          animate={{ x: 0 }}
-          style={{
-            transform: `translateX(${0}px)`,
-            transition: "none",
-          }}
+          animate={{ scaleX: facing }}
+          transition={{ duration: 0.35 }}
+          className="pointer-events-auto relative"
+          style={{ width: ROBOT_SIZE }}
         >
-          <motion.div
-            animate={{ scaleX: facing }}
-            transition={{ duration: 0.35 }}
-            className="pointer-events-auto relative"
-            style={{ width: ROBOT_SIZE }}
+          {/* Tip bubble */}
+          <AnimatePresence>
+            {tip && !open && (
+              <motion.div
+                initial={{ opacity: 0, y: 8, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 240, damping: 22 }}
+                style={{ transform: facing === -1 ? "scaleX(-1)" : undefined }}
+                className="absolute -top-2 left-full ml-2 w-max max-w-[220px] rounded-2xl rounded-bl-sm border border-white/40 bg-white/70 px-3 py-2 text-xs font-medium text-foreground shadow-[0_10px_30px_-10px_rgba(0,0,0,0.25)] backdrop-blur-xl backdrop-saturate-150 dark:border-white/15 dark:bg-white/10"
+              >
+                {tip}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Walk wobble */}
+          <motion.button
+            type="button"
+            onClick={toggle}
+            aria-label={open ? "Close Teo chat" : "Open Teo chat"}
+            className="group block cursor-pointer focus:outline-none"
+            animate={
+              pose === "walk"
+                ? { y: [0, -5, 0, -5, 0], rotate: [0, -2, 0, 2, 0] }
+                : { y: [0, -3, 0], rotate: 0 }
+            }
+            transition={{
+              duration: pose === "walk" ? 0.55 : 2.4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           >
-            {/* Tip bubble */}
-            <AnimatePresence>
-              {tip && !open && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 8, scale: 0.9 }}
-                  transition={{ type: "spring", stiffness: 240, damping: 22 }}
-                  style={{ transform: facing === -1 ? "scaleX(-1)" : undefined }}
-                  className="absolute -top-2 left-full ml-2 w-max max-w-[220px] rounded-2xl rounded-bl-sm border border-white/40 bg-white/60 px-3 py-2 text-xs font-medium text-foreground shadow-[0_10px_30px_-10px_rgba(0,0,0,0.25)] backdrop-blur-xl backdrop-saturate-150 dark:border-white/15 dark:bg-white/10"
-                >
-                  {tip}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <RobotMascot pose={pose} size={ROBOT_SIZE} />
+          </motion.button>
 
-            {/* Walk wobble */}
-            <motion.button
-              type="button"
-              onClick={toggle}
-              aria-label={open ? "Close Teo chat" : "Open Teo chat"}
-              className="group block cursor-pointer focus:outline-none"
-              animate={
-                pose === "walk"
-                  ? { y: [0, -4, 0, -4, 0], rotate: [0, -2, 0, 2, 0] }
-                  : { y: [0, -2, 0], rotate: 0 }
-              }
-              transition={{
-                duration: pose === "walk" ? 0.55 : 2.4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <RobotMascot pose={pose} size={ROBOT_SIZE} />
-            </motion.button>
-
-            {/* Status pill */}
-            <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              style={{ transform: facing === -1 ? "translateX(-50%) scaleX(-1)" : "translateX(-50%)" }}
-              className="pointer-events-none absolute -bottom-1 left-1/2 flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/40 bg-white/50 px-2.5 py-1 text-[10px] font-medium text-foreground/80 shadow-sm backdrop-blur-xl dark:border-white/15 dark:bg-white/10"
-            >
-              <MessageCircle className="h-3 w-3 text-sky-500" />
-              {open ? "Chatting" : "Chat with me"}
-            </motion.div>
+          {/* Status pill */}
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            style={{ transform: facing === -1 ? "translateX(-50%) scaleX(-1)" : "translateX(-50%)" }}
+            className="pointer-events-none absolute -bottom-1 left-1/2 flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/40 bg-white/60 px-2.5 py-1 text-[10px] font-medium text-foreground/80 shadow-sm backdrop-blur-xl dark:border-white/15 dark:bg-white/10"
+          >
+            <MessageCircle className="h-3 w-3 text-sky-500" />
+            {open ? "Chatting" : "Chat with me"}
           </motion.div>
         </motion.div>
       </motion.div>
-
-      <style>{`
-        /* Smooth the horizontal walk via CSS transform transition on the outer wrapper */
-      `}</style>
     </>
   );
 }
