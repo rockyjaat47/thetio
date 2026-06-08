@@ -1,0 +1,37 @@
+import { Canvas } from "@react-three/fiber";
+import { ContactShadows, Environment } from "@react-three/drei";
+import { TeoModel, type TeoPose } from "./TeoModel";
+
+type Props = {
+  pose?: TeoPose;
+  facing?: 1 | -1;
+  lookTarget?: { x: number; y: number };
+  size?: number;
+};
+
+export function TeoCanvas({ pose = "idle", facing = 1, lookTarget, size = 140 }: Props) {
+  return (
+    <div style={{ width: size, height: size }} className="pointer-events-none select-none">
+      <Canvas
+        dpr={[1, 2]}
+        gl={{ alpha: true, antialias: true, preserveDrawingBuffer: false }}
+        camera={{ position: [0, 0.3, 3.2], fov: 30 }}
+        style={{ background: "transparent" }}
+      >
+        <ambientLight intensity={0.85} />
+        <directionalLight position={[3, 4, 5]} intensity={1.1} color="#fff5e6" castShadow />
+        <directionalLight position={[-3, 2, -2]} intensity={0.5} color="#a8c8ff" />
+        <TeoModel pose={pose} facing={facing} lookTarget={lookTarget} />
+        <ContactShadows
+          position={[0, -0.85, 0]}
+          opacity={0.35}
+          scale={3}
+          blur={2.4}
+          far={2}
+          color="#1e3a8a"
+        />
+        <Environment preset="city" />
+      </Canvas>
+    </div>
+  );
+}
