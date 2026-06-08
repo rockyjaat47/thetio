@@ -133,9 +133,8 @@ export function SiteAgent() {
         className="pointer-events-none fixed bottom-4 left-0 z-50 hidden sm:block"
         animate={{ x }}
         transition={{ duration: walkDuration, ease: "easeInOut" }}
-        style={{
-        }}
       >
+
         <motion.div
           animate={{ scaleX: facing }}
           transition={{ duration: 0.35 }}
