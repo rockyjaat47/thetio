@@ -67,8 +67,13 @@ export function Hero() {
         aria-hidden
       >
         <div className="relative h-[36vmin] w-[36vmin]">
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_50%,#fff7ea_0%,#ffd9a8_38%,#f59e0b_60%,rgba(245,158,11,0)_72%)]" />
-          <div className="absolute -inset-10 rounded-full bg-[radial-gradient(circle,rgba(255,220,170,0.45),transparent_70%)] blur-2xl" />
+          {/* Sun (light mode) */}
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_50%,#fff7ea_0%,#ffd9a8_38%,#f59e0b_60%,rgba(245,158,11,0)_72%)] dark:hidden" />
+          <div className="absolute -inset-10 rounded-full bg-[radial-gradient(circle,rgba(255,220,170,0.45),transparent_70%)] blur-2xl dark:hidden" />
+          {/* Moon (dark mode) */}
+          <div className="absolute inset-0 hidden rounded-full bg-[radial-gradient(circle_at_38%_38%,#f8fafc_0%,#e2e8f0_40%,#94a3b8_65%,rgba(148,163,184,0)_75%)] dark:block" />
+          <div className="absolute inset-[6%] hidden rounded-full bg-[radial-gradient(circle_at_70%_70%,rgba(15,23,42,0.55),transparent_55%)] dark:block" />
+          <div className="absolute -inset-10 hidden rounded-full bg-[radial-gradient(circle,rgba(186,200,224,0.35),transparent_70%)] blur-2xl dark:block" />
         </div>
       </motion.div>
 
