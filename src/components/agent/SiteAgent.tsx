@@ -27,6 +27,7 @@ export function SiteAgent() {
   const [tip, setTip] = useState<string | null>("Hi, I'm Teo ✨");
   const [pose, setPose] = useState<TeoPose>("idle");
   const [look, setLook] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
   const lastScrollY = useRef(0);
   const tipTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const moveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -49,7 +50,7 @@ export function SiteAgent() {
 
   // Wander loop
   useEffect(() => {
-    if (open) return;
+    if (open || hovered) return;
     let cancelled = false;
 
     const step = () => {
@@ -90,7 +91,7 @@ export function SiteAgent() {
       cancelled = true;
       if (moveTimer.current) clearTimeout(moveTimer.current);
     };
-  }, [open, showTip]);
+  }, [open, hovered, showTip]);
 
   // Scroll awareness
   useEffect(() => {
@@ -145,7 +146,12 @@ export function SiteAgent() {
         transition={{ type: "spring", stiffness: 18, damping: 22, mass: 2.4 }}
         style={{ width: TEO_SIZE }}
       >
-        <div className="pointer-events-auto relative" style={{ width: TEO_SIZE }}>
+        <div
+          className="pointer-events-auto relative"
+          style={{ width: TEO_SIZE }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
           {/* Tip bubble */}
           <AnimatePresence>
             {tip && !open && (
