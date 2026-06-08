@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { ContactShadows, Environment } from "@react-three/drei";
+import { ContactShadows } from "@react-three/drei";
 import { TeoModel, type TeoPose } from "./TeoModel";
 
 type Props = {
