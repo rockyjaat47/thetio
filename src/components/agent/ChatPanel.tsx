@@ -62,7 +62,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
             parts: [
               {
                 type: "text",
-                text: "Hi there! 🐾 I'm **Mochi**, TEO's resident cat. *purr* — what brings you here today? I can chat about websites, marketing, AI, or just say hi!",
+                text: "Hi! 🐾 I'm Mochi. *purr* — what can I help with?",
               },
             ],
           },
@@ -90,7 +90,6 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
     void sendMessage({ text });
   };
 
-  // Focus input when panel opens
   useEffect(() => {
     if (open) {
       const t = setTimeout(() => inputRef.current?.focus(), 350);
@@ -98,7 +97,6 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
     }
   }, [open]);
 
-  // Focus after send completes
   useEffect(() => {
     if (status === "ready") inputRef.current?.focus();
   }, [status]);
@@ -107,38 +105,42 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
     <AnimatePresence>
       {open && (
         <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.96 }}
+          initial={{ opacity: 0, y: 20, scale: 0.94 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 24, scale: 0.96 }}
-          transition={{ type: "spring", stiffness: 260, damping: 26 }}
-          className="pointer-events-auto fixed bottom-[12rem] right-4 z-[60] flex h-[min(560px,calc(100vh-14rem))] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-border bg-background/95 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:bottom-[14rem]"
+          exit={{ opacity: 0, y: 20, scale: 0.94 }}
+          transition={{ type: "spring", stiffness: 280, damping: 28 }}
+          className="pointer-events-auto fixed bottom-24 right-4 z-[60] flex h-[min(420px,calc(100vh-10rem))] w-[min(340px,calc(100vw-2rem))] flex-col overflow-hidden rounded-[28px] border border-white/40 bg-white/20 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.35),inset_0_1px_0_0_rgba(255,255,255,0.6)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/15 dark:bg-white/[0.06] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.12)]"
           role="dialog"
-          aria-label="Chat with Mochi the cat"
+          aria-label="Chat with Mochi"
+          style={{
+            backgroundImage:
+              "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.25) 100%)",
+          }}
         >
-          {/* Header */}
-          <div className="flex items-center justify-between gap-2 border-b border-border bg-gradient-to-br from-amber-100/60 to-rose-100/60 px-4 py-3 dark:from-amber-500/10 dark:to-rose-500/10">
+          {/* Glass header */}
+          <div className="relative flex items-center justify-between gap-2 border-b border-white/30 px-3.5 py-2.5 dark:border-white/10">
             <div className="flex items-center gap-2">
-              <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white text-lg shadow-sm dark:bg-white/10">
+              <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-white/60 text-sm shadow-inner backdrop-blur dark:bg-white/15">
                 🐱
-                <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-background" />
+                <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-white/80 dark:ring-black/50" />
               </span>
               <div className="leading-tight">
-                <p className="text-sm font-semibold text-foreground">Mochi</p>
-                <p className="text-[11px] text-muted-foreground">TEO's curious cat · always purring</p>
+                <p className="text-[13px] font-semibold text-foreground">Mochi</p>
+                <p className="text-[10px] text-foreground/60">always purring</p>
               </div>
             </div>
             <button
               onClick={onClose}
               aria-label="Close chat"
-              className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground"
+              className="rounded-full p-1 text-foreground/60 transition hover:bg-white/40 hover:text-foreground dark:hover:bg-white/10"
             >
-              <X className="h-4 w-4" />
+              <X className="h-3.5 w-3.5" />
             </button>
           </div>
 
           {/* Messages */}
           <Conversation className="flex-1">
-            <ConversationContent className="px-4 py-3">
+            <ConversationContent className="px-3 py-2.5">
               {messages.map((m) => {
                 const text = m.parts
                   .map((p) => (p.type === "text" ? p.text : ""))
@@ -146,7 +148,9 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
                 return (
                   <Message key={m.id} from={m.role}>
                     {m.role === "user" ? (
-                      <MessageContent>{text}</MessageContent>
+                      <MessageContent className="bg-white/50 backdrop-blur dark:bg-white/15">
+                        {text}
+                      </MessageContent>
                     ) : (
                       <MessageResponse>{text}</MessageResponse>
                     )}
@@ -154,7 +158,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
                 );
               })}
               {status === "submitted" && (
-                <div className="px-2 py-1 text-sm">
+                <div className="px-1.5 py-0.5 text-xs">
                   <Shimmer>Mochi is thinking…</Shimmer>
                 </div>
               )}
@@ -162,13 +166,17 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
             <ConversationScrollButton />
           </Conversation>
 
-          {/* Composer */}
-          <div className="border-t border-border bg-background/80 p-3">
-            <PromptInput onSubmit={handleSubmit}>
+          {/* Glass composer */}
+          <div className="border-t border-white/30 p-2.5 dark:border-white/10">
+            <PromptInput
+              onSubmit={handleSubmit}
+              className="rounded-2xl border-white/40 bg-white/30 backdrop-blur dark:border-white/15 dark:bg-white/10"
+            >
               <PromptInputTextarea
                 ref={inputRef}
-                placeholder="Ask Mochi anything…"
+                placeholder="Ask Mochi…"
                 disabled={!visitorId}
+                className="bg-transparent text-sm"
               />
               <PromptInputFooter className="justify-end">
                 <PromptInputSubmit status={status} disabled={!visitorId} />
