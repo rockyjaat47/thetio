@@ -207,7 +207,7 @@ export function Hero() {
             src={mountainRight.url}
             alt=""
             style={{ x: mRightX, scale: mScale }}
-            className="absolute right-0 top-0 h-full w-1/2 origin-bottom-right object-cover object-left drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
+            className="absolute right-0 top-0 h-full w-[60%] origin-bottom-right object-cover object-left drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
             draggable={false}
           />
         </motion.div>
