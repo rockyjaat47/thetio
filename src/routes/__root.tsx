@@ -79,14 +79,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "TEO - The Evolution Orbit | Web Devleopment and Marketing" },
+      { name: "description", content: "TEO – The Evolution Orbit is a leading web development and digital marketing agency helping businesses grow with professional websites, SaaS solutions, CRM syst" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "TEO - The Evolution Orbit | Web Devleopment and Marketing" },
+      { property: "og:description", content: "TEO – The Evolution Orbit is a leading web development and digital marketing agency helping businesses grow with professional websites, SaaS solutions, CRM syst" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "TEO - The Evolution Orbit | Web Devleopment and Marketing" },
+      { name: "twitter:description", content: "TEO – The Evolution Orbit is a leading web development and digital marketing agency helping businesses grow with professional websites, SaaS solutions, CRM syst" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/bMnJaJHhAzbQnSkqV9rh2x55cqo1/social-images/social-1780932279197-ChatGPT_Image_Jun_6,_2026,_02_15_39_PM.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/bMnJaJHhAzbQnSkqV9rh2x55cqo1/social-images/social-1780932279197-ChatGPT_Image_Jun_6,_2026,_02_15_39_PM.webp" },
     ],
     links: [
       {
