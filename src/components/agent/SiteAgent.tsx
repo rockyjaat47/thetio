@@ -29,6 +29,7 @@ const ROBOT_SIZE = 110;
  * opens the chat panel on click.
  */
 export function SiteAgent() {
+  const [walkDuration, setWalkDuration] = useState(4);
   const [open, setOpen] = useState(false);
   const [x, setX] = useState(40);
   const [facing, setFacing] = useState<1 | -1>(1); // 1 = right, -1 = left
@@ -68,13 +69,12 @@ export function SiteAgent() {
       if (Math.abs(target - x) < w * 0.25) {
         target = x < w / 2 ? maxX - Math.random() * 80 : margin + Math.random() * 80;
       }
-      setFacing(target > x ? 1 : -1);
-      setPose("walk");
-      setX(target);
-
-      // Distance-based travel time
       const distance = Math.abs(target - x);
       const travelMs = Math.min(8000, Math.max(2500, distance * 9));
+      setFacing(target > x ? 1 : -1);
+      setPose("walk");
+      setWalkDuration(travelMs / 1000);
+      setX(target);
 
       moveTimer.current = setTimeout(() => {
         if (cancelled) return;
@@ -82,13 +82,11 @@ export function SiteAgent() {
         const poses: RobotPose[] = ["wave", "happy", "point", "wave"];
         const nextPose = poses[Math.floor(Math.random() * poses.length)];
         setPose(nextPose);
-        // occasional greeting
         if (Math.random() < 0.55) {
           showTip(GREETINGS[Math.floor(Math.random() * GREETINGS.length)], 2600);
         } else if (Math.random() < 0.5) {
           showTip(TIPS[Math.floor(Math.random() * TIPS.length)], 3800);
         }
-        // pause then walk again
         moveTimer.current = setTimeout(step, 2400 + Math.random() * 2200);
       }, travelMs);
     };
@@ -134,9 +132,8 @@ export function SiteAgent() {
       <motion.div
         className="pointer-events-none fixed bottom-4 left-0 z-50 hidden sm:block"
         animate={{ x }}
-        transition={{ type: "tween", ease: "easeInOut", duration: 0 }}
+        transition={{ duration: walkDuration, ease: "easeInOut" }}
         style={{
-          transition: "transform 3s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         <motion.div
