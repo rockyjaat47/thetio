@@ -119,14 +119,14 @@ export function Hero() {
             src={mountainLeft.url}
             alt=""
             style={{ x: mLeftX, scale: mScale }}
-            className="absolute left-0 bottom-0 h-[55%] w-[55%] origin-bottom-left object-cover object-right opacity-90 will-change-transform sm:h-[65%] sm:w-[60%]"
+            className="absolute left-0 top-0 h-full w-[60%] origin-bottom-left object-cover object-right drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
             draggable={false}
           />
           <motion.img
             src={mountainRight.url}
             alt=""
             style={{ x: mRightX, scale: mScale }}
-            className="absolute right-0 bottom-0 h-[55%] w-[55%] origin-bottom-right object-cover object-left opacity-90 will-change-transform sm:h-[65%] sm:w-[60%]"
+            className="absolute right-0 top-0 h-full w-[60%] origin-bottom-right object-cover object-left drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
             draggable={false}
           />
         </motion.div>
