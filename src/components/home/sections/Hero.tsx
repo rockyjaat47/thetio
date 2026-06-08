@@ -67,7 +67,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative isolate min-h-[160vh] overflow-hidden"
+      className="relative isolate h-screen overflow-hidden"
       aria-label="Hero"
     >
 
@@ -216,22 +216,9 @@ export function Hero() {
         {/* Bottom valley fade into next section */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-32 bg-gradient-to-b from-transparent to-background" />
 
-        {/* Scroll cue */}
-        <motion.div
-          style={{ opacity: titleOpacity }}
-          className="pointer-events-none absolute bottom-8 left-1/2 z-30 -translate-x-1/2 text-xs uppercase tracking-[0.3em] text-foreground/70"
-        >
-          <div className="flex flex-col items-center gap-2">
-            <span>Scroll</span>
-            <motion.span
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-              className="block h-6 w-px bg-foreground/40"
-            />
-          </div>
-        </motion.div>
       </div>
     </section>
+
   );
 }
 
