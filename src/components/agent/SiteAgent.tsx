@@ -27,17 +27,24 @@ export function SiteAgent() {
   const scrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const tipTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Available resting spots — right side & bottom corners
-  const spots = useMemo<Anchor[]>(
-    () => [
-      { x: 16, y: 16, flip: false }, // bottom-right
-      { x: 16, y: 120, flip: false }, // mid-right
-      { x: 16, y: 240, flip: false }, // upper-right
-      { x: "calc(100vw - 13rem)" as unknown as number, y: 16, flip: true }, // bottom-left
-      { x: "calc(100vw - 13rem)" as unknown as number, y: 200, flip: true }, // mid-left
-    ],
-    [],
-  );
+  // Resting spots — computed from viewport so left-side anchors work
+  const [spots, setSpots] = useState<Anchor[]>([{ x: 16, y: 16, flip: false }]);
+  useEffect(() => {
+    const compute = () => {
+      const w = window.innerWidth;
+      const leftX = Math.max(16, w - 240);
+      setSpots([
+        { x: 16, y: 16, flip: false },
+        { x: 16, y: 140, flip: false },
+        { x: 16, y: 260, flip: false },
+        { x: leftX, y: 16, flip: true },
+        { x: leftX, y: 200, flip: true },
+      ]);
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
 
   // Wander between spots every 9–15s when idle
   useEffect(() => {
