@@ -91,7 +91,7 @@ export function SiteAgent() {
       cancelled = true;
       if (moveTimer.current) clearTimeout(moveTimer.current);
     };
-  }, [open, showTip]);
+  }, [open, hovered, showTip]);
 
   // Scroll awareness
   useEffect(() => {
