@@ -10,7 +10,6 @@ import { ArrowRight, ShieldCheck, Sparkles, Star } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import { CatMascot } from "./CatMascot";
-import { Landscape } from "./Landscape";
 import mountainLeft from "@/assets/mountain-left.png.asset.json";
 import mountainRight from "@/assets/mountain-right.png.asset.json";
 
@@ -20,40 +19,46 @@ export function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const smooth = useSpring(scrollYProgress, { damping: 30, stiffness: 120, mass: 0.6 });
+  const smooth = useSpring(scrollYProgress, {
+    damping: 32,
+    stiffness: 140,
+    mass: 0.55,
+  });
 
-  const dashScale = useTransform(smooth, [0, 0.55, 1], [0.62, 1, 1.15]);
-  const dashY = useTransform(smooth, [0, 1], [40, -60]);
-  const dashRotate = useTransform(smooth, [0, 0.55], [6, 0]);
+  // Mountains: door-open + drift out
+  const mLeftX = useTransform(smooth, [0, 0.6], ["22%", "-110%"]);
+  const mRightX = useTransform(smooth, [0, 0.6], ["-22%", "110%"]);
+  const mScale = useTransform(smooth, [0, 0.6], [1.2, 1.45]);
+  const mOpacity = useTransform(smooth, [0.55, 0.78], [1, 0]);
 
-  const textOpacity = useTransform(smooth, [0, 0.4], [1, 0]);
-  const textY = useTransform(smooth, [0, 0.5], [0, -80]);
+  // Sky / sun
+  const sunY = useTransform(smooth, [0, 1], [0, -160]);
+  const sunScale = useTransform(smooth, [0, 0.6], [1, 1.15]);
+  const skyOpacity = useTransform(smooth, [0, 0.6], [1, 0.85]);
 
-  const cloudsY = useTransform(smooth, [0, 1], [0, -120]);
-  const landscapeY = useTransform(smooth, [0, 1], [0, 140]);
+  // Headline: stays then floats up between the mountains as they part
+  const titleScale = useTransform(smooth, [0, 0.55], [0.98, 1.04]);
+  const titleY = useTransform(smooth, [0, 0.6], [0, -40]);
+  const titleOpacity = useTransform(smooth, [0, 0.55, 0.75], [1, 1, 0]);
 
-  // Door-opening mountain reveal
-  const mountainLeftX = useTransform(smooth, [0, 0.55], ["18%", "-95%"]);
-  const mountainRightX = useTransform(smooth, [0, 0.55], ["-18%", "95%"]);
-  const mountainScale = useTransform(smooth, [0, 0.55], [1.15, 1.35]);
-  const mountainOpacity = useTransform(smooth, [0.5, 0.7], [1, 0]);
+  // Dashboard emerges as door opens
+  const dashScale = useTransform(smooth, [0.25, 0.7], [0.55, 1]);
+  const dashY = useTransform(smooth, [0.25, 0.7, 1], [120, 0, -80]);
+  const dashOpacity = useTransform(smooth, [0.25, 0.5], [0, 1]);
+  const dashRotate = useTransform(smooth, [0.25, 0.7], [10, 0]);
+
+  // Birds + clouds drift
+  const cloudsX = useTransform(smooth, [0, 1], [0, -180]);
+  const birdsX = useTransform(smooth, [0, 1], [0, 240]);
 
   const tugCtrl = useAnimationControls();
   const handleTug = useCallback(
     (intensity: number) => {
-      if (intensity > 0) {
-        tugCtrl.start({
-          y: 14,
-          rotate: -0.6,
-          transition: { type: "spring", stiffness: 220, damping: 14 },
-        });
-      } else {
-        tugCtrl.start({
-          y: 0,
-          rotate: 0,
-          transition: { type: "spring", stiffness: 180, damping: 10 },
-        });
-      }
+      tugCtrl.start(
+        intensity > 0
+          ? { y: 14, rotate: -0.6, transition: { type: "spring", stiffness: 220, damping: 14 } }
+          : { y: 0, rotate: 0, transition: { type: "spring", stiffness: 180, damping: 10 } },
+      );
     },
     [tugCtrl],
   );
@@ -61,47 +66,76 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative isolate min-h-[180vh] overflow-hidden pt-28 sm:pt-32"
+      className="relative isolate min-h-[220vh] overflow-hidden"
+      aria-label="Hero"
     >
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#cfe0f5] via-[#b8c8e0] to-[#e8efe0] dark:from-[#0b1428] dark:via-[#0a1020] dark:to-[#0e1a14]" />
+      {/* Sky gradient backdrop */}
+      <motion.div
+        style={{ opacity: skyOpacity }}
+        className="absolute inset-0 -z-20 bg-[linear-gradient(180deg,#f5d9b8_0%,#f1b894_20%,#e89a8a_42%,#c98aa3_62%,#8d8fc4_82%,#5a6ea8_100%)] dark:bg-[linear-gradient(180deg,#0a0f1f_0%,#1a1530_40%,#2a1a3a_70%,#0a0a18_100%)]"
+      />
 
-      <motion.div style={{ y: cloudsY }} className="pointer-events-none absolute inset-x-0 top-0 h-[100vh] will-change-transform">
-        <Cloud className="left-[5%] top-[12%] h-16 w-40 opacity-80" delay={0} />
-        <Cloud className="right-[8%] top-[18%] h-14 w-36 opacity-70" delay={1.2} />
-        <Cloud className="left-[20%] top-[42%] h-10 w-28 opacity-60" delay={2.4} />
-        <Cloud className="right-[18%] top-[55%] h-12 w-32 opacity-65" delay={0.8} />
-        <Cloud className="left-[60%] top-[8%] h-12 w-44 opacity-70" delay={1.8} />
+      {/* Sun / glow disc */}
+      <motion.div
+        style={{ y: sunY, scale: sunScale }}
+        className="pointer-events-none absolute left-1/2 top-[28vh] -z-10 -translate-x-1/2 will-change-transform"
+        aria-hidden
+      >
+        <div className="relative h-[36vmin] w-[36vmin]">
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_50%,#fff7ea_0%,#ffd9a8_38%,#f59e0b_60%,rgba(245,158,11,0)_72%)]" />
+          <div className="absolute -inset-10 rounded-full bg-[radial-gradient(circle,rgba(255,220,170,0.45),transparent_70%)] blur-2xl" />
+        </div>
       </motion.div>
 
+      {/* Atmospheric haze */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[55vh] bg-gradient-to-t from-white/80 via-white/30 to-transparent dark:from-black/60 dark:via-black/20" />
+
+      {/* Drifting clouds */}
+      <motion.div style={{ x: cloudsX }} className="pointer-events-none absolute inset-x-0 top-[14vh] -z-10 h-[40vh] will-change-transform">
+        <Cloud className="left-[6%] top-[8%] h-14 w-44" delay={0} />
+        <Cloud className="right-[10%] top-[18%] h-12 w-40" delay={1.4} />
+        <Cloud className="left-[34%] top-[44%] h-10 w-32" delay={2.6} />
+        <Cloud className="right-[28%] top-[58%] h-12 w-36" delay={0.8} />
+      </motion.div>
+
+      {/* Birds silhouettes */}
+      <motion.div style={{ x: birdsX }} className="pointer-events-none absolute left-[20%] top-[22vh] -z-10 will-change-transform" aria-hidden>
+        <svg width="160" height="40" viewBox="0 0 160 40" className="opacity-60">
+          <g fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-foreground/70">
+            <path d="M5 18 q6 -8 12 0 q6 -8 12 0" />
+            <path d="M55 28 q5 -7 10 0 q5 -7 10 0" />
+            <path d="M100 14 q5 -6 10 0 q5 -6 10 0" />
+            <path d="M135 24 q4 -5 8 0 q4 -5 8 0" />
+          </g>
+        </svg>
+      </motion.div>
+
+      {/* Sticky stage */}
       <div className="sticky top-0 flex h-screen items-center justify-center">
-        <div className="mx-auto w-full max-w-7xl px-4 text-center sm:px-6">
-          <motion.div style={{ opacity: textOpacity, y: textY }} className="will-change-transform">
-            <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-3 py-1 text-xs font-medium text-foreground/80 backdrop-blur-md dark:border-white/10 dark:bg-white/5">
+        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6">
+          {/* Headline floats between the mountains */}
+          <motion.div
+            style={{ scale: titleScale, y: titleY, opacity: titleOpacity }}
+            className="relative z-30 mx-auto max-w-4xl text-center will-change-transform"
+          >
+            <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-3 py-1 text-xs font-medium text-foreground/85 backdrop-blur-md dark:border-white/10 dark:bg-white/10">
               <Sparkles className="h-3.5 w-3.5 text-amber-500" /> TEO Marketing — Digital Growth Agency
             </div>
-
-            <h1 className="mt-6 text-5xl font-semibold tracking-tight text-foreground sm:text-7xl md:text-8xl">
-              Build.{" "}
-              <span className="relative inline-block align-middle">
-                <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-background shadow-2xl shadow-amber-500/40 sm:h-20 sm:w-20 md:h-24 md:w-24">
-                  <Sparkles className="h-7 w-7 sm:h-10 sm:w-10 md:h-12 md:w-12" />
-                </span>
-              </span>{" "}
-              Brand.
+            <h1 className="mt-6 text-balance text-6xl font-semibold leading-[0.95] tracking-tight text-foreground drop-shadow-[0_2px_18px_rgba(255,255,255,0.35)] sm:text-7xl md:text-[8.5rem]">
+              Build. Brand.
+              <br />
+              <span className="bg-gradient-to-br from-amber-500 via-amber-400 to-amber-600 bg-clip-text text-transparent">
+                Grow.
+              </span>
             </h1>
-            <h1 className="text-5xl font-semibold tracking-tight text-foreground sm:text-7xl md:text-8xl">
-              Grow.
-            </h1>
-
-            <p className="mx-auto mt-6 max-w-2xl text-base text-foreground/70 sm:text-lg">
-              Helping businesses scale through websites, automation, marketing and
-              digital solutions — all under one roof.
+            <p className="mx-auto mt-6 max-w-xl text-base text-foreground/80 sm:text-lg">
+              Beyond the horizon — websites, software, automation and marketing,
+              engineered to move businesses forward.
             </p>
-
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 to="/contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-foreground py-2 pl-5 pr-2 text-sm font-medium text-background shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] transition-transform hover:scale-[1.02]"
+                className="group inline-flex items-center gap-2 rounded-full bg-foreground py-2 pl-5 pr-2 text-sm font-medium text-background shadow-[0_10px_30px_-10px_rgba(0,0,0,0.55)] transition-transform hover:scale-[1.02]"
               >
                 Get Free Consultation
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-background">
@@ -110,41 +144,41 @@ export function Hero() {
               </Link>
               <Link
                 to="/portfolio"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-foreground shadow-md transition-transform hover:scale-[1.02] dark:bg-white/10 dark:text-foreground"
+                className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-6 py-3 text-sm font-medium text-foreground backdrop-blur-md transition-transform hover:scale-[1.02] dark:border-white/15 dark:bg-white/10"
               >
                 View Portfolio
               </Link>
             </div>
-
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-foreground/75">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-foreground/80">
               <span className="inline-flex items-center gap-2">
                 <Star className="h-4 w-4 fill-amber-400 text-amber-400" /> Premium agency delivery
               </span>
-              <span className="hidden h-4 w-px bg-foreground/20 sm:block" />
+              <span className="hidden h-4 w-px bg-foreground/30 sm:block" />
               <span className="inline-flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-emerald-500" /> Fast & reliable
               </span>
-              <span className="hidden h-4 w-px bg-foreground/20 sm:block" />
+              <span className="hidden h-4 w-px bg-foreground/30 sm:block" />
               <span className="inline-flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-amber-500" /> Lead-generation focused
               </span>
             </div>
           </motion.div>
 
+          {/* Dashboard reveal — emerges as the doors open */}
           <motion.div
             style={{
               scale: dashScale,
               y: dashY,
+              opacity: dashOpacity,
               rotateX: dashRotate,
-              transformPerspective: 1200,
+              transformPerspective: 1400,
             }}
-            className="relative mx-auto mt-10 w-full max-w-[1400px] will-change-transform"
+            className="pointer-events-none absolute inset-x-0 top-1/2 z-10 mx-auto w-full max-w-[1200px] -translate-y-1/2 px-4 will-change-transform sm:px-6"
           >
-            <motion.div animate={tugCtrl} className="will-change-transform">
+            <motion.div animate={tugCtrl} className="pointer-events-auto will-change-transform">
               <DashboardMock />
             </motion.div>
-
-            <div className="pointer-events-none absolute -bottom-10 right-2 sm:-bottom-14 sm:right-6 md:-bottom-16 md:right-10">
+            <div className="pointer-events-none absolute -bottom-12 right-4 sm:-bottom-14 sm:right-8">
               <div className="pointer-events-auto">
                 <CatMascot onTug={handleTug} />
               </div>
@@ -152,36 +186,50 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Door-opening mountain reveal — sits on top, slides apart on scroll */}
+        {/* Mountains: door-opening reveal */}
         <motion.div
-          style={{ opacity: mountainOpacity }}
+          style={{ opacity: mOpacity }}
           className="pointer-events-none absolute inset-0 z-20 overflow-hidden will-change-transform"
           aria-hidden
         >
-          {/* Soft cloud gradient layer behind mountains */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-white/95 via-white/70 to-transparent dark:from-white/30 dark:via-white/10 dark:to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[radial-gradient(ellipse_at_30%_100%,rgba(255,255,255,0.9),transparent_60%),radial-gradient(ellipse_at_75%_100%,rgba(255,255,255,0.85),transparent_55%)] blur-xl" />
+          {/* Soft cloud bloom at the base */}
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-white/95 via-white/55 to-transparent dark:from-white/20 dark:via-white/5 dark:to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-2/5 bg-[radial-gradient(ellipse_at_25%_100%,rgba(255,255,255,0.95),transparent_60%),radial-gradient(ellipse_at_78%_100%,rgba(255,255,255,0.9),transparent_55%)] blur-2xl" />
 
           <motion.img
             src={mountainLeft.url}
             alt=""
-            style={{ x: mountainLeftX, scale: mountainScale }}
-            className="absolute left-0 top-0 h-full w-1/2 origin-left object-cover object-right will-change-transform"
+            style={{ x: mLeftX, scale: mScale }}
+            className="absolute left-0 top-0 h-full w-1/2 origin-bottom-left object-cover object-right drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
             draggable={false}
           />
           <motion.img
             src={mountainRight.url}
             alt=""
-            style={{ x: mountainRightX, scale: mountainScale }}
-            className="absolute right-0 top-0 h-full w-1/2 origin-right object-cover object-left will-change-transform"
+            style={{ x: mRightX, scale: mScale }}
+            className="absolute right-0 top-0 h-full w-1/2 origin-bottom-right object-cover object-left drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] will-change-transform"
             draggable={false}
           />
         </motion.div>
-      </div>
 
-      <motion.div style={{ y: landscapeY }} className="pointer-events-none absolute inset-0 -z-10 will-change-transform">
-        <Landscape />
-      </motion.div>
+        {/* Bottom valley fade into next section */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-32 bg-gradient-to-b from-transparent to-background" />
+
+        {/* Scroll cue */}
+        <motion.div
+          style={{ opacity: titleOpacity }}
+          className="pointer-events-none absolute bottom-8 left-1/2 z-30 -translate-x-1/2 text-xs uppercase tracking-[0.3em] text-foreground/70"
+        >
+          <div className="flex flex-col items-center gap-2">
+            <span>Scroll</span>
+            <motion.span
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+              className="block h-6 w-px bg-foreground/40"
+            />
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }
@@ -196,9 +244,9 @@ function Cloud({ className = "", delay = 0 }: { className?: string; delay?: numb
       className={`pointer-events-none absolute ${className}`}
     >
       <motion.div
-        animate={{ x: [0, 18, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay }}
-        className="h-full w-full rounded-full bg-white/80 blur-2xl dark:bg-white/10"
+        animate={{ x: [0, 22, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay }}
+        className="h-full w-full rounded-full bg-white/85 blur-2xl dark:bg-white/15"
       />
     </motion.div>
   );
@@ -206,8 +254,8 @@ function Cloud({ className = "", delay = 0 }: { className?: string; delay?: numb
 
 function DashboardMock() {
   return (
-    <div className="overflow-hidden rounded-3xl border border-white/40 bg-white/90 shadow-[0_40px_80px_-20px_rgba(20,40,80,0.45)] backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-      <div className="flex items-center gap-1.5 border-b border-black/5 bg-white/70 px-4 py-2.5 dark:border-white/10 dark:bg-white/5">
+    <div className="overflow-hidden rounded-3xl border border-white/40 bg-white/95 shadow-[0_50px_120px_-30px_rgba(20,40,80,0.6)] backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+      <div className="flex items-center gap-1.5 border-b border-black/5 bg-white/80 px-4 py-2.5 dark:border-white/10 dark:bg-white/5">
         <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
