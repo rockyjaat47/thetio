@@ -23,14 +23,6 @@ export function TeoCanvas({ pose = "idle", facing = 1, lookTarget, size = 140 }:
         <directionalLight position={[-3, 2, -2]} intensity={0.55} color="#a8c8ff" />
         <pointLight position={[0, 1.5, 2]} intensity={0.4} color="#ffffff" />
         <TeoModel pose={pose} facing={facing} lookTarget={lookTarget} />
-        <ContactShadows
-          position={[0, -0.85, 0]}
-          opacity={0.3}
-          scale={3}
-          blur={2.4}
-          far={2}
-          color="#1e3a8a"
-        />
       </Canvas>
     </div>
   );
