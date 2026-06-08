@@ -146,7 +146,12 @@ export function SiteAgent() {
         transition={{ type: "spring", stiffness: 18, damping: 22, mass: 2.4 }}
         style={{ width: TEO_SIZE }}
       >
-        <div className="pointer-events-auto relative" style={{ width: TEO_SIZE }}>
+        <div
+          className="pointer-events-auto relative"
+          style={{ width: TEO_SIZE }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
           {/* Tip bubble */}
           <AnimatePresence>
             {tip && !open && (
