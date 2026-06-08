@@ -131,10 +131,11 @@ export function Hero() {
           />
         </motion.div>
 
-        {/* Decorative floating cards — desktop only, low opacity so they don't fight the text */}
-        <div className="pointer-events-none absolute inset-0 z-[1] hidden opacity-50 lg:block">
+        {/* Decorative floating cards — pushed to background behind mountains */}
+        <div className="pointer-events-none absolute inset-0 -z-10 hidden opacity-25 blur-[1px] lg:block">
           <FloatingShowcase />
         </div>
+
 
         {/* Centered headline */}
         <div className="relative z-20 mx-auto w-full max-w-6xl px-4 sm:px-6">
