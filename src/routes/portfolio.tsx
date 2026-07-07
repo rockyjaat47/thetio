@@ -36,14 +36,18 @@ type Project = {
 };
 
 const projects: Project[] = [
-  { title: "Skyline Realty Website", category: "Websites", client: "Real Estate", summary: "Lead-focused real estate website with WhatsApp inquiries.", result: "3.2x lead increase in 60 days." },
-  { title: "MediCare Booking Landing", category: "Landing Pages", client: "Healthcare", summary: "High-converting landing page for clinic appointment booking.", result: "Conversion rate 11.4%." },
-  { title: "EduFlow LMS", category: "SaaS Platforms", client: "Education", summary: "Subscription LMS with courses, payments and analytics.", result: "5,000+ active learners." },
-  { title: "FoodHub CRM", category: "CRM Systems", client: "Restaurants", summary: "Multi-outlet CRM with loyalty, leads and sales pipeline.", result: "27% repeat order growth." },
-  { title: "AskBot AI Agent", category: "AI Solutions", client: "Consulting", summary: "WhatsApp AI agent qualifying leads 24/7.", result: "70% support tickets automated." },
-  { title: "GrowthAds Q4 Campaign", category: "Marketing Campaigns", client: "E-commerce", summary: "Meta + Google performance campaign with creative system.", result: "4.8x ROAS." },
-  { title: "Consultly Portal", category: "SaaS Platforms", client: "Consultants", summary: "Client portal with bookings, invoices and chat.", result: "Saved 12 hrs/week per consultant." },
-  { title: "LocalEats Microsite", category: "Websites", client: "Local Business", summary: "Premium microsite for a fine-dining brand.", result: "+58% reservations." },
+  { title: "Skyline Realty Website", category: "Websites", client: "Real Estate", summary: "Lead-focused real estate website with WhatsApp inquiries, virtual tours and integrated CRM routing.", result: "3.2x lead increase in 60 days." },
+  { title: "MediCare Booking Landing", category: "Landing Pages", client: "Healthcare", summary: "High-converting landing page for clinic appointment booking with instant WhatsApp confirmation.", result: "Conversion rate 11.4%." },
+  { title: "EduFlow LMS", category: "SaaS Platforms", client: "Education", summary: "Subscription LMS with courses, live classes, payments and cohort analytics.", result: "5,000+ active learners." },
+  { title: "FoodHub CRM", category: "CRM Systems", client: "Restaurants", summary: "Multi-outlet CRM with loyalty, leads, table bookings and sales pipeline across 12 locations.", result: "27% repeat order growth." },
+  { title: "AskBot AI Agent", category: "AI Solutions", client: "Consulting", summary: "WhatsApp AI agent qualifying leads 24/7, handing warm ones to human closers.", result: "70% support tickets automated." },
+  { title: "GrowthAds Q4 Campaign", category: "Marketing Campaigns", client: "E-commerce", summary: "Meta + Google performance campaign with a full creative system and daily optimisation.", result: "4.8x ROAS." },
+  { title: "Consultly Portal", category: "SaaS Platforms", client: "Consultants", summary: "Client portal with bookings, invoices, document vault and chat.", result: "Saved 12 hrs/week per consultant." },
+  { title: "LocalEats Microsite", category: "Websites", client: "Local Business", summary: "Premium microsite for a fine-dining brand with reservation flow and gift-card sales.", result: "+58% reservations." },
+  { title: "Verve Cosmetics Launch", category: "Marketing Campaigns", client: "D2C Beauty", summary: "Editorial-grade launch campaign spanning influencer, Meta, PR and a shoppable Instagram funnel.", result: "₹1.4 Cr revenue in month one." },
+  { title: "Nimbus Property Portal", category: "SaaS Platforms", client: "PropTech", summary: "Broker-facing SaaS for listing management, buyer CRM and commission tracking.", result: "1,200+ brokers onboarded." },
+  { title: "Clarity Clinic Voice Bot", category: "AI Solutions", client: "Healthcare", summary: "AI voice receptionist handling appointment booking and post-consult follow-ups.", result: "40% front-desk load removed." },
+  { title: "Aster Legal Website", category: "Websites", client: "Legal", summary: "Practice-area-focused website with consultation booking and secure client intake.", result: "2.6x qualified enquiries." },
 ];
 
 function PortfolioPage() {
