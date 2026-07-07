@@ -72,6 +72,20 @@ function ArticlesPage() {
       title="Field notes from the ecosystem"
       subtitle="How marketing, software and AI actually work together — written by the people building it every day."
     >
+      <div className="mb-10 space-y-3 text-foreground/80">
+        <p>
+          We write for operators — founders, marketing leads and heads of growth who don't have
+          time for another 3,000-word "ultimate guide." Every piece here comes from a real client
+          engagement, a real experiment we ran, or a real mistake we made and would rather you
+          didn't repeat.
+        </p>
+        <p>
+          New pieces drop roughly every fortnight. If you want them in your inbox before they hit
+          the site, drop us a line on{" "}
+          <Link to="/contact" className="underline">the contact page</Link>.
+        </p>
+      </div>
+
       <div className="grid gap-6 md:grid-cols-2">
         {articles.map((a) => (
           <article
@@ -93,6 +107,39 @@ function ArticlesPage() {
             </div>
           </article>
         ))}
+      </div>
+
+      <section className="mt-14">
+        <h2 className="mb-4 text-2xl font-semibold text-foreground">Topics we cover</h2>
+        <div className="flex flex-wrap gap-2">
+          {[
+            "Growth strategy",
+            "Performance marketing",
+            "SEO & GEO",
+            "AI agents",
+            "CRM & automation",
+            "Creative production",
+            "Web platforms",
+            "Custom software",
+            "Political campaigns",
+            "Founder playbooks",
+          ].map((t) => (
+            <span
+              key={t}
+              className="rounded-full border border-border bg-card/60 px-3 py-1.5 text-xs font-medium text-foreground/80"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <div className="mt-10 rounded-2xl border border-border bg-background/40 p-6 text-sm text-foreground/75">
+        Want us to write about a specific challenge you're facing? Tell us the question and we'll
+        publish an answer — with your permission, we'll even feature the case study.{" "}
+        <Link to="/contact" className="font-medium text-foreground underline">
+          Send us the topic →
+        </Link>
       </div>
     </PageLayout>
   );

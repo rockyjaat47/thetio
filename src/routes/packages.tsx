@@ -98,6 +98,20 @@ function PackagesPage() {
       title="Packages engineered around outcomes"
       subtitle="Four tiers, one ecosystem. Every package bundles marketing, technology and creative — priced against the result, not the deliverable."
     >
+      <div className="mb-10 space-y-3 text-foreground/80">
+        <p>
+          Every Navora package includes strategy, execution and reporting from the same team.
+          There are no per-hour fees, no surprise scope changes, and no separate line items for
+          "creative" or "development" — the number you see is the number you pay, and it maps
+          directly to the outcomes below.
+        </p>
+        <p>
+          Not sure which tier fits? Most brands start on <strong>Momentum</strong> and graduate to
+          <strong> Command</strong> within two quarters. If your revenue is already north of ₹25 Cr
+          / $3M and you need a full operating team, <strong>Apex</strong> is designed for you.
+        </p>
+      </div>
+
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {packages.map((p) => (
           <div
@@ -136,6 +150,35 @@ function PackagesPage() {
           </div>
         ))}
       </div>
+
+      <section className="mt-14">
+        <h2 className="mb-4 text-2xl font-semibold text-foreground">What every package includes</h2>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {[
+            ["Dedicated account lead", "One senior operator owns your relationship end to end — not a rotating pod."],
+            ["Weekly stand-ups", "Every Monday. Agenda, decisions and next steps in writing."],
+            ["Shared dashboard", "Live view of pipeline, spend, conversions and revenue — same numbers we see."],
+            ["Monthly QBR", "What worked, what didn't, what we change next month — with the P&L."],
+            ["WhatsApp access", "Real people, real fast. Not a ticket queue."],
+            ["No lock-in", "Month-to-month after the first quarter. Stay because it's working, not because you signed."],
+          ].map(([t, d]) => (
+            <div key={t} className="rounded-2xl border border-border bg-background/40 p-5">
+              <div className="font-medium text-foreground">{t}</div>
+              <p className="mt-1 text-sm text-foreground/70">{d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-14">
+        <h2 className="mb-4 text-2xl font-semibold text-foreground">How pricing works</h2>
+        <p className="text-foreground/80">
+          Packages are quoted monthly and sized against the outcome we agree to hit — pipeline
+          generated, revenue influenced, systems delivered. We share the working, not just the
+          invoice. Custom builds (SaaS, ERP, mobile apps) are quoted separately after a two-week
+          discovery sprint.
+        </p>
+      </section>
 
       <div className="mt-10 rounded-2xl border border-border bg-background/40 p-6 text-sm text-foreground/75">
         Not sure which fits? Send us your goals — we'll recommend a tier or build

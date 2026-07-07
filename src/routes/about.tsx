@@ -41,12 +41,36 @@ function AboutPage() {
           <p className="text-foreground/80">
             Navora Digital is a full-stack marketing, technology and creative company based in Lucknow,
             built by a team with backgrounds spanning law, technology and private equity. We are not a
-            marketing agency that also does some technology on the side.
+            marketing agency that also does some technology on the side, and we are not a software shop
+            that dabbles in ads. We are one integrated operating team — engineers, strategists,
+            marketers, editors, art directors and account leads — sitting under one roof, one contract,
+            and one shared P&amp;L for every client we take on.
           </p>
           <p className="mt-3 text-foreground/80">
-            We engineer software, AI, and mobile infrastructure, and the marketing that drives demand
-            for all of it — under one roof.
+            We engineer software, AI and mobile infrastructure, and the marketing that drives demand
+            for all of it. That means the same team writes your positioning, builds your website,
+            wires your CRM, launches your ads, produces your creative and answers to the number at
+            the end of the quarter. No vendor chain. No finger-pointing. No "that's not our scope."
           </p>
+          <p className="mt-3 text-foreground/80">
+            Most of the businesses we work with have been burned before — by an agency that handed
+            them a beautiful deck and no pipeline, by a developer who shipped a site nobody visits,
+            or by a freelancer who disappeared the week the campaign went live. Navora exists to be
+            the last partner they hire, because we own the whole stack.
+          </p>
+        </section>
+
+        <section className="grid gap-4 sm:grid-cols-3">
+          {[
+            ["50+", "Brands scaled across India, GCC and UK"],
+            ["4", "Disciplines under one roof — no vendor chain"],
+            ["24/7", "AI &amp; concierge coverage on every retainer"],
+          ].map(([n, l]) => (
+            <div key={l} className="rounded-2xl border border-border bg-background/40 p-5 text-center">
+              <div className="text-3xl font-semibold text-foreground" dangerouslySetInnerHTML={{ __html: n }} />
+              <div className="mt-1 text-sm text-foreground/65" dangerouslySetInnerHTML={{ __html: l }} />
+            </div>
+          ))}
         </section>
 
         <section>
@@ -79,10 +103,10 @@ function AboutPage() {
           <h2 className="mb-4 text-2xl font-semibold text-foreground">How We Work</h2>
           <ol className="grid gap-3 sm:grid-cols-2">
             {[
-              ["01 · Understand the Business", "We learn your model, market, audience and goals before recommending a single channel."],
-              ["02 · Build the Right Strategy", "A roadmap covering priorities, messaging and the systems needed to execute it."],
-              ["03 · Execute With Focus", "Campaigns, creative, platforms and automation, built by the same team that planned them."],
-              ["04 · Improve and Scale", "Monthly review of what worked, what didn't, and what changes next."],
+              ["01 · Understand the Business", "We learn your model, market, audience and goals before recommending a single channel. Every engagement opens with a working session on unit economics, funnel maths and the offer itself."],
+              ["02 · Build the Right Strategy", "A roadmap covering priorities, messaging, channels and the systems needed to execute — sequenced against your quarter, not a generic playbook."],
+              ["03 · Execute With Focus", "Campaigns, creative, platforms and automation, built by the same team that planned them. Weekly stand-ups, shared dashboards, real deadlines."],
+              ["04 · Improve and Scale", "Monthly review of what worked, what didn't, and what changes next. Every quarter we resequence the roadmap against fresh data."],
             ].map(([t, d]) => (
               <li key={t} className="rounded-2xl border border-border bg-background/40 p-5">
                 <div className="text-sm font-semibold text-amber-600 dark:text-amber-400">{t}</div>
@@ -92,9 +116,29 @@ function AboutPage() {
           </ol>
         </section>
 
+        <section>
+          <h2 className="mb-4 text-2xl font-semibold text-foreground">Industries We Serve</h2>
+          <p className="text-foreground/80">
+            Our team ships across a wide surface area — real estate, healthcare, education,
+            hospitality, DTC and e-commerce, professional services, B2B SaaS, political campaigns,
+            and family offices building new-age brands. The common thread is not the sector; it's
+            the ambition. We work best with founders and operators who want a partner accountable
+            to revenue, not to hours logged.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="mb-4 text-2xl font-semibold text-foreground">Where We Are</h2>
+          <p className="text-foreground/80">
+            Headquartered in Lucknow with an extended team across Delhi, Mumbai, Bengaluru and the
+            GCC. We run engagements globally — remote-first delivery, on-site whenever the work
+            demands it, and always available on WhatsApp.
+          </p>
+        </section>
+
         <div className="flex flex-wrap gap-3 pt-2">
           <Link to="/contact" className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background">
-            Get in Touch with Navora Digital
+            Book a Call with Navora
           </Link>
           <Link to="/portfolio" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground">
             View Portfolio
