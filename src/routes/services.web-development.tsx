@@ -5,35 +5,37 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/services/web-development")({
   head: () => ({
     meta: [
-      { title: "Web Development — TEO Marketing" },
-      { name: "description", content: "Professional websites that convert visitors into customers." },
+      { title: "Websites & Web Platforms — Navora Digital" },
+      { name: "description", content: "Custom websites and web platforms engineered to convert. Built by the same team that runs your marketing and automation." },
+      { property: "og:title", content: "Websites & Web Platforms — Navora Digital" },
+      { property: "og:description", content: "Websites that are the platform your marketing runs on — not a static brochure." },
     ],
   }),
   component: () => (
     <PageLayout
-      title="Professional Websites That Convert"
-      subtitle="Beautifully designed websites built to generate leads and grow your business."
+      title="Websites That Are Actually the Platform"
+      subtitle="Not a brochure. The engine your marketing, automation and CRM plug into — built by the same team running the demand."
     >
       <Block
         heading="What we build"
         items={[
-          "Business Websites",
-          "Corporate Websites",
-          "Landing Pages",
-          "Portfolio Websites",
-          "Custom Websites",
-          "E-commerce Websites",
+          "Corporate & marketing sites",
+          "High-intent landing pages",
+          "Web platforms & portals",
+          "E-commerce storefronts",
+          "Custom web applications",
+          "Multi-brand microsites",
         ]}
       />
       <Block
-        heading="Features included"
+        heading="Engineered in"
         items={[
-          "Responsive Design",
-          "Fast Loading",
-          "SEO Friendly",
-          "WhatsApp Integration",
-          "Lead Generation Forms",
-          "Premium UI / UX",
+          "Conversion-tuned UX",
+          "Blazing-fast performance",
+          "On-page SEO foundation",
+          "CRM & lead-routing hooks",
+          "Analytics & event tracking",
+          "AI chat & WhatsApp handoff",
         ]}
       />
       <CTA />
@@ -63,7 +65,7 @@ function CTA() {
   return (
     <div className="mt-6 flex flex-wrap gap-3">
       <Link to="/contact" className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background">
-        Get Free Consultation
+        Book a Free Strategy Call
       </Link>
       <Link to="/portfolio" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground">
         See Recent Work

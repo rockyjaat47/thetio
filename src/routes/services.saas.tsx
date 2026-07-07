@@ -5,39 +5,41 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/services/saas")({
   head: () => ({
     meta: [
-      { title: "SaaS Solutions — TEO Marketing" },
-      { name: "description", content: "Custom SaaS platforms for modern businesses." },
+      { title: "Software & AI — Navora Digital" },
+      { name: "description", content: "Custom software, CRM & ERP systems, AI chatbots and workflow automation — the infrastructure behind the marketing." },
+      { property: "og:title", content: "Software & AI — Navora Digital" },
+      { property: "og:description", content: "The infrastructure your marketing runs on — engineered by the same team." },
     ],
   }),
   component: () => (
     <PageLayout
-      title="Custom SaaS For Modern Businesses"
-      subtitle="From idea to production — software built to scale with your business."
+      title="Software & AI Infrastructure"
+      subtitle="Custom software, CRM & ERP systems, AI chatbots and workflow automation — the infrastructure that turns campaigns into a business."
     >
       <Section
         heading="What we build"
         items={[
-          "Business Software",
-          "Customer Portals",
-          "Subscription Platforms",
-          "Management Systems",
-          "Custom Dashboards",
-          "Multi-tenant Apps",
+          "Custom business software",
+          "CRM & ERP modules",
+          "Customer portals & dashboards",
+          "Multi-tenant SaaS platforms",
+          "Internal tools & admin panels",
+          "APIs & third-party integrations",
         ]}
       />
       <Section
         heading="Built-in essentials"
         items={[
-          "Authentication & Roles",
-          "Billing & Subscriptions",
-          "Analytics & Reporting",
-          "Integrations & APIs",
-          "Notifications",
-          "Admin Controls",
+          "Authentication & roles",
+          "Billing & subscriptions",
+          "Analytics & reporting",
+          "AI features & assistants",
+          "Notification & workflow engine",
+          "Enterprise-grade security",
         ]}
       />
       <div className="mt-6 flex flex-wrap gap-3">
-        <Link to="/contact" className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background">Get Free Consultation</Link>
+        <Link to="/contact" className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background">Book a Free Strategy Call</Link>
         <Link to="/portfolio" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground">View Portfolio</Link>
       </div>
     </PageLayout>

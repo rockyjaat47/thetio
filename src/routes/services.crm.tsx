@@ -5,39 +5,41 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/services/crm")({
   head: () => ({
     meta: [
-      { title: "CRM Solutions — TEO Marketing" },
-      { name: "description", content: "Manage customers, leads and sales pipelines in one place." },
+      { title: "CRM & Workflow Automation — Navora Digital" },
+      { name: "description", content: "Automated lead routing, centralised CRM and workflow automation across your business systems." },
+      { property: "og:title", content: "CRM & Workflow Automation — Navora Digital" },
+      { property: "og:description", content: "Turn every lead into a tracked, followed-up, closable opportunity." },
     ],
   }),
   component: () => (
     <PageLayout
-      title="Manage Customers More Efficiently"
-      subtitle="CRM systems tailored to your sales process — not generic templates."
+      title="CRM & Workflow Automation"
+      subtitle="Every lead tracked. Every follow-up on time. Every workflow connected to the systems your team already uses."
     >
       <Section
-        heading="Features"
+        heading="What we set up"
         items={[
-          "Lead Tracking",
-          "Customer Database",
-          "Sales Pipelines",
-          "Automation",
-          "Reporting",
-          "Integrations",
+          "Centralised CRM architecture",
+          "Automated lead routing",
+          "Sales pipeline & stages",
+          "Follow-up & nurture flows",
+          "Reporting & dashboards",
+          "System-to-system automation",
         ]}
       />
       <Section
-        heading="Benefits"
+        heading="What it means for you"
         items={[
-          "Faster Follow-ups",
-          "Higher Close Rates",
-          "Centralised Data",
-          "Better Forecasting",
-          "Reduced Manual Work",
-          "Team Accountability",
+          "Faster response, higher close rate",
+          "No lead falls through the cracks",
+          "Centralised, searchable customer data",
+          "Better forecasting & visibility",
+          "Less manual work for your team",
+          "Real accountability, month over month",
         ]}
       />
       <div className="mt-6 flex flex-wrap gap-3">
-        <Link to="/contact" className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background">Talk To Us</Link>
+        <Link to="/contact" className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background">Talk to Us</Link>
         <Link to="/portfolio" className="rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground">View Portfolio</Link>
       </div>
     </PageLayout>
