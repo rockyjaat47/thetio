@@ -6,8 +6,10 @@ import { X } from "lucide-react";
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Portfolio — TEO Marketing" },
-      { name: "description", content: "Projects That Drive Results — websites, SaaS, CRM, AI and marketing campaigns by TEO Marketing." },
+      { title: "Portfolio — Navora Digital" },
+      { name: "description", content: "Projects that drive results — websites, platforms, CRM, AI and campaigns engineered by Navora Digital." },
+      { property: "og:title", content: "Portfolio — Navora Digital" },
+      { property: "og:description", content: "Selected work across software, AI, mobile and marketing." },
     ],
   }),
   component: PortfolioPage,

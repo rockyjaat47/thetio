@@ -20,14 +20,14 @@ export function Security() {
             Built to enterprise-grade standards
           </h2>
           <p className="mt-4 text-foreground/65">
-            Every website, app and automation we ship is engineered for security,
-            performance and long-term reliability — so your business stays protected.
+            Every website, platform, automation and campaign we ship is engineered for security,
+            performance and long-term reliability — so your business stays protected as it scales.
           </p>
           <Link
             to="/contact"
             className="mt-8 inline-flex rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background"
           >
-            Talk to our team
+            Talk to Our Team
           </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">

@@ -9,10 +9,10 @@ const TeoCanvas = lazy(() =>
 
 const TIPS = [
   "Hey there! Need a hand? 👋",
-  "Psst… ask me anything about TEO.",
-  "I can guide you to services, pricing, or contact.",
-  "Tap me to chat — I'm your AI sidekick!",
-  "Want a free consultation? I got you.",
+  "Psst… ask me anything about Navora.",
+  "I can guide you through services, packages or a strategy call.",
+  "Tap me to chat — I'm your growth concierge.",
+  "Want a free strategy call? I got you.",
   "Let me show you around ✨",
 ];
 
@@ -24,7 +24,7 @@ export function SiteAgent() {
   const [open, setOpen] = useState(false);
   const [x, setX] = useState(60);
   const [facing, setFacing] = useState<1 | -1>(1);
-  const [tip, setTip] = useState<string | null>("Hi, I'm Teo ✨");
+  const [tip, setTip] = useState<string | null>("Hi, I'm Nova ✨");
   const [pose, setPose] = useState<TeoPose>("idle");
   const [look, setLook] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);

@@ -3,14 +3,14 @@ import { ArrowRight, Check } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 const reasons = [
-  "Fast Delivery",
-  "Premium Design",
-  "Affordable Solutions",
-  "Mobile Optimized",
-  "Lead Generation Focus",
-  "Dedicated Support",
-  "Business Growth Strategy",
-  "End-to-end Ownership",
+  "One Team, Four Disciplines",
+  "Built Like a Business, Not a Campaign",
+  "Technology-Led Execution",
+  "Full Accountability",
+  "One Contract, One Report",
+  "In-house Creative Production",
+  "AI & Automation From Day One",
+  "Strategy Rooted in Unit Economics",
 ];
 
 export function Platform() {
@@ -20,21 +20,21 @@ export function Platform() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-600 dark:text-amber-400">
-            Why choose TEO Marketing
+            Why Navora Digital
           </span>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
-            The agency built for business growth
+            Engineered for brands done managing vendors
           </h2>
           <p className="mt-4 text-foreground/65">
-            We deliver premium digital experiences with the speed of a startup and the
-            reliability of an enterprise team.
+            We don't outsource the parts that matter. The people who plan your strategy also build
+            the platform it runs on. One team to call, not four.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/contact"
               className="group inline-flex items-center gap-2 rounded-full bg-foreground py-2 pl-5 pr-2 text-sm font-medium text-background"
             >
-              Book a free consultation
+              Book a Free Strategy Call
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-amber-500 text-background">
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
@@ -63,9 +63,9 @@ export function Platform() {
 
             <div className="mt-6 grid gap-6 sm:grid-cols-3">
               {[
-                { v: "200+", l: "Projects delivered" },
-                { v: "150+", l: "Businesses served" },
-                { v: "4.9★", l: "Client rating" },
+                { v: "4", l: "Pillars, one roof" },
+                { v: "1", l: "Team, one contract" },
+                { v: "24/7", l: "Strategic support" },
               ].map((s) => (
                 <div key={s.l} className="rounded-2xl bg-white/5 p-5">
                   <div className="text-3xl font-semibold text-amber-400">{s.v}</div>

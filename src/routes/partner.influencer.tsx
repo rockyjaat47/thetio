@@ -5,14 +5,16 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/partner/influencer")({
   head: () => ({
     meta: [
-      { title: "Partner As Influencer — TEO Marketing" },
-      { name: "description", content: "Earn commissions referring businesses to TEO Marketing." },
+      { title: "Partner as Influencer — Navora Digital" },
+      { name: "description", content: "Recommend Navora Digital to your audience and earn long-term revenue on every project." },
+      { property: "og:title", content: "Partner as Influencer — Navora Digital" },
+      { property: "og:description", content: "Long-term revenue share for creators and consultants." },
     ],
   }),
   component: () => (
     <PageLayout
-      title="Become A TEO Marketing Influencer Partner"
-      subtitle="Recommend us to your audience and earn long-term revenue on every project."
+      title="Become a Navora Digital Partner"
+      subtitle="Recommend us to your audience and earn long-term revenue on every project we deliver."
     >
       <Section
         heading="Benefits"

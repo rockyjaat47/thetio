@@ -13,8 +13,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import logoLight from "@/assets/logo-light.png.asset.json";
-import logoDark from "@/assets/logo-dark.png.asset.json";
+import navoraLogo from "@/assets/navora-logo.png.asset.json";
 import { useTheme } from "./ThemeProvider";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -34,11 +33,11 @@ const navItems: NavItem[] = [
     label: "Services",
     icon: Sparkles,
     children: [
-      { label: "Web Development", to: "/services/web-development" },
-      { label: "SaaS", to: "/services/saas" },
-      { label: "CRM", to: "/services/crm" },
-      { label: "AI Agent & Automation", to: "/services/ai-automation" },
       { label: "Digital Marketing", to: "/services/digital-marketing" },
+      { label: "Software & AI", to: "/services/saas" },
+      { label: "Web Development", to: "/services/web-development" },
+      { label: "CRM & Automation", to: "/services/crm" },
+      { label: "AI Chatbots & Mobile", to: "/services/ai-automation" },
     ],
   },
   {
@@ -67,9 +66,9 @@ export function Navbar() {
         {/* Logo */}
         <Link to="/" className="relative flex shrink-0 items-center pl-1.5">
           <img
-            src={theme === "dark" ? logoDark.url : logoLight.url}
-            alt="Company logo"
-            className="h-9 w-auto sm:h-10"
+            src={navoraLogo.url}
+            alt="Navora Digital"
+            className={`h-7 w-auto sm:h-8 ${theme === "dark" ? "invert" : ""}`}
           />
         </Link>
 
@@ -122,13 +121,13 @@ export function Navbar() {
 
 
           <a
-            href="https://wa.me/6261302023"
+            href="https://wa.me/916261302023"
             target="_blank"
             rel="noopener noreferrer"
             className="group hidden items-center gap-2 rounded-full bg-foreground py-1.5 pl-4 pr-1.5 text-sm font-medium text-background transition-transform hover:scale-[1.02] sm:inline-flex"
           >
-            <span className="hidden lg:inline">Connect</span>
-            <span className="lg:hidden">Connect</span>
+            <span className="hidden lg:inline">Book a Call</span>
+            <span className="lg:hidden">Book</span>
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-background text-foreground">
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
             </span>
@@ -198,13 +197,13 @@ export function Navbar() {
             ))}
             <li className="mt-2 sm:hidden">
               <a
-                href="https://wa.me/6261302023"
+                href="https://wa.me/916261302023"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 py-2 text-sm font-medium text-background"
               >
-                Connect
+                Book a Call
                 <ArrowRight className="h-4 w-4" />
               </a>
             </li>

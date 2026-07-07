@@ -5,14 +5,16 @@ import { Check } from "lucide-react";
 export const Route = createFileRoute("/partner/agency")({
   head: () => ({
     meta: [
-      { title: "Partner As Agency — TEO Marketing" },
-      { name: "description", content: "White-label our team and grow your agency's capacity and margins." },
+      { title: "Partner as Agency — Navora Digital" },
+      { name: "description", content: "White-label Navora Digital's software, AI and creative team to expand what your agency can deliver — without expanding your payroll." },
+      { property: "og:title", content: "Partner as Agency — Navora Digital" },
+      { property: "og:description", content: "White-label engineering, AI and creative for agencies ready to grow." },
     ],
   }),
   component: () => (
     <PageLayout
-      title="Partner With TEO Marketing"
-      subtitle="Expand what your agency can deliver — without expanding your payroll."
+      title="Partner With Navora Digital"
+      subtitle="White-label our engineering, AI and creative team to expand what your agency can deliver — without expanding your payroll."
     >
       <Section
         heading="Who it's for"

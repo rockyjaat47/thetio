@@ -3,18 +3,23 @@ import { motion } from "framer-motion";
 const steps = [
   {
     n: "01",
-    t: "Discover",
-    d: "Free consultation call to understand your business, goals and target audience.",
+    t: "Understand the Business",
+    d: "We start with your numbers, not a mood board — margins, sales cycle, and what a qualified lead is worth to you.",
   },
   {
     n: "02",
-    t: "Design & Build",
-    d: "Our team designs, develops and reviews with you in fast weekly sprints.",
+    t: "Build the Plan",
+    d: "A written roadmap covering channels, priorities, timelines and the systems needed to run it.",
   },
   {
     n: "03",
-    t: "Launch & Grow",
-    d: "Go-live, performance marketing, automation and ongoing optimisation.",
+    t: "Execute Without Handoffs",
+    d: "The same team plans, builds and ships the campaign, the platform and the content.",
+  },
+  {
+    n: "04",
+    t: "Report, Then Improve",
+    d: "A monthly review showing what worked, what didn't, and exactly what changes next.",
   },
 ];
 
@@ -27,15 +32,14 @@ export function HowItWorks() {
             How we work
           </span>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
-            From idea to launch in weeks
+            One team. Four steps. No handoffs.
           </h2>
           <p className="mt-4 text-foreground/65">
-            A simple, transparent process designed to remove friction and deliver
-            measurable business outcomes.
+            A transparent process built to remove friction and deliver measurable business outcomes.
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
             <motion.div
               key={s.n}
@@ -50,21 +54,6 @@ export function HowItWorks() {
               <p className="mt-2 text-sm text-foreground/65">{s.d}</p>
             </motion.div>
           ))}
-        </div>
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          <div className="rounded-3xl border border-foreground/10 bg-background p-8">
-            <div className="text-4xl font-semibold text-amber-600 dark:text-amber-400">100%</div>
-            <p className="mt-1 text-sm text-foreground/65">
-              Transparent pricing, fixed timelines — no surprises, ever.
-            </p>
-          </div>
-          <div className="rounded-3xl border border-foreground/10 bg-background p-8">
-            <div className="text-4xl font-semibold text-amber-600 dark:text-amber-400">24 hrs</div>
-            <p className="mt-1 text-sm text-foreground/65">
-              From inquiry to first response — guaranteed.
-            </p>
-          </div>
         </div>
       </div>
     </section>

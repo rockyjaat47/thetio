@@ -1,56 +1,49 @@
 import { motion } from "framer-motion";
-import {
-  Bot,
-  Code2,
-  HeartHandshake,
-  Megaphone,
-  PieChart,
-  Workflow,
-} from "lucide-react";
+import { Bot, Code2, Megaphone, Palette, Smartphone, Workflow } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 const features = [
   {
-    icon: Code2,
-    title: "Web Development",
-    desc: "Custom websites designed to generate leads and build credibility.",
-    tag: "Lead generation",
-    to: "/services/web-development",
+    icon: Megaphone,
+    title: "Digital Marketing",
+    desc: "SEO, GEO & AEO, Google Ads, Meta Ads, social media, influencer and political campaigns. The demand engine.",
+    tag: "The demand engine",
+    to: "/services/digital-marketing",
   },
   {
-    icon: Workflow,
-    title: "SaaS Solutions",
-    desc: "Modern software solutions to streamline operations and boost efficiency.",
-    tag: "Full-stack",
+    icon: Code2,
+    title: "Software & AI",
+    desc: "Custom software, websites, CRM & ERP, AI chatbots and workflow automation. The infrastructure behind the marketing.",
+    tag: "Infrastructure",
     to: "/services/saas",
   },
   {
-    icon: PieChart,
-    title: "CRM Systems",
-    desc: "Manage customers, leads and sales pipelines in one organised place.",
-    tag: "Sales & Ops",
+    icon: Smartphone,
+    title: "Mobile Engagement",
+    desc: "WhatsApp Business API, bulk SMS and AI voice calling — channels that reach customers directly, not through a feed algorithm.",
+    tag: "Direct-to-customer",
+    to: "/services/ai-automation",
+  },
+  {
+    icon: Palette,
+    title: "Creative Production",
+    desc: "Branding, identity, motion graphics, reels, photoshoots and video editing. The content that makes the other three worth looking at.",
+    tag: "Content system",
     to: "/services/crm",
   },
   {
     icon: Bot,
-    title: "AI Agents & Automation",
-    desc: "Automate repetitive tasks and customer interactions with AI.",
+    title: "AI Chatbots & Voice",
+    desc: "Conversational AI on web and WhatsApp, plus AI voice outreach — engineered for lead capture and query resolution.",
     tag: "24/7 automation",
     to: "/services/ai-automation",
   },
   {
-    icon: Megaphone,
-    title: "Digital Marketing",
-    desc: "Generate leads, sales and growth through performance marketing.",
-    tag: "Meta · Google · SEO",
-    to: "/services/digital-marketing",
-  },
-  {
-    icon: HeartHandshake,
-    title: "Dedicated Support",
-    desc: "A real team behind every project — long after launch.",
-    tag: "Always available",
-    to: "/contact",
+    icon: Workflow,
+    title: "CRM & Automation",
+    desc: "Automated lead routing, workflow automation across systems, and reporting your team will actually open.",
+    tag: "Sales & Ops",
+    to: "/services/crm",
   },
 ];
 
@@ -60,14 +53,13 @@ export function Features() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-600 dark:text-amber-400">
-            Our Services
+            The Four Pillars
           </span>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
-            Everything your business needs to grow
+            The whole business — not four separate products
           </h2>
           <p className="mt-4 text-foreground/65">
-            One agency for websites, software, automation and marketing — so you stop
-            stitching together vendors.
+            Marketing, technology, automation and creative production sit under one roof and one contract.
           </p>
         </div>
 
