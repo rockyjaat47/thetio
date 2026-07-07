@@ -177,7 +177,7 @@ export function ChatPanel({ open, onClose }: { open: boolean; onClose: () => voi
             >
               <PromptInputTextarea
                 ref={inputRef}
-                placeholder="Ask Nova anything……"
+                placeholder="Ask Nova anything…"
                 disabled={!visitorId}
                 className="bg-transparent text-sm"
               />
