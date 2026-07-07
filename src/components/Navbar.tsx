@@ -13,8 +13,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import logoLight from "@/assets/logo-light.png.asset.json";
-import logoDark from "@/assets/logo-dark.png.asset.json";
+import navoraLogo from "@/assets/navora-logo.png.asset.json";
 import { useTheme } from "./ThemeProvider";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -67,9 +66,9 @@ export function Navbar() {
         {/* Logo */}
         <Link to="/" className="relative flex shrink-0 items-center pl-1.5">
           <img
-            src={theme === "dark" ? logoDark.url : logoLight.url}
-            alt="Company logo"
-            className="h-9 w-auto sm:h-10"
+            src={navoraLogo.url}
+            alt="Navora Digital"
+            className={`h-7 w-auto sm:h-8 ${theme === "dark" ? "invert" : ""}`}
           />
         </Link>
 

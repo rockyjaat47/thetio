@@ -5,14 +5,14 @@ import { Home } from "@/components/home/Home";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TEO Marketing — Build. Brand. Grow." },
+      { title: "Navora Digital — One Ecosystem. One Team. One Result." },
       {
         name: "description",
         content:
-          "TEO Marketing is your digital growth agency — websites, SaaS, CRM, AI automation and performance marketing under one roof.",
+          "Software, AI, mobile and marketing engineered under one roof. Navora Digital removes the handoffs between agencies, developers and creatives.",
       },
-      { property: "og:title", content: "TEO Marketing — Build. Brand. Grow." },
-      { property: "og:description", content: "Helping businesses scale through websites, automation, marketing and digital solutions." },
+      { property: "og:title", content: "Navora Digital — One Ecosystem. One Team. One Result." },
+      { property: "og:description", content: "Marketing, technology and creative production for brands done managing vendors and ready to manage results." },
     ],
   }),
   component: Index,
