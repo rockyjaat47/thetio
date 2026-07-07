@@ -1,63 +1,62 @@
-## Plan: Real 3D Teo mascot with react-three-fiber
+# Prompt to add the same 3D chatbot in another Lovable project
 
-Replace the current 2D PNG mascot with an actual 3D Teo sculpted procedurally in Three.js — same friendly shape as the uploaded image (rounded blue blob body, two stubby arms, four little feet, simple smiley face). It walks across the bottom of the site, looks at the cursor, waves with speech bubbles, reacts to scroll, and opens the existing glass chat panel on click.
+Copy-paste this into the chat of your other project. It assumes that project is also on Lovable (TanStack Start + Lovable Cloud + Lovable AI). If it's a different stack, tell me and I'll adapt.
 
-### Dependencies
-- Add `three`, `@react-three/fiber`, `@react-three/drei` via `bun add`.
+---
 
-### 3D model (procedural, no external GLB)
-New file `src/components/agent/TeoModel.tsx`:
-- Group with soft pastel-blue material (`meshStandardMaterial`, light blue, slight roughness, subtle subsurface-feel via emissive tint).
-- Body: squashed sphere (slightly taller than wide), rounded.
-- Two arm nubs: small spheres on the sides, gently animated (idle sway, wave on demand).
-- Four foot bumps: tiny spheres at the base, alternately offset on the Y axis to simulate walking.
-- Face (front-facing decal group):
-  - Two dark oval eyes (small flattened spheres / circles via `Circle` from drei).
-  - Smile: a thin curved tube/line (TorusGeometry arc or `<Line>` from drei).
-  - Optional cheek blush: two faint pink discs (toggleable).
-- Soft contact shadow under the body (`<ContactShadows>` from drei).
-- Lighting: `<ambientLight>` + a warm key `<directionalLight>` + cool rim light.
-- Animation state via `useFrame`:
-  - `idle`: gentle bob + breathing scale.
-  - `walk`: vertical bob synced to feet alternation, slight tilt forward.
-  - `wave`: one arm raises & oscillates.
-  - `look`: head/body yaw + pitch tracking a target vector (cursor position, normalized).
-- Props: `pose: "idle" | "walk" | "wave"`, `facing: 1 | -1`, `lookTarget: {x,y}`.
+**PROMPT START**
 
-### Scene wrapper
-New file `src/components/agent/TeoCanvas.tsx`:
-- `<Canvas>` from `@react-three/fiber` with `dpr={[1, 2]}`, `gl={{ alpha: true, antialias: true }}`, transparent background, `camera={{ position: [0, 0.4, 3.2], fov: 32 }}`.
-- Mounts `<TeoModel />` and contact shadows.
-- Pointer-events on the canvas only over the model area; the outer wrapper handles click → open chat.
+Add a floating 3D AI concierge chatbot named **Nova** to my website, exactly like the one in my Navora Digital project. Build it end-to-end:
 
-### Site-wide agent rewrite
-Update `src/components/agent/SiteAgent.tsx`:
-- Replace `<img>` mascot with `<TeoCanvas>` inside the existing framer-motion gliding wrapper (keep current spring-physics walk loop across `x`).
-- Track cursor with a `mousemove` listener; normalize to `[-1, 1]` relative to mascot center and pass as `lookTarget` to the model.
-- Sync `pose`:
-  - `walk` while `isWalking`.
-  - `wave` for ~1.4s when arriving at a destination or on scroll trigger.
-  - `idle` otherwise.
-- Keep speech-bubble tip system (greetings + scroll tips) and click-to-open `ChatPanel`.
-- Remove `facing` CSS `scaleX` flip (the 3D model rotates on its Y axis instead — pass `facing` to the model and let it yaw 180°).
+### 1. 3D Mascot (bottom-left, walks around)
+- Install `three`, `@react-three/fiber`, `@react-three/drei`, `framer-motion`.
+- Create `src/components/agent/TeoModel.tsx` — a cute stylized 3D character built from primitive geometries (sphere head, rounded body, eyes, waving arm). Supports poses: `"idle" | "walk" | "wave"`, a `facing: 1 | -1` prop, and a `lookTarget: {x, y}` prop so eyes track the cursor. Animate with `useFrame`.
+- Create `src/components/agent/TeoCanvas.tsx` — wraps `TeoModel` in a transparent `@react-three/fiber` Canvas (alpha: true, no background, soft lights).
+- Create `src/components/agent/SiteAgent.tsx` — fixed bottom-left, size ~140px, hidden on mobile (`hidden sm:block`). Behaviors:
+  - Wanders horizontally across viewport with `framer-motion` spring animation.
+  - Randomly waves and shows tip bubbles ("Hi 👋", "Need help?", etc.).
+  - Tracks cursor via `mousemove` → passes normalized `lookTarget`.
+  - Shows tip bubbles on large scroll deltas.
+  - Click toggles the chat panel.
 
-### Cleanup
-- Delete the now-unused `src/components/agent/RobotMascot.tsx` and `src/assets/robot/robot-*.png` asset pointer files.
-- Keep `teo-mascot.asset.json` for now (used as a fallback / favicon if needed) — or remove if unreferenced.
+### 2. Chat Panel (glassmorphism)
+- Install AI Elements: `bun x ai-elements@latest add conversation message prompt-input shimmer`.
+- Create `src/components/agent/ChatPanel.tsx`:
+  - Floating card bottom-right, glass effect (`backdrop-blur-2xl`, translucent white/dark bg).
+  - Header with avatar 🤖, name "Nova", green online dot, close button.
+  - Uses `useChat` from `@ai-sdk/react` with `DefaultChatTransport({ api: "/api/chat" })`.
+  - Renders `message.parts` via `MessageResponse` (assistant) and `MessageContent` (user bubble).
+  - Shimmer "Nova is thinking…" while `status === "submitted"`.
+  - `PromptInput` composer with textarea + submit inside `PromptInputFooter`.
+  - Auto-focus textarea on open and after each response.
 
-### Performance
-- Render the Canvas only on `sm:` and up (already the case for the wrapper).
-- `frameloop="demand"` when idle and no cursor movement; switch to `"always"` while walking/waving.
-- Lazy-load `TeoCanvas` with `React.lazy` + Suspense fallback (the current PNG) to avoid blocking initial paint.
+### 3. Backend
+- Enable Lovable Cloud.
+- Create table `chat_messages` (id uuid pk, visitor_id text, role text, content text, created_at timestamptz default now()) with proper GRANTs + RLS (service_role full access).
+- Persist a `visitor_id` in `localStorage` (key `nova:visitor_id`, generated with `crypto.randomUUID()`).
+- Create `src/lib/chat-history.functions.ts` — `createServerFn` that loads last 200 messages for a `visitorId` via `supabaseAdmin`.
+- Load history in ChatPanel via `useQuery` + `useServerFn`, seed `useChat` with it; if empty, show a friendly greeting message from Nova.
 
-### Out of scope
-- No real image→GLB conversion (not available in-environment); the 3D is a stylized procedural sculpt matching the uploaded reference, not a photogrammetric copy.
-- No sound effects.
-- No changes to chat backend or `ChatPanel` UI.
+### 4. Streaming AI route
+- Create `src/lib/ai-gateway.server.ts` — Lovable AI Gateway provider using `@ai-sdk/openai-compatible`, baseURL `https://ai.gateway.lovable.dev/v1`, header `Lovable-API-Key: process.env.LOVABLE_API_KEY`.
+- Create `src/routes/api/chat.ts` — TanStack server route:
+  - POST reads `{ messages, visitorId }`.
+  - Model: `google/gemini-3-flash-preview` (or `openai/gpt-5.5`).
+  - System prompt: warm concierge personality for **[MY COMPANY NAME]** — describe what the company does, its packages/services, and instruct Nova to build rapport, qualify leads (name, business, phone, email, budget) and steer toward a strategy call. Keep replies 2–4 sentences, English/Hinglish friendly.
+  - Before streaming, insert the last user message into `chat_messages`.
+  - Use `streamText(...).toUIMessageStreamResponse({ originalMessages, onFinish })` and in `onFinish` insert the final assistant message.
+  - Import `supabaseAdmin` **inside** the handler: `const { supabaseAdmin } = await import("@/integrations/supabase/client.server")`.
 
-### Files changed
-- add: `src/components/agent/TeoModel.tsx`
-- add: `src/components/agent/TeoCanvas.tsx`
-- edit: `src/components/agent/SiteAgent.tsx`
-- remove: `src/components/agent/RobotMascot.tsx`, `src/assets/robot/robot-*.png.asset.json`
-- edit: `package.json` (+ three / @react-three/fiber / @react-three/drei)
+### 5. Mount it
+- Add `<SiteAgent />` once inside the root layout (`src/routes/__root.tsx`) so it appears on every page.
+
+### Customize for this project
+Replace the Navora system prompt with a concierge prompt for **[describe your company, services, packages, tone]**. Keep everything else the same.
+
+**PROMPT END**
+
+---
+
+Tell me:
+1. Is the other project also on **Lovable (TanStack Start)**, or a different stack (Next.js, Vite+React Router, etc.)? I'll adjust the prompt if needed.
+2. Do you want me to also include the **exact company/system-prompt text** for that other project (share the name + services), so the prompt is fully plug-and-play?
