@@ -3,13 +3,11 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   BookOpen,
-  Briefcase,
   ChevronDown,
   GraduationCap,
   Home as HomeIcon,
   Info,
   Layers,
-  Mail,
   Menu,
   Sparkles,
   Users,
@@ -46,7 +44,6 @@ const navItems: NavItem[] = [
   { label: "Articles", to: "/articles", icon: BookOpen },
   { label: "Team", to: "/team", icon: Users },
   { label: "Careers", to: "/careers", icon: GraduationCap },
-  { label: "Contact Us", to: "/contact", icon: Mail },
 ];
 
 
@@ -57,7 +54,7 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-3 z-50 px-3 sm:px-4">
-      <nav className="relative mx-auto flex max-w-5xl items-center justify-between gap-2 overflow-visible rounded-full border border-white/30 bg-white/15 px-3 py-2 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18),inset_0_1px_0_0_rgba(255,255,255,0.45),inset_0_-1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)]">
+      <nav className="relative mx-auto flex max-w-6xl items-center justify-between gap-2 overflow-visible rounded-full border border-white/30 bg-white/15 px-3 py-2 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18),inset_0_1px_0_0_rgba(255,255,255,0.45),inset_0_-1px_0_0_rgba(255,255,255,0.1)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.12)]">
         {/* Sheen overlay (non-blocking) */}
         <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-white/25 via-transparent to-white/5 dark:from-white/10 dark:to-white/[0.02]" />
 
@@ -70,25 +67,24 @@ export function Navbar() {
           />
         </Link>
 
-        {/* Desktop nav links */}
+        {/* Desktop nav links — minimal, text-only */}
         <ul className="relative hidden items-center gap-0.5 md:flex">
           {navItems.map((item) => (
             <li key={item.label} className="group relative">
               {item.to ? (
                 <Link
                   to={item.to}
-                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+                  className="inline-flex items-center rounded-full px-2.5 py-1.5 text-[13px] font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-foreground lg:px-3 lg:text-sm"
                 >
-                  <item.icon className="h-4 w-4" />
                   <span>{item.label}</span>
                 </Link>
               ) : (
                 <button
                   type="button"
-                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+                  className="inline-flex items-center gap-1 rounded-full px-2.5 py-1.5 text-[13px] font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-foreground lg:px-3 lg:text-sm"
                 >
-                  <item.icon className="h-4 w-4" />
                   <span>{item.label}</span>
+                  <ChevronDown className="h-3.5 w-3.5 opacity-60" />
                 </button>
               )}
 
@@ -124,8 +120,8 @@ export function Navbar() {
             rel="noopener noreferrer"
             className="group hidden items-center gap-2 rounded-full bg-foreground py-1.5 pl-4 pr-1.5 text-sm font-medium text-background transition-transform hover:scale-[1.02] sm:inline-flex"
           >
-            <span className="hidden lg:inline">Book a Call</span>
-            <span className="lg:hidden">Book</span>
+            <span className="hidden lg:inline">Book a Call Now</span>
+            <span className="lg:hidden">Book a Call</span>
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-background text-foreground">
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
             </span>
