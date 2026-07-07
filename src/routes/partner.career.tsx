@@ -7,8 +7,10 @@ import { Briefcase } from "lucide-react";
 export const Route = createFileRoute("/partner/career")({
   head: () => ({
     meta: [
-      { title: "Careers — TEO Marketing" },
-      { name: "description", content: "Build your career with TEO Marketing. Open positions in development, design, marketing and sales." },
+      { title: "Careers — Navora Digital" },
+      { name: "description", content: "Build your career at Navora Digital. Open roles across engineering, AI, marketing, creative and sales." },
+      { property: "og:title", content: "Careers — Navora Digital" },
+      { property: "og:description", content: "Ship premium software, AI and creative under one roof." },
     ],
   }),
   component: CareerPage,
@@ -58,7 +60,7 @@ function CareerPage() {
   };
 
   return (
-    <PageLayout title="Build Your Career With TEO Marketing" subtitle="Work with a team that ships premium digital products.">
+    <PageLayout title="Build Your Career at Navora Digital" subtitle="Join a team shipping software, AI, mobile and creative — all under one roof.">
       <section className="mb-10">
         <h2 className="mb-4 text-2xl font-semibold text-foreground">Open Positions</h2>
         <div className="grid gap-3 sm:grid-cols-2">
