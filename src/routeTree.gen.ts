@@ -9,8 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TeamRouteImport } from './routes/team'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as PackagesRouteImport } from './routes/packages'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CareersRouteImport } from './routes/careers'
+import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesWebDevelopmentRouteImport } from './routes/services.web-development'
@@ -23,14 +27,34 @@ import { Route as PartnerCareerRouteImport } from './routes/partner.career'
 import { Route as PartnerAgencyRouteImport } from './routes/partner.agency'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PackagesRoute = PackagesRouteImport.update({
+  id: '/packages',
+  path: '/packages',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesRoute = ArticlesRouteImport.update({
+  id: '/articles',
+  path: '/articles',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -93,8 +117,12 @@ const ApiChatRoute = ApiChatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/articles': typeof ArticlesRoute
+  '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
+  '/packages': typeof PackagesRoute
   '/portfolio': typeof PortfolioRoute
+  '/team': typeof TeamRoute
   '/api/chat': typeof ApiChatRoute
   '/partner/agency': typeof PartnerAgencyRoute
   '/partner/career': typeof PartnerCareerRoute
@@ -108,8 +136,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/articles': typeof ArticlesRoute
+  '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
+  '/packages': typeof PackagesRoute
   '/portfolio': typeof PortfolioRoute
+  '/team': typeof TeamRoute
   '/api/chat': typeof ApiChatRoute
   '/partner/agency': typeof PartnerAgencyRoute
   '/partner/career': typeof PartnerCareerRoute
@@ -124,8 +156,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/articles': typeof ArticlesRoute
+  '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
+  '/packages': typeof PackagesRoute
   '/portfolio': typeof PortfolioRoute
+  '/team': typeof TeamRoute
   '/api/chat': typeof ApiChatRoute
   '/partner/agency': typeof PartnerAgencyRoute
   '/partner/career': typeof PartnerCareerRoute
@@ -141,8 +177,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/articles'
+    | '/careers'
     | '/contact'
+    | '/packages'
     | '/portfolio'
+    | '/team'
     | '/api/chat'
     | '/partner/agency'
     | '/partner/career'
@@ -156,8 +196,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/articles'
+    | '/careers'
     | '/contact'
+    | '/packages'
     | '/portfolio'
+    | '/team'
     | '/api/chat'
     | '/partner/agency'
     | '/partner/career'
@@ -171,8 +215,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/articles'
+    | '/careers'
     | '/contact'
+    | '/packages'
     | '/portfolio'
+    | '/team'
     | '/api/chat'
     | '/partner/agency'
     | '/partner/career'
@@ -187,8 +235,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ArticlesRoute: typeof ArticlesRoute
+  CareersRoute: typeof CareersRoute
   ContactRoute: typeof ContactRoute
+  PackagesRoute: typeof PackagesRoute
   PortfolioRoute: typeof PortfolioRoute
+  TeamRoute: typeof TeamRoute
   ApiChatRoute: typeof ApiChatRoute
   PartnerAgencyRoute: typeof PartnerAgencyRoute
   PartnerCareerRoute: typeof PartnerCareerRoute
@@ -202,6 +254,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portfolio': {
       id: '/portfolio'
       path: '/portfolio'
@@ -209,11 +268,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/packages': {
+      id: '/packages'
+      path: '/packages'
+      fullPath: '/packages'
+      preLoaderRoute: typeof PackagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles': {
+      id: '/articles'
+      path: '/articles'
+      fullPath: '/articles'
+      preLoaderRoute: typeof ArticlesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -299,8 +379,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ArticlesRoute: ArticlesRoute,
+  CareersRoute: CareersRoute,
   ContactRoute: ContactRoute,
+  PackagesRoute: PackagesRoute,
   PortfolioRoute: PortfolioRoute,
+  TeamRoute: TeamRoute,
   ApiChatRoute: ApiChatRoute,
   PartnerAgencyRoute: PartnerAgencyRoute,
   PartnerCareerRoute: PartnerCareerRoute,
@@ -314,13 +398,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
