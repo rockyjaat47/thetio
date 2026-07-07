@@ -3,13 +3,11 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   BookOpen,
-  Briefcase,
   ChevronDown,
   GraduationCap,
   Home as HomeIcon,
   Info,
   Layers,
-  Mail,
   Menu,
   Sparkles,
   Users,
@@ -46,7 +44,6 @@ const navItems: NavItem[] = [
   { label: "Articles", to: "/articles", icon: BookOpen },
   { label: "Team", to: "/team", icon: Users },
   { label: "Careers", to: "/careers", icon: GraduationCap },
-  { label: "Contact Us", to: "/contact", icon: Mail },
 ];
 
 
