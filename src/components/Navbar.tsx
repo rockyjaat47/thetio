@@ -2,15 +2,17 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
+  BookOpen,
   Briefcase,
   ChevronDown,
-  Handshake,
+  GraduationCap,
+  Home as HomeIcon,
   Info,
+  Layers,
   Mail,
   Menu,
-  Moon,
   Sparkles,
-  Sun,
+  Users,
   X,
 } from "lucide-react";
 import navoraLogo from "@/assets/navora-logo.png.asset.json";
@@ -27,8 +29,8 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { label: "About us", to: "/about", icon: Info },
-  { label: "Portfolio", to: "/portfolio", icon: Briefcase },
+  { label: "Home", to: "/", icon: HomeIcon },
+  { label: "About", to: "/about", icon: Info },
   {
     label: "Services",
     icon: Sparkles,
@@ -40,17 +42,13 @@ const navItems: NavItem[] = [
       { label: "AI Chatbots & Mobile", to: "/services/ai-automation" },
     ],
   },
-  {
-    label: "Partner",
-    icon: Handshake,
-    children: [
-      { label: "Partner as Agency", to: "/partner/agency" },
-      { label: "Partner as Influencer", to: "/partner/influencer" },
-      { label: "Career", to: "/partner/career" },
-    ],
-  },
-  { label: "Contact us", to: "/contact", icon: Mail },
+  { label: "Packages", to: "/packages", icon: Layers },
+  { label: "Articles", to: "/articles", icon: BookOpen },
+  { label: "Team", to: "/team", icon: Users },
+  { label: "Careers", to: "/careers", icon: GraduationCap },
+  { label: "Contact Us", to: "/contact", icon: Mail },
 ];
+
 
 export function Navbar() {
   const { theme, toggle } = useTheme();
