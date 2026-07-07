@@ -2,16 +2,16 @@ import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 
 const before = [
-  "Working with 5+ vendors who never talk to each other",
-  "Slow websites that don't generate leads",
-  "Manual follow-ups eating your team's day",
-  "Marketing spend with no measurable ROI",
+  "Five vendors who never talk to each other",
+  "The agency doesn't understand the product",
+  "The developer doesn't understand the campaign",
+  "Budget spent before anyone agrees what happened",
 ];
 const after = [
-  "One agency owning your entire digital growth",
-  "Premium websites engineered for conversions",
-  "AI automations that respond 24/7",
-  "Campaigns measured against real revenue",
+  "One team architects the strategy end-to-end",
+  "Builds the platform your campaigns run on",
+  "Engineers automation that follows up every lead",
+  "One contract. One report. One accountable team.",
 ];
 
 export function Problem() {
@@ -25,24 +25,24 @@ export function Problem() {
           transition={{ duration: 0.6 }}
           className="mx-auto max-w-3xl text-center text-3xl font-semibold tracking-tight sm:text-5xl"
         >
-          Why businesses choose TEO Marketing
+          Why growth usually stalls
         </motion.h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-foreground/65">
-          Stop stitching together freelancers and tools. Get one accountable agency
-          that builds, brands and grows your business end-to-end.
+          It's rarely the marketing that fails. It's the handoffs. Navora Digital removes them —
+          strategy, platform, automation and content, engineered as a single accountable system.
         </p>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
-          <Card title="Without TEO" tone="danger" items={before} />
-          <Card title="With TEO" tone="success" items={after} />
+          <Card title="The five-vendor problem" tone="danger" items={before} />
+          <Card title="The Navora model" tone="success" items={after} />
         </div>
 
         <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
           {[
-            { v: "200+", l: "Projects delivered" },
-            { v: "150+", l: "Businesses served" },
-            { v: "4.9★", l: "Client satisfaction" },
-            { v: "24/7", l: "Support availability" },
+            { v: "4", l: "Disciplines under one roof" },
+            { v: "1", l: "Contract, one point of contact" },
+            { v: "1", l: "Monthly report that matters" },
+            { v: "24/7", l: "Strategic support" },
           ].map((s) => (
             <div key={s.l} className="rounded-2xl border border-foreground/10 bg-card p-5 text-center">
               <div className="text-3xl font-semibold tracking-tight text-amber-600 dark:text-amber-400">{s.v}</div>

@@ -1,10 +1,9 @@
-import logoLight from "@/assets/logo-light.png.asset.json";
-import logoDark from "@/assets/logo-dark.png.asset.json";
+import navoraLogo from "@/assets/navora-logo.png.asset.json";
 import { useTheme } from "./ThemeProvider";
 
 export function Logo({
   className = "",
-  alt = "Logo",
+  alt = "Navora Digital",
   variant,
 }: {
   className?: string;
@@ -13,6 +12,13 @@ export function Logo({
 }) {
   const { theme } = useTheme();
   const useDark = variant ? variant === "dark" : theme === "dark";
-  const src = useDark ? logoDark.url : logoLight.url;
-  return <img src={src} alt={alt} className={className} draggable={false} />;
+  // Logo is black text on transparent — invert for dark mode so it reads on dark surfaces.
+  return (
+    <img
+      src={navoraLogo.url}
+      alt={alt}
+      className={`${className} ${useDark ? "invert" : ""}`}
+      draggable={false}
+    />
+  );
 }

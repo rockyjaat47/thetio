@@ -4,73 +4,84 @@ import { Link } from "@tanstack/react-router";
 
 const plans = [
   {
-    name: "Professional Business Website",
-    tagline: "Get a modern, fast & responsive website for your business",
-    price: "₹7,999",
-    period: "only",
-    badge: "Delivered in 4 days",
+    name: "Navora Ignite",
+    tagline: "Presence, orchestrated.",
+    price: "₹23,999",
+    period: "/ month",
+    badge: "Best for first digital footprint",
     features: [
-      "Up to 5 pages website",
-      "Mobile responsive design",
-      "WhatsApp integration",
-      "Contact form",
-      "Google Maps integration",
-      "Social media integration",
-      "Basic SEO setup",
-      "Free .in domain (1 year)",
-      "Free hosting (1 year)",
-      "SSL security certificate",
-      "2 free revisions",
+      "8 bespoke, platform-tailored creatives / month",
+      "Strategy across 2 platforms",
+      "Editorial-grade copywriting & captioning",
+      "Full presence: Instagram, Facebook, LinkedIn, YouTube, GBP, Pinterest",
+      "Profile optimisation & visual identity consistency",
+      "Monthly content cadence calendar",
+      "Meta Ads, Google Ads (Search & Display), LinkedIn Ads execution",
+      "WhatsApp concierge line, business hours",
     ],
-    cta: "Start small",
+    cta: "Get Started",
     href: "/contact",
     highlighted: false,
   },
   {
-    name: "Business Growth Website",
-    tagline: "A powerful website that brings leads & grows your business",
-    price: "₹14,999",
-    period: "only",
-    badge: "Delivered in 5 days",
+    name: "Navora Momentum",
+    tagline: "Where intelligence enters the equation.",
+    price: "₹47,999",
+    period: "/ month",
+    badge: "AI & automation begins here",
     features: [
-      "Up to 10 pages website",
-      "Lead generation forms",
-      "Google Analytics setup",
-      "Meta Pixel integration",
-      "Advanced SEO setup",
-      "Speed optimization",
-      "WhatsApp automation",
-      "Free domain (.in) & hosting (1 year)",
-      "Conversion optimized & secure",
-      "Mobile friendly",
-      "30 days support",
-      "Bonus: free business email setup",
+      "Everything in Ignite",
+      "12 bespoke creatives / month",
+      "Strategy across all platforms",
+      "Content calendar & Google Business Profile optimisation",
+      "On-page SEO recommendations",
+      "Proprietary AI chatbot on web + WhatsApp",
+      "Automated lead routing into centralised CRM",
+      "Priority WhatsApp & email concierge",
     ],
-    cta: "Grow with us",
+    cta: "Get Started",
     href: "/contact",
     highlighted: true,
   },
   {
-    name: "Premium Business Website",
-    tagline: "Powerful. Custom. Scalable. Built for your business growth",
-    price: "₹24,999",
-    period: "onwards",
-    badge: "Delivered in 7–15 days",
+    name: "Navora Command",
+    tagline: "Full command of your digital ecosystem.",
+    price: "₹69,999",
+    period: "/ month",
+    badge: "Signature tier",
     features: [
-      "Fully custom website design",
-      "Unlimited pages + advanced UI/UX",
-      "Booking & appointment system",
-      "Payment gateway integration",
-      "CRM & dashboard integration",
-      "API & email automation setup",
-      "Advanced security & performance",
-      "SEO & speed optimized",
-      "Member / client dashboard",
-      "Priority support — 90 days free",
-      "Free domain (.in) & hosting (1 year)",
-      "Bonus: business email, SEO audit, Analytics & Search Console",
+      "Everything in Momentum",
+      "16 bespoke creatives / month",
+      "1 promotional campaign creative set / month",
+      "1 professionally edited reel / month",
+      "Multi-step, adaptive conversational AI",
+      "Workflow automation across 2 integrated systems",
+      "Bulk SMS deployment",
+      "Pilot AI voice outreach for follow-ups",
+      "Priority support, expedited turnaround",
     ],
-    cta: "Talk to us",
+    cta: "Get Started",
+    href: "/contact",
+    highlighted: false,
+  },
+  {
+    name: "Navora Apex",
+    tagline: "The entire ecosystem, engineered around you.",
+    price: "Custom",
+    period: "quote",
+    badge: "Enterprise-grade",
+    features: [
+      "Everything in Command",
+      "Full-scale SEO, GEO & AEO",
+      "Complete social & paid media across every major platform",
+      "Weekly video and editorial content",
+      "Bespoke software or ERP module built to your operations",
+      "Advanced AI with full CRM/ERP integration",
+      "Omnichannel mobile: WhatsApp, Bulk SMS & AI voice at scale",
+      "Dedicated account director & 24/7 concierge",
+      "Custom BI dashboard & reporting",
+    ],
+    cta: "Talk to Us",
     href: "/contact",
     highlighted: false,
   },
@@ -78,25 +89,26 @@ const plans = [
 
 export function Plans() {
   return (
-    <section className="relative overflow-hidden bg-background py-24 sm:py-32">
+    <section id="packages" className="relative overflow-hidden bg-background py-24 sm:py-32">
       <div className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full bg-amber-400/15 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 bottom-20 h-80 w-80 rounded-full bg-amber-600/10 blur-3xl" />
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-600 dark:text-amber-400">
-            <Sparkles className="h-3.5 w-3.5" /> Web Development Plans
+            <Sparkles className="h-3.5 w-3.5" /> Packages
           </span>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
-            Pricing built around your <span className="italic text-amber-600 dark:text-amber-400">growth stage</span>
+            Four tiers. One ecosystem.{" "}
+            <span className="italic text-amber-600 dark:text-amber-400">Ascend at your own pace.</span>
           </h2>
           <p className="mt-4 text-foreground/65">
-            Transparent, fixed-scope packages — no hidden fees, no agency runaround.
-            Pick what fits today, scale up whenever you're ready.
+            Every plan is precision-built for a distinct stage of growth. Intelligence, automation
+            and infrastructure scale progressively — Software & AI enter from Momentum onward.
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {plans.map((p, i) => (
             <motion.div
               key={p.name}
@@ -123,12 +135,12 @@ export function Plans() {
               </div>
 
               <h3 className="mt-2 text-2xl font-semibold">{p.name}</h3>
-              <p className={`mt-1.5 text-sm ${p.highlighted ? "text-white/65" : "text-foreground/60"}`}>
+              <p className={`mt-1.5 text-sm italic ${p.highlighted ? "text-white/70" : "text-foreground/60"}`}>
                 {p.tagline}
               </p>
 
               <div className="mt-6 flex items-baseline gap-2">
-                <span className="text-4xl font-semibold tracking-tight">{p.price}</span>
+                <span className="text-3xl font-semibold tracking-tight">{p.price}</span>
                 <span className={`text-xs ${p.highlighted ? "text-white/55" : "text-foreground/50"}`}>
                   {p.period}
                 </span>
@@ -154,9 +166,7 @@ export function Plans() {
               <Link
                 to={p.href}
                 className={`group inline-flex items-center justify-center gap-2 rounded-full py-2.5 pl-5 pr-2 text-sm font-medium transition-transform hover:scale-[1.02] ${
-                  p.highlighted
-                    ? "bg-amber-500 text-black"
-                    : "bg-foreground text-background"
+                  p.highlighted ? "bg-amber-500 text-black" : "bg-foreground text-background"
                 }`}
               >
                 {p.cta}
@@ -173,7 +183,8 @@ export function Plans() {
         </div>
 
         <p className="mt-10 text-center text-sm text-foreground/55">
-          Need something custom? <Link to="/contact" className="underline underline-offset-4 hover:text-foreground">Tell us about your project</Link> and we'll tailor a plan.
+          All plans priced per month, exclusive of taxes. Month-to-month with a 3-month minimum term.
+          Annual contracts include a 10% discount.
         </p>
       </div>
     </section>
